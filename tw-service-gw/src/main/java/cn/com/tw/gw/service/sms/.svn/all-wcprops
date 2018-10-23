@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/tw/!svn/ver/3908/projects/plat/trunk/tw-service-gw/src/main/java/cn/com/tw/gw/service/sms
+END
+AliSmsService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/3908/projects/plat/trunk/tw-service-gw/src/main/java/cn/com/tw/gw/service/sms/AliSmsService.java
+END
+SDKSendSMService.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/47/projects/plat/trunk/tw-service-gw/src/main/java/cn/com/tw/gw/service/sms/SDKSendSMService.java
+END

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.sys.AreaMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.sys.Area">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+		<result column="short_name" property="shortName" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="TINYINT" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="TINYINT" />
+		<result column="is_usable" property="isUsable" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, area_name, parent_id, short_name, level, position, sort, is_usable
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_area
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_sys_area
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.sys.Area">
+		insert into t_sys_area (id, area_name, parent_id,
+		short_name, level, position,
+		sort, is_usable)
+		values (#{id,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=VARCHAR},
+		#{shortName,jdbcType=VARCHAR}, #{level,jdbcType=TINYINT}, #{position,jdbcType=VARCHAR},
+		#{sort,jdbcType=TINYINT}, #{isUsable,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.sys.Area">
+		insert into t_sys_area
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="areaName != null">
+				area_name,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="shortName != null">
+				short_name,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="isUsable != null">
+				is_usable,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="areaName != null">
+				#{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="shortName != null">
+				#{shortName,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=TINYINT},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=TINYINT},
+			</if>
+			<if test="isUsable != null">
+				#{isUsable,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.sys.Area">
+		update t_sys_area
+		<set>
+			<if test="areaName != null">
+				area_name = #{areaName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="shortName != null">
+				short_name = #{shortName,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=TINYINT},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=TINYINT},
+			</if>
+			<if test="isUsable != null">
+				is_usable = #{isUsable,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.sys.Area">
+		update t_sys_area
+		set area_name = #{areaName,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=VARCHAR},
+		short_name = #{shortName,jdbcType=VARCHAR},
+		level = #{level,jdbcType=TINYINT},
+		position = #{position,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=TINYINT},
+		is_usable = #{isUsable,jdbcType=BIT}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectAreaByParentId" parameterType="cn.com.tw.paas.monit.entity.db.sys.Area" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_sys_area
+		WHERE
+			parent_id = #{parentId,jdbcType=VARCHAR}
+		AND 
+			is_usable = "1"
+	</select>
+</mapper>

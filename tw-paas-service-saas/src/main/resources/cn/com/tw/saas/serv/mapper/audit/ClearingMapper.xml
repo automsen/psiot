@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.audit.ClearingMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.audit.Clearing" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="room_balance" property="roomBalance" jdbcType="DECIMAL" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="meter_balance" property="meterBalance" jdbcType="DECIMAL" />
+        <result column="read_value" property="readValue" jdbcType="DECIMAL" />
+        <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+        <result column="clearing_state" property="clearingState" jdbcType="VARCHAR" />
+        <result column="clearing_version" property="clearingVersion" jdbcType="VARCHAR" />
+        <result column="submit_id" property="submitId" jdbcType="VARCHAR" />
+        <result column="submit_name" property="submitName" jdbcType="VARCHAR" />
+        <result column="audit_id" property="auditId" jdbcType="VARCHAR" />
+        <result column="audit_name" property="auditName" jdbcType="VARCHAR" />
+        <result column="clearing_money" property="clearingMoney" jdbcType="DECIMAL" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="account_status" property="accountStatus" jdbcType="TINYINT" />
+        <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    	<result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+    	<result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    	<result column="payee_phone" property="payeePhone" jdbcType="VARCHAR" />
+    
+    <result column="custInfo" property="custInfo" jdbcType="VARCHAR" />
+    <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+    <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="price_id" property="priceId" jdbcType="VARCHAR" />
+    <result column="alarm_id" property="alarmId" jdbcType="VARCHAR" />
+    <result column="start_read" property="startRead" jdbcType="VARCHAR" />
+    <result column="price_mode_code" property="priceModeCode" jdbcType="VARCHAR" />
+    <result column="balance_update_time" property="balanceUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="balance_update_read" property="balanceUpdateRead" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+            id, room_id, region_full_name, room_name, room_number, room_balance, org_id, meter_addr, 
+        meter_type, energy_type, meter_balance, read_value, read_time, clearing_state, clearing_version, 
+        submit_id, submit_name, audit_id, audit_name, clearing_money, create_time, update_time, account_status, 
+        account_id,room_use,payee_name,payee_phone
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_clearing
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+			c.id,
+			c.room_id,
+			c.region_full_name,
+			c.room_name,
+			c.room_number,
+			c.org_id,
+			c.meter_addr,
+			c.meter_type,
+			c.energy_type,
+			c.meter_balance,
+			c.read_value,
+			c.read_time,
+			c.clearing_state,
+			c.clearing_version,
+			c.submit_id,
+			c.submit_name,
+			c.audit_id,
+			c.audit_name,
+			c.clearing_money,
+			c.create_time,
+			c.update_time,
+			c.account_status,
+			c.account_id,
+			c.room_use,
+			c.payee_name,
+			c.payee_phone,
+			r.balance as room_balance
+		FROM
+			t_saas_clearing c
+		LEFT JOIN t_saas_room r ON r.room_id = c.room_id
+		WHERE
+			c.clearing_state = 0
+		AND c.room_id = #{roomId,jdbcType=VARCHAR}
+		AND c.meter_addr IS NULL
+  </select>
+  
+  
+  
+   <select id="count" resultType="java.util.Map" 
+    parameterType="java.util.Map" >
+        select 
+        count(*) total 
+        from t_saas_clearing
+        where org_id = #{orgId,jdbcType=VARCHAR}
+           
+            <if test="roomId != null and roomId != ''" >
+               and room_id = #{roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="roomName != null and roomName != ''" >
+               and room_name = #{roomName,jdbcType=VARCHAR}
+            </if>
+            <if test="roomNumber != null and roomNumber != ''" >
+               and room_number = #{roomNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="orderId != null and orderId != ''" >
+               and order_id = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="payeeName != null and payeeName != ''" >
+               and payee_name = #{payeeName,jdbcType=VARCHAR}
+            </if>
+            <if test="payeePhone != null and payeePhone != ''" >
+               and payee_phone = #{payeePhone,jdbcType=VARCHAR}
+            </if>
+           <if test="regionFullName != null and regionFullName != ''" >
+               and region_full_name = #{regionFullName,jdbcType=VARCHAR}
+            </if>
+            <if test="accountStatus != null and accountStatus != ''" >
+               and account_status = #{accountStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="roomUse != null and roomUse != ''" >
+               and room_use = #{roomUse,jdbcType=VARCHAR}
+            </if>
+            <if test="roomBalance != null and roomBalance != ''" >
+               and room_balance = #{roomBalance,jdbcType=DECIMAL}
+            </if>
+            <if test="meterBalance != null and meterBalance != ''" >
+               and meter_balance = #{meterBalance,jdbcType=DECIMAL}
+            </if>
+            <if test="submitId != null and submitId != ''" >
+		        and c.submit_id = #{submitId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="auditId != null and auditId != ''" >
+		        and c.audit_id = #{auditId,jdbcType=VARCHAR}
+		      </if>
+            <if test="startTime != null and endTime != null" >
+               and ( create_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP})
+            </if>
+    	order by create_time desc
+    </select>
+  
+  
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+    SELECT
+		e.submit_name,
+		c.id,
+		c.room_id,
+		c.region_full_name,
+		c.room_name,
+		c.room_number,
+		c.room_balance,
+		c.org_id,
+		c.meter_addr,
+		c.meter_type,
+		c.energy_type,
+		c.meter_balance,
+		c.read_value,
+		c.read_time,
+		c.clearing_state,
+		c.clearing_version,
+		c.submit_id,
+		c.audit_id,
+		c.audit_name,
+		c.clearing_money,
+		c.create_time,
+		c.update_time,
+		c.account_status,
+		c.account_id,
+		c.room_use,
+		c.payee_name,
+		c.payee_phone,
+		cust.custInfo
+	FROM
+		t_saas_clearing c
+	LEFT JOIN (SELECT
+		GROUP_CONCAT(CONCAT(c.customer_realname,'(',c.customer_mobile1,')')) AS custInfo,
+	  	cr.room_id,
+		cr.room_account_id
+	FROM
+		t_saas_customer c
+	LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+	GROUP BY cr.room_account_id) cust ON cust.room_account_id = c.account_id
+	LEFT JOIN (
+	SELECT
+		d.submit_name,
+		d.audit_name
+	FROM
+		t_saas_audit_room d
+		) e ON e.audit_name = c.submit_name
+    where 1=1 and c.clearing_state != '3'
+      <if test="paramObj.roomId != null and paramObj.roomId != ''" >
+        and c.room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.regionFullName != null and paramObj.regionFullName != ''" >
+        and c.region_full_name = #{paramObj.regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomName != null and paramObj.roomName != ''" >
+        and c.room_name like concat ('%',#{paramObj.roomName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''" >
+        and c.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="paramObj.roomBalance != null and paramObj.roomBalance != ''" >
+        and c.room_balance = #{paramObj.roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+        and c.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.meterAddr != null and paramObj.meterAddr != ''" >
+        and c.meter_addr = #{paramObj.meterAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.meterType != null and paramObj.meterType != ''" >
+        and c.meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.energyType != null and paramObj.energyType != ''" >
+        and c.energy_type = #{paramObj.energyType,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.meterBalance != null and paramObj.meterBalance != ''" >
+        and c.meter_balance = #{paramObj.meterBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="paramObj.createTime != null and paramObj.createTime != ''" >
+        and c.create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.startTime != null and paramObj.startTime !=''" >
+        and c.create_time &gt;= #{paramObj.startTime,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.endTime != null and paramObj.endTime !=''" >
+        and c.create_time &lt;= #{paramObj.endTime,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.updateTime != null and paramObj.updateTime != ''" >
+        and c.update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.readValue != null and paramObj.readValue != ''" >
+        and c.read_value = #{paramObj.readValue,jdbcType=DECIMAL}
+      </if>
+      <if test="paramObj.readTime != null and paramObj.readTime != ''" >
+        and c.read_time = #{paramObj.readTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.clearingState != null and paramObj.clearingState != ''" >
+        and c.clearing_state = #{paramObj.clearingState,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.clearingVersion != null and paramObj.clearingVersion != ''" >
+        and c.clearing_version = #{paramObj.clearingVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.submitId != null and paramObj.submitId != ''" >
+        and c.submit_id = #{paramObj.submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.auditId != null and paramObj.auditId != ''" >
+        and c.audit_id = #{paramObj.auditId,jdbcType=VARCHAR}
+      </if>
+      GROUP BY
+  		c.room_id,c.clearing_version
+      ORDER BY c.create_time DESC
+  </select>
+  
+    <!-- 导出查询 -->
+    <select id="clearingExport" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing">
+    	 SELECT
+		e.submit_name,
+		c.id,
+		c.room_id,
+		c.region_full_name,
+		c.room_name,
+		c.room_number,
+		c.room_balance,
+		c.org_id,
+		c.meter_addr,
+		c.meter_type,
+		c.energy_type,
+		c.meter_balance,
+		c.read_value,
+		c.read_time,
+		c.clearing_state,
+		c.clearing_version,
+		c.submit_id,
+		c.audit_id,
+		c.audit_name,
+		c.clearing_money,
+		c.create_time,
+		c.update_time,
+		c.account_status,
+		c.account_id,
+		c.room_use,
+		c.payee_name,
+		c.payee_phone,
+		cust.custInfo
+	FROM
+		t_saas_clearing c
+	LEFT JOIN (SELECT
+		GROUP_CONCAT(CONCAT(c.customer_realname,'(',c.customer_mobile1,')')) AS custInfo,
+	  	cr.room_id,
+		cr.room_account_id
+	FROM
+		t_saas_customer c
+	LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+	GROUP BY cr.room_account_id) cust ON cust.room_account_id = c.account_id
+	LEFT JOIN (
+	SELECT
+		d.submit_name,
+		d.audit_name
+	FROM
+		t_saas_audit_room d
+		) e ON e.audit_name = c.submit_name
+    where 1=1 and c.clearing_state != '3'
+      <if test="roomId != null and roomId != ''" >
+        and c.room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionFullName != null and regionFullName != ''" >
+        and c.region_full_name = #{regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName != ''" >
+        and c.room_name like concat ('%',#{roomName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="roomNumber != null and roomNumber != ''" >
+        and c.room_number like concat ('%',#{roomNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="roomBalance != null and roomBalance != ''" >
+        and c.room_balance = #{roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        and c.org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="meterAddr != null and meterAddr != ''" >
+        and c.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="meterType != null and meterType != ''" >
+        and c.meter_type = #{meterType,jdbcType=VARCHAR}
+      </if>
+      <if test="energyType != null and energyType != ''" >
+        and c.energy_type = #{energyType,jdbcType=VARCHAR}
+      </if>
+      <if test="meterBalance != null and meterBalance != ''" >
+        and c.meter_balance = #{meterBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="createTime != null and createTime != ''" >
+        and c.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime != ''" >
+        and c.update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="readValue != null and readValue != ''" >
+        and c.read_value = #{readValue,jdbcType=DECIMAL}
+      </if>
+      <if test="readTime != null and readTime != ''" >
+        and c.read_time = #{readTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="clearingState != null and clearingState != ''" >
+        and c.clearing_state = #{clearingState,jdbcType=VARCHAR}
+      </if>
+      <if test="clearingVersion != null and clearingVersion != ''" >
+        and c.clearing_version = #{clearingVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="submitId != null and submitId != ''" >
+        and c.submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditId != null and auditId != ''" >
+        and c.audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+      ORDER BY c.create_time DESC
+    </select>
+  
+  
+  <select id="selectClearingAudit" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing" >
+	    SELECT
+			c.id,
+			c.room_id,
+			c.region_full_name,
+			c.room_name,
+			c.room_number,
+			c.org_id,
+			c.meter_addr,
+			c.meter_type,
+			c.energy_type,
+			c.read_value,
+			c.read_time,
+			c.clearing_state,
+			c.clearing_version,
+			c.submit_id,
+			c.submit_name,
+			c.audit_id,
+			c.audit_name,
+			c.clearing_money,
+			c.create_time,
+			c.update_time,
+			c.account_status,
+			c.account_id,
+			c.room_use,
+			c.payee_name,
+			c.payee_phone,
+			cust.customer_realname,
+			cust.customer_mobile1,
+			cust.customer_no,
+			m.price_id,
+			m.alarm_id,
+			m.start_read,
+			m.price_mode_code,
+			m.balance AS meter_balance,
+			r.balance AS room_balance,
+			m.balance_update_time,
+			m.balance_update_read
+		FROM
+			t_saas_clearing c
+		LEFT JOIN t_saas_meter m ON c.meter_addr = m.meter_addr
+		LEFT JOIN t_saas_room r ON r.room_id = c.room_id
+		LEFT JOIN (
+			SELECT
+				GROUP_CONCAT(c.customer_realname) AS customer_realname,
+				GROUP_CONCAT(c.customer_mobile1) AS customer_mobile1,
+				GROUP_CONCAT(c.customer_no) AS customer_no,
+				cr.room_id,
+				cr.room_account_id
+			FROM
+				t_saas_customer c
+			LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+			GROUP BY
+				cr.room_account_id
+		) cust ON cust.room_account_id = c.account_id
+		WHERE 1 = 1
+      <if test="roomId != null and roomId != ''" >
+        and c.room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionFullName != null and regionFullName != ''" >
+        and c.region_full_name = #{regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName != ''" >
+        and c.room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber != ''" >
+        and c.room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomBalance != null and roomBalance != ''" >
+        and c.room_balance = #{roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        and c.org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="meterAddr != null and meterAddr != ''" >
+        and c.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="meterType != null and meterType != ''" >
+        and c.meter_type = #{meterType,jdbcType=VARCHAR}
+      </if>
+      <if test="energyType != null and energyType != ''" >
+        and c.energy_type = #{energyType,jdbcType=VARCHAR}
+      </if>
+      <if test="meterBalance != null and meterBalance != ''" >
+        and c.meter_balance = #{meterBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="createTime != null and createTime != ''" >
+        and c.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime != ''" >
+        and c.update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="readValue != null and readValue != ''" >
+        and c.read_value = #{readValue,jdbcType=DECIMAL}
+      </if>
+      <if test="readTime != null and readTime != ''" >
+        and c.read_time = #{readTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="clearingState != null and clearingState != ''" >
+        and c.clearing_state = #{clearingState,jdbcType=VARCHAR}
+      </if>
+      <if test="clearingVersion != null and clearingVersion != ''" >
+        and c.clearing_version = #{clearingVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="submitId != null and submitId != ''" >
+        and c.submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditId != null and auditId != ''" >
+        and c.audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+      GROUP BY c.meter_addr
+  </select>
+  
+  
+  
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_clearing
+    where 1=1
+      <if test="roomId != null and roomId != ''" >
+        and room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionFullName != null and regionFullName != ''" >
+        and region_full_name = #{regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName != ''" >
+        and room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber != ''" >
+        and room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomBalance != null and roomBalance != ''" >
+        and room_balance = #{roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="meterAddr != null and meterAddr != ''" >
+        and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="meterType != null and meterType != ''" >
+        and meter_type = #{meterType,jdbcType=VARCHAR}
+      </if>
+      <if test="energyType != null and energyType != ''" >
+        and energy_type = #{energyType,jdbcType=VARCHAR}
+      </if>
+      <if test="meterBalance != null and meterBalance != ''" >
+        and meter_balance = #{meterBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="createTime != null and createTime != ''" >
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime != ''" >
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="readValue != null and readValue != ''" >
+        and read_value = #{readValue,jdbcType=DECIMAL}
+      </if>
+      <if test="readTime != null and readTime != ''" >
+        and read_time = #{readTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="clearingState != null and clearingState != ''" >
+        and clearing_state = #{clearingState,jdbcType=VARCHAR}
+      </if>
+      <if test="clearingVersion != null and clearingVersion != ''" >
+        and clearing_version = #{clearingVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="submitId != null and submitId != ''" >
+        and submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditId != null and auditId != ''" >
+        and audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  
+  
+  <select id="selectClearingByMeterAddr" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_clearing
+    where 1=1 and meter_addr = #{meterAddr,jdbcType=VARCHAR} and org_id = #{orgId,jdbcType=VARCHAR} and clearing_state = #{clearingState,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_clearing
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing" >
+        insert into t_saas_clearing (id, room_id, region_full_name, 
+            room_name, room_number, room_balance, 
+            org_id, meter_addr, meter_type, 
+            energy_type, meter_balance, read_value, 
+            read_time, clearing_state, clearing_version, 
+            submit_id, submit_name, audit_id, 
+            audit_name, clearing_money, create_time, 
+            update_time, account_status, account_id,room_use,payee_name,payee_phone)
+        values (uuid_short(), #{roomId,jdbcType=VARCHAR}, #{regionFullName,jdbcType=VARCHAR}, 
+            #{roomName,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, #{roomBalance,jdbcType=DECIMAL}, 
+            #{orgId,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR}, #{meterType,jdbcType=VARCHAR}, 
+            #{energyType,jdbcType=VARCHAR}, #{meterBalance,jdbcType=DECIMAL}, #{readValue,jdbcType=DECIMAL}, 
+            #{readTime,jdbcType=TIMESTAMP}, #{clearingState,jdbcType=VARCHAR}, #{clearingVersion,jdbcType=VARCHAR}, 
+            #{submitId,jdbcType=VARCHAR}, #{submitName,jdbcType=VARCHAR}, #{auditId,jdbcType=VARCHAR}, 
+            #{auditName,jdbcType=VARCHAR}, #{clearingMoney,jdbcType=DECIMAL}, now(), 
+            now(), #{accountStatus,jdbcType=TINYINT}, #{accountId,jdbcType=VARCHAR}, #{roomUse,jdbcType=VARCHAR},
+            #{payeeName,jdbcType=VARCHAR}, #{payeePhone,jdbcType=VARCHAR})
+    </insert>
+  
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.audit.Clearing" >
+        update t_saas_clearing
+        <set >
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionFullName != null" >
+                region_full_name = #{regionFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null" >
+                room_name = #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null" >
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="roomBalance != null" >
+                room_balance = #{roomBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="meterAddr != null" >
+                meter_addr = #{meterAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="meterType != null" >
+                meter_type = #{meterType,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="meterBalance != null" >
+                meter_balance = #{meterBalance,jdbcType=DECIMAL},
+            </if>
+            <if test="readValue != null" >
+                read_value = #{readValue,jdbcType=DECIMAL},
+            </if>
+            <if test="readTime != null" >
+                read_time = #{readTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="clearingState != null" >
+                clearing_state = #{clearingState,jdbcType=VARCHAR},
+            </if>
+            <if test="clearingVersion != null" >
+                clearing_version = #{clearingVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="submitId != null" >
+                submit_id = #{submitId,jdbcType=VARCHAR},
+            </if>
+            <if test="submitName != null" >
+                submit_name = #{submitName,jdbcType=VARCHAR},
+            </if>
+            <if test="auditId != null" >
+                audit_id = #{auditId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditName != null" >
+                audit_name = #{auditName,jdbcType=VARCHAR},
+            </if>
+            <if test="clearingMoney != null" >
+                clearing_money = #{clearingMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="accountId != null" >
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomUse != null" >
+                room_use = #{roomUse,jdbcType=VARCHAR},
+            </if>
+            <if test="payeeName != null" >
+                payee_name = #{payeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="payeePhone != null" >
+                payee_phone = #{payeePhone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

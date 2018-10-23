@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>终端状态查询</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../css/main.css"/>
+	<link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+	<script src="../../js/layui/layui.js" charset="utf-8"></script>
+</head>
+<body class="childrenBody">
+	<form id="s_form"class="layui-form">
+		<blockquote class="layui-elem-quote news_search">
+			<div class="layui-inline">
+				
+				<div class="layui-inline" i18n-message="Application">
+					应用:
+				</div>
+			    <div class="layui-input-inline" style="margin-right: 0; width: 120px;">
+			        <select name="appId" id="appId" class="layui-select T-select" T-options="async:false,url:'application/all',value:'appId',name:'appName',isShowSel:false,success:function(obj){layui.use('T',function(){var $=layui.$;$('#meterSelect').loadSelect({param:{appId:$(obj).val()}})})}">
+					</select>
+			    </div>
+			    
+			     <div class="layui-inline">
+					终端类型:                                                                                   
+				</div>			    
+			    <div class="layui-input-inline s-width">
+			    	<select lay-filter="equipTypeCode" name="equipTypeCode" class="layui-select T-select" 
+			    		T-options="url:'dict/all?parentCode=100000',value:'dictCode',name:'dictName',isShowSel:'false'">			    		
+					</select>
+			    </div>
+			    
+			    <div class="layui-inline">
+					网络连接方式:
+				</div>
+			    <div class="layui-input-inline s-width">
+			    	<select name="netTypeCode" id="netType" lay-filter="netType" class="layui-select T-select" T-options="url:'dict/all?dictType=net_type',value:'dictCode',name:'dictName',isShowSel:'false'">
+					</select>
+			    </div>
+			    
+			    <div class="layui-inline">
+					状态:
+				</div>
+			    <div class="layui-input-inline s-width">
+			    	<select name="netStatus" lay-filter="aihao" class="layui-select T-select" T-options="">
+			    		<option value=''>--请选择--</option>			    		
+			    		<option value=2>未接通</option>
+			    		<option value=1>在线</option>
+			    		<option value=0>离线</option>
+					</select>
+			    </div>
+			    
+			    
+
+			    <a href="javascript:void(0);" class="layui-btn search_btn" id="search">查询</a>
+
+			<!--     <div>
+			    	<label>数量:</label>
+			    	<span>10000</span>
+			    </div> -->
+			    
+			    <!--<div class="layui-inline">
+					数量:
+				</div>
+			    <div class="layui-input-inline">
+			    	<input type="text" name="" value="" placeholder="" class="layui-input search_input"/>
+			    </div>-->
+ 
+			</div>
+		</blockquote>
+	
+	</form>
+	<div class="layui-form news_list">
+		<table class="layui-table t-layui-table T-dtGrid" T-options="searchFormId:'s_form', searchBtn:'search',url:'status/terminalPage'">
+			<colgroup>
+				<!-- <col width="12%"/> -->
+		    	<col width="20%"/>
+		    	<col width="20%"/>
+		    	<col width="10%"/>
+		    	<col width="10%"/>
+			    <col width="20%"/>
+			    <col width="20%"/>
+			</colgroup>
+			<thead>
+			    <tr>
+					<!-- <th>序号</th> -->
+					<th>机构信息</th>
+					<th>仪表地址</th>
+					<th>状态</th>
+					<th>终端类型</th>
+					<th>连接时间</th>
+					<th>上次断开时间</th>
+			    </tr> 
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+		<script id="templ" type="text/x-jquery-tmpl">
+		{{#  layui.each(d.data, function(index, item){ }}
+		<tr>
+			
+			<td>{{item.orgName}}</td>
+			<td>{{item.equipNumber}}</td>
+			<td>{{# if(item.netStatus == null){ }}--{{# } }}                
+                {{# if(item.netStatus == 2   ){ }}未接通{{# } }}
+                {{# if(item.netStatus == 1   ){ }}在线{{# } }}
+                {{# if(item.netStatus == 0   ){ }}离线{{# } }}
+            </td>
+			<td>
+                {{# if(item.equipTypeCode == null){ }}--{{# } }}
+                {{# if(item.equipTypeCode == '110000'){ }}电表{{# } }}
+                {{# if(item.equipTypeCode == '120000'){ }}水表{{# } }}
+                {{# if(item.equipTypeCode == '130000'){ }}燃气表{{# } }}
+                {{# if(item.equipTypeCode == '140000'){ }}热量表{{# } }}
+                {{# if(item.equipTypeCode == '210000'){ }}采集器{{# } }}
+                {{# if(item.equipTypeCode == '220000'){ }}集中器{{# } }}  
+             </td>
+            <td>{{util.toDateString(item.onlineTime, "yyyy-MM-dd HH:mm:ss")}}</td>
+            <!--<td>{{# if(item.offlineTime == null){ }}
+            		--
+            	{{#  } else { }}
+            		{{util.toDateString(item.offlineTime, "yyyy-MM-dd HH:mm:ss")}}
+            	{{# } }}
+            </td>-->
+            <td>{{util.toDateString(item.offlineTime, "yyyy-MM-dd HH:mm:ss")}}</td>
+		</tr>
+		{{#  }); }}
+	</script>
+	
+	<div class="page">
+		<div class="paginations" id="pagination"></div>
+	</div>
+	</div>
+	<script>
+		layui.config({
+			base: '../../js/' //你存放新模块的目录，注意，不是layui的模块目录
+		}).use(['form', 'layer','T'], function(){
+			
+		})
+	</script>
+	
+	<script>
+		layui.use(['form', 'layedit', 'laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			,layedit = layui.layedit
+			,laydate = layui.laydate;
+			  
+			//日期
+			laydate.render({
+			    elem: '#date'
+			});
+			laydate.render({
+				elem: '#date1'
+			});
+		 
+		});
+	</script>
+</body>
+</html>

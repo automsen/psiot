@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.NetEquipMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    <id column="equip_id" property="equipId" jdbcType="VARCHAR" />
+    <result column="equip_number" property="equipNumber" jdbcType="VARCHAR" />
+    <result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="equip_categ_code" property="equipCategCode" jdbcType="VARCHAR" />
+    <result column="equip_type_code" property="equipTypeCode" jdbcType="VARCHAR" />
+    <result column="model_id" property="modelId" jdbcType="VARCHAR" />
+    <result column="soft_versoin" property="softVersoin" jdbcType="VARCHAR" />
+    <result column="gather_hz" property="gatherHz" jdbcType="VARCHAR" />
+    <result column="comm_pwd" property="commPwd" jdbcType="VARCHAR" />
+    <result column="net_type_code" property="netTypeCode" jdbcType="VARCHAR" />
+    <result column="net_number" property="netNumber" jdbcType="VARCHAR" />
+    <result column="child_equip_type_code" property="childEquipTypeCode" jdbcType="VARCHAR" />
+    <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+    <result column="is_history" property="isHistory" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="sectors_number" property="sectorsNumber" jdbcType="INTEGER"/>
+    <result column="sectors_limit" property="sectorsLimit" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <resultMap id="joinResultMap" type="cn.com.tw.paas.monit.entity.business.org.NetEquipExpand" extends="BaseResultMap" >
+    <result column="totalOrgEquipment" property="totalOrgEquipment" jdbcType="VARCHAR"/>
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="factory" property="factory" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    equip_id, equip_number, equip_name, org_id, app_id, equip_categ_code, equip_type_code, 
+    model_id, soft_versoin, gather_hz, comm_pwd, net_type_code, net_number, child_equip_type_code, 
+    is_usable, is_history, create_time, update_time, sectors_number, sectors_limit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_net_equip
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+        SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_org_net_equip e
+        <where>
+			<if test="equipName != null and equipName != ''">
+				and equip_name = #{equipName,jdbcType=VARCHAR}
+			</if>
+			<if test="equipNumber != null and equipNumber != ''">
+				and equip_number = #{equipNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="equipCategCode != null and equipCategCode != ''">
+				and equip_categ_code = #{equipCategCode,jdbcType=VARCHAR}
+			</if>
+			<if test="equipTypeCode != null and equipTypeCode != ''">
+				and equip_type_code = #{equipTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="appId != null and appId != ''">
+				and app_id = #{appId,jdbcType=VARCHAR}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and model_id = #{modelId,jdbcType=VARCHAR}
+			</if>
+			<if test="netTypeCode != null and netTypeCode != ''">
+				and net_type_code = #{netTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="childEquipTypeCode != null and childEquipTypeCode != ''">
+				and child_equip_type_code = #{childEquipTypeCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY e.create_time DESC
+  </select>
+   <select id="selectLikeEquipNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     SELECT
+		e.equip_id,
+		e.equip_number,
+		e.equip_name,
+		e.org_id,
+		e.app_id,
+		e.equip_categ_code,
+		e.equip_type_code,
+		e.model_id,
+		e.soft_versoin,
+		e.gather_hz,
+		e.comm_pwd,
+		e.net_type_code,
+		e.net_number,
+		e.child_equip_type_code,
+		e.is_usable,
+		e.is_history,
+		e.create_time,
+		e.update_time,
+		m.model_name
+	FROM
+		t_org_net_equip e
+	LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+    where e.equip_number like CONCAT(CONCAT( #{equipNumber,jdbcType=VARCHAR}), '%')
+  </select>
+  <select id="selectByEquipNumber" resultMap="joinResultMap" parameterType="java.lang.String" >
+    SELECT
+		e.equip_id,
+		e.equip_number,
+		e.equip_name,
+		e.org_id,
+		e.app_id,
+		e.equip_categ_code,
+		e.equip_type_code,
+		e.model_id,
+		e.soft_versoin,
+		e.gather_hz,
+		e.comm_pwd,
+		e.net_type_code,
+		e.net_number,
+		e.child_equip_type_code,
+		e.is_usable,
+		e.is_history,
+		e.create_time,
+		e.update_time,
+		e.sectors_number,
+		e.sectors_limit,
+		m.model_name
+	FROM
+		t_org_net_equip e
+	LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+    where e.equip_number = #{equipNumber,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectNetForApi" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_net_equip
+   	where
+	app_id = #{appId,jdbcType=VARCHAR}
+  </select> 
+  
+  <select id="selectByEquipId" resultMap="joinResultMap" parameterType="java.lang.String" >
+     SELECT
+			e.equip_id,
+			e.equip_number,
+			e.equip_name,
+			e.org_id,
+			e.app_id,
+			e.equip_categ_code,
+			e.equip_type_code,
+			e.model_id,
+			e.soft_versoin,
+			e.gather_hz,
+			e.comm_pwd,
+			e.net_type_code,
+			e.net_number,
+			e.child_equip_type_code,
+			e.is_usable,
+			e.is_history,
+			e.create_time,
+			e.update_time,
+		    m.model_name,
+		    m.full_name,
+		    m.factory,
+		    m.product_name
+		FROM
+			t_org_net_equip e
+		LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+   		where e.equip_id = #{equipId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectNetEquipExpandAll" resultMap="joinResultMap" parameterType="cn.com.tw.paas.monit.entity.business.org.NetEquipExpand" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_org_net_equip
+        <where>
+             is_usable = 1 
+			<if test="equipCategCode != null and equipCategCode != ''">
+				and equip_categ_code = #{equipCategCode,jdbcType=VARCHAR}
+			</if>
+			<if test="equipTypeCode != null and equipTypeCode != ''">
+				and equip_type_code = #{equipTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="netTypeCode != null and netTypeCode != ''">
+				and net_type_code = #{netTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="appId != null and appId != ''">
+				and app_id = #{appId,jdbcType=VARCHAR}
+			</if>
+			<if test="equipNumber != null and equipNumber != ''">
+				and equip_number = #{equipNumber,jdbcType=VARCHAR}
+			</if>
+			<if test='netNumberSearch != null and netNumberSearch != ""'>
+				and equip_number like CONCAT('%', #{netNumberSearch,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="equipName != null and equipName != ''">
+				and equip_name like CONCAT('%', #{equipName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test='sectorsNumber != null and sectorsNumber != ""'>
+				and sectors_number  =  #{sectorsNumber,jdbcType=TINYINT}
+			</if>
+		</where>
+  </select>
+  
+  <select id="selectEquipByPage" resultMap="joinResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        SELECT
+			e.equip_id,
+			e.equip_number,
+			e.equip_name,
+			e.org_id,
+			e.app_id,
+			e.equip_categ_code,
+			e.equip_type_code,
+			e.model_id,
+			e.soft_versoin,
+			e.gather_hz,
+			e.comm_pwd,
+			e.net_type_code,
+			e.net_number,
+			e.child_equip_type_code,
+			e.is_usable,
+			e.is_history,
+			e.create_time,
+			e.update_time,
+		    m.model_name,
+		    m.full_name,
+		    m.factory,
+		    m.product_name
+		FROM
+			t_org_net_equip e
+		LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+        <where>
+			<if test="paramObj.equipName != null and paramObj.equipName != ''">
+				and e.equip_name like CONCAT('%', #{paramObj.equipName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.equipNumber != null and paramObj.equipNumber != ''">
+				and e.equip_number like CONCAT('%', #{paramObj.equipNumber,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.equipCategCode != null and paramObj.equipCategCode != ''">
+				and equip_categ_code = #{paramObj.equipCategCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.equipTypeCode != null and paramObj.equipTypeCode != ''">
+				and equip_type_code = #{paramObj.equipTypeCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY e.create_time DESC
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_org_net_equip
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    insert into t_org_net_equip (equip_id, equip_number, equip_name, 
+      org_id, app_id, equip_categ_code, 
+      equip_type_code, model_id, soft_versoin, gather_hz,
+      comm_pwd, net_type_code, net_number, 
+      child_equip_type_code, is_usable, is_history, 
+      create_time, update_time, sectors_number, sectors_limit)
+    values (#{equipId,jdbcType=VARCHAR}, #{equipNumber,jdbcType=VARCHAR}, #{equipName,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{equipCategCode,jdbcType=VARCHAR}, 
+      #{equipTypeCode,jdbcType=VARCHAR}, #{modelId,jdbcType=VARCHAR}, #{softVersoin,jdbcType=VARCHAR}, #{gatherHz,jdbcType=VARCHAR},
+      #{commPwd,jdbcType=VARCHAR}, #{netTypeCode,jdbcType=VARCHAR}, #{netNumber,jdbcType=VARCHAR}, 
+      #{childEquipTypeCode,jdbcType=VARCHAR}, #{isUsable,jdbcType=TINYINT}, #{isHistory,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{sectorsNumber,jdbcType=TINYINT}, #{sectorsLimit,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    insert into t_org_net_equip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        equip_id,
+      </if>
+      <if test="equipNumber != null" >
+        equip_number,
+      </if>
+      <if test="equipName != null" >
+        equip_name,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="equipCategCode != null" >
+        equip_categ_code,
+      </if>
+      <if test="equipTypeCode != null" >
+        equip_type_code,
+      </if>
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="softVersoin != null" >
+        soft_versoin,
+      </if>
+      <if test="gatherHz != null" >
+        gather_hz,
+      </if>
+      <if test="commPwd != null" >
+        comm_pwd,
+      </if>
+      <if test="netTypeCode != null" >
+        net_type_code,
+      </if>
+      <if test="netNumber != null" >
+        net_number,
+      </if>
+      <if test="childEquipTypeCode != null" >
+        child_equip_type_code,
+      </if>
+      <if test="isUsable != null" >
+        is_usable,
+      </if>
+      <if test="isHistory != null" >
+        is_history,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="sectorsNumber != null">
+      	sectors_number,
+      </if>
+      <if test="sectorsLimit != null">
+      	sectors_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        #{equipId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipNumber != null" >
+        #{equipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCategCode != null" >
+        #{equipCategCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipTypeCode != null" >
+        #{equipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersoin != null" >
+        #{softVersoin,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherHz != null" >
+        #{gatherHz,jdbcType=VARCHAR},
+      </if>
+      <if test="commPwd != null" >
+        #{commPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="netTypeCode != null" >
+        #{netTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="netNumber != null" >
+        #{netNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="childEquipTypeCode != null" >
+        #{childEquipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="isHistory != null" >
+        #{isHistory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sectorsNumber != null">
+      	#{sectorsNumber,jdbcType=TINYINT},
+      </if>
+      <if test="sectorsLimit != null">
+      	#{sectorsLimit,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    update t_org_net_equip
+    <set >
+      <if test="equipNumber != null" >
+        equip_number = #{equipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCategCode != null" >
+        equip_categ_code = #{equipCategCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipTypeCode != null" >
+        equip_type_code = #{equipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        model_id = #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersoin != null" >
+        soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherHz != null" >
+        gather_hz = #{gatherHz,jdbcType=VARCHAR},
+      </if>
+      <if test="commPwd != null" >
+        comm_pwd = #{commPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="netTypeCode != null" >
+        net_type_code = #{netTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="netNumber != null" >
+        net_number = #{netNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="childEquipTypeCode != null" >
+        child_equip_type_code = #{childEquipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        is_usable = #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="isHistory != null" >
+        is_history = #{isHistory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sectorsNumber != null">
+      	sectors_number = #{sectorsNumber,jdbcType=TINYINT},
+      </if>
+      <if test="sectorsLimit != null">
+      	sectors_limit = #{sectorsLimit,jdbcType=TINYINT},
+      </if>
+    </set>
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.org.NetEquip" >
+    update t_org_net_equip
+    set equip_number = #{equipNumber,jdbcType=VARCHAR},
+      equip_name = #{equipName,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      equip_categ_code = #{equipCategCode,jdbcType=VARCHAR},
+      equip_type_code = #{equipTypeCode,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=VARCHAR},
+      soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+      gather_hz = #{gatherHz,jdbcType=VARCHAR},
+      comm_pwd = #{commPwd,jdbcType=VARCHAR},
+      net_type_code = #{netTypeCode,jdbcType=VARCHAR},
+      net_number = #{netNumber,jdbcType=VARCHAR},
+      child_equip_type_code = #{childEquipTypeCode,jdbcType=VARCHAR},
+      is_usable = #{isUsable,jdbcType=TINYINT},
+      is_history = #{isHistory,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sectors_number = #{sectorsNumber,jdbcType=TINYINT},
+   	  sectors_limit = #{sectorsLimit,jdbcType=TINYINT}
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+</mapper>

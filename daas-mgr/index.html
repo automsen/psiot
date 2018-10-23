@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title i18n-message="mainTitle">daas平台主页</title>
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="format-detection" content="telephone=no" />
+		<link rel="stylesheet" href="js/layui/css/layui.css" />
+		<link rel="stylesheet" href="css/welcome.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/index.css" media="all" />
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+		<script type="application/javascript">
+			<!-- js拦截-->
+			// 需要验证token 
+			var token = localStorage.getItem("_twps_qy");
+			if(token == null || token == '') {
+				if(parent != null) {
+					window.parent.location.href = "login.html";
+				} else {
+					window.location.href = "login.html";
+				}
+			}
+
+			function exitUser() {
+				layui.use(['jquery'], function() {
+					// 弹出消息窗确定
+					var layer = layui.layer;
+
+					var isloginMsg = layui.i18n.getMessage("isLoginOut") || " 是否退出系统？";
+
+					var isTrue = layui.i18n.getMessage("isTrue") || "是";
+
+					var isFalse = layui.i18n.getMessage("isFalse") || '否';
+					//询问框
+					layer.confirm(isloginMsg, {
+						btn: [isTrue, isFalse] //按钮
+					}, function() {
+						localStorage.removeItem("_twps_qy");
+						localStorage.removeItem("_twps_qy_d");
+						localStorage.removeItem("_twps_qy_refresh");
+						window.location.href = "/login.html";
+					}, function() {});
+				})
+			}
+		</script>
+		<script src="js/layui/layui.js" charset="utf-8"></script>
+	</head>
+
+	<body style="display: none;">
+		<div class="t-content-center">
+			<div class="layui-layout layui-layout-admin">
+				<!--顶部-->
+				<div class="layui-header header">
+					<div class="layui-logo" style="color:#FFFFFF;font-size:35px"><!--<img src="images/title.png" width="150" height="42" />-->Daas
+					</div>
+					<!-- <div class="t-header-btn">
+			            <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
+			        </div> -->
+					<!-- 头部区域（可配合layui已有的水平导航） -->
+					<ul class="layui-nav layui-layout-left" style="margin-left: -40px;">
+						<div class="left" style="margin-top: 3px;">
+							<!--<img src="images/logo_sb.png" width="90" height="54" />
+							<img src="images/logo_adk.png" style="margin-left: 20px;" width="110" height="54" />-->
+							<img src="images/logo-gh.png" width="50" height="50" />
+						</div>
+						<div class="left s-in-company">
+							数据接入管理平台<br /><span>Daas Terminal Connected & Management Platform</span>
+						</div>
+						<div class="clearfix"></div>
+					</ul>
+
+					<!--<ul class="layui-nav layui-layout-left s-name">
+			    		时波（能源）物联网接入管理平台
+			    	</ul>-->
+					<ul class="layui-nav layui-layout-right">
+						<div class="btn-login left"></div>
+						<div class="s-exit left">
+							<a href="javascript:exitUser()" i18n-message='loginOutBtn'>退出</a>
+						</div>
+						<div class="left ce-change">
+							<span><a href="javascript:layui.i18n.setLocal('zh')" style="font-size: 12px;">简体中文</a></span>
+							<img src="images/icon_fgx.png" width="1" height="20" />
+							<span><a href="javascript:layui.i18n.setLocal('en')">English</a></span>
+						</div>
+						<div class="clearfix"></div>
+					</ul>
+				</div>
+				<!--侧边导航-->
+				<div class="layui-side layui-bg-black bg-black">
+					<div class="layui-side-scroll">
+						<ul class="layui-nav layui-nav-tree nav blue-menu" lay-filter="leftnav">
+							<li class="layui-nav-item white layui-this menu-word">
+								<a i18n-message="organizationManagement" href="javascript:;"><img src="images/icon_08.png" width="20" height="20" />机构管理</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a data-id="helpBookIncreate" data-url="./page/userManagement/unitRegistraion/unitRegistraion_list.html" href="javascript:;"><span i18n-message="accreditedInstitution">机构认证</span></a>
+									</dd>
+									<dd>
+										<a data-id="informationPush" data-url="./page/userManagement/informationPush/informationPush_list.html" href="javascript:;"><span i18n-message="applicationSettings">应用设置</span></a>
+									</dd>
+								</dl>
+							</li>
+							
+							<li class="layui-nav-item white menu-word">
+		                        <a href="javascript:;"><img src="images/icon_02.png" width="20" height="20"/>设备管理</a>
+		                        <dl class="layui-nav-child">
+		                        	<dd><a data-id="businessStatistics" data-url="./page/orgEquipment/orgEquipment_list.html" href="javascript:;">终端添加</a></dd>
+		                        </dl>
+		                    </li>
+		                    
+		                    <li class="layui-nav-item white menu-word">
+		                        <a href="javascript:;"><img src="images/icon_07.png" width="20" height="20"/>终端状态查询</a>
+		                        <dl class="layui-nav-child">
+		                            <dd><a data-id="terminalInq" data-url="./page/terminal/terminalInq.html" href="javascript:;">终端状态查询</a></dd>
+		                        	<dd><a data-id="cmdHandleInq" data-url="./page/terminal/cmdExeList.html" href="javascript:;">命令状态查询</a></dd>
+		                        </dl>
+		                    </li>
+		                    
+							<li class="layui-nav-item white menu-word">
+								<a i18n-message="dataQuery" href="javascript:;"><img src="images/icon_03.png" width="20" height="20" />数据查询</a>
+								<dl class="layui-nav-child">
+									<dd>
+										<a i18n-message="pushLog" data-id="priceInformationBulkEntry" data-url="./page/data/pushLog_list.html" href="javascript:;">推送日志</a>
+									</dd>
+									<!--<dd><a data-id="priceInformationEntry" data-url="./page/data/errorMessage_list.html" href="javascript:;">错误信息</a></dd>-->
+									<dd>
+										<a i18n-message="theHistoricalData" data-id="readList" data-url="page/read/read_list.html" href="javascript:;">历史数据</a>
+									</dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--收起导航-->
+				<!--<div class="layui-side-hide layui-bg-cyan side-hide">
+	            <i class="fa fa-long-arrow-left fa-fw"></i>收起导航
+	        </div>-->
+				<!--主体内容-->
+				<div class="layui-body">
+					<div class="layui-tab layui-tab-brief" lay-allowclose="true" lay-filter="tab" style="margin:0;top:1px;bottom:0px;width:100%;">
+						<ul id="menuList" class="layui-tab-title tab-title">
+							<li i18n-message="main" class="layui-this" lay-id="0">首页</li>
+						</ul>
+						<div class="layui-tab-content clildFrame">
+							<div class="layui-tab-item layui-show">
+
+								<!--内容区域-->
+								<iframe src="page/main/main.html"></iframe>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!--底部固定条-->
+				<div class="layui-footer bottom" align="center">
+					<p>
+						<span id="orgName"></span> &nbsp; &nbsp;版权所有©2018 &nbsp; &nbsp;<span id="orgWebsite"></span> &nbsp; &nbsp;
+						<a href="http://www.miitbeian.gov.cn">鄂ICP备17027321号-1</a>
+					</p>
+				</div>
+
+			</div>
+		</div>
+		<script src="js/index.js" charset="utf-8"></script>
+	</body>
+
+</html>

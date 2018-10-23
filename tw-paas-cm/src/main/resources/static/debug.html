@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>debug</title>
+  <meta name="renderer" content="webkit"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <link rel="stylesheet" href="/css/layui.css"  media="all"/>
+  <link rel="stylesheet" href="/css/main.css"  media="all"/>
+  <script src="/js/layui/layui.js" charset="utf-8"></script>
+  <script src="/js/jquery.min.js" charset="utf-8"></script>
+</head>
+<script>
+  
+</script>
+<body>
+<div>
+	<blockquote class="layui-elem-quote layui-text" id="">
+	  <div class="layui-inline">
+	  <div id="titleName">网络待连接</div>
+	  </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">关键词:</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="title" id="intcpt" lay-verify="title" placeholder="对返回的关键词进行拦截" class="layui-input">
+	      </div>
+	    </div>
+	</blockquote>
+</div>
+
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">网络调测数据</li>
+    <li>接口测试</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show" style="width:1000px;height:100%;margin: 0 auto;">
+	    <div style="height:500px; overflow:auto">
+			<p id="msgText">
+			<!-- <span><i>2018-06-27 20:02:13</i>&nbsp;&nbsp;&nbsp;&nbsp;<span>>> FEFEFESDFSDFKJDSSDFJJDLSJFLSDKF16</span></span><br/> -->
+			</p>
+		</div>
+    </div>
+    <div class="layui-tab-item">
+      <div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label">请求参数</label>
+	    <div class="layui-input-block">
+	      <textarea placeholder="请输入JSON格式字符串" class="layui-textarea" id="reqData"></textarea>
+	      <br/>
+	      <button class="layui-btn" id="subMsg">提交</button>
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label">返回结果</label>
+	    <div class="layui-input-block">
+	      <textarea placeholder="" class="layui-textarea" rows="90" id="resData"></textarea>
+	    </div>
+	  </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div style="width:1000px;height:100%;margin: 0 auto; ">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>网络调试数据</legend>
+</fieldset>
+<div style="height:500px; overflow:auto">
+<p id="msgText">
+<span><i>2018-06-27 20:02:13</i>&nbsp;&nbsp;&nbsp;&nbsp;<span>>> FEFEFESDFSDFKJDSSDFJJDLSJFLSDKF16</span></span><br/>
+</p>
+</div>
+</div> -->
+<script id="dataView" type="text/html">
+<span><span>{{util.toDateString(d.date, "yyyy-MM-dd HH:mm:ss")}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ d.content }}</span></span><br/>
+</script>
+
+<script>
+layui.config({
+	   base: 'js/' //你存放新模块的目录，注意，不是layui的模块目录
+	}).use(['menu','laytpl','layer','element'], function(){
+		var $ = layui.$;
+		var laytpl = layui.laytpl;
+		var layer = layui.layer;
+		var MenuData = [
+		    [{
+		        text: "清空所有",
+		        func: function(obj) {
+		        	$("#msgText").empty();
+		        }
+		    }]
+		];
+		$("#msgText").smartMenu(MenuData, {
+			name: "menu"
+		});
+		//showPrompt();
+		
+		/* function showPrompt(){
+			//prompt层
+			layer.prompt({title: '输入通信IP', formType: 0}, function(text, index){
+				layer.close(index);
+				$("#titleName").text("网络连接中-" + text + ":7397");
+				initSocket(text);
+			});
+		} */
+		
+		var hostName = document.location.hostname
+		$("#titleName").text("网络连接中("+hostName+")");
+		
+		var port = "";
+		$.ajax({url: "/env_api/val/engine.debuger.tcp.port.", async:false, success: function(data){
+			port = data;
+	    }});
+		
+		initSocket(hostName);
+		
+		function initSocket(ip){
+			  if(!window.WebSocket){
+				  window.WebSocket = window.MozWebSocket;
+			  }
+			  if(window.WebSocket){
+				  var socket = new WebSocket("ws://"+ip+":"+port);
+				  socket.onmessage = function(event){
+					  var data = eval("("+event.data+")")
+					  console.log(data)
+					  
+					  var intcptVal = $("#intcpt").val();
+					  console.log(intcptVal);
+					  if ($.trim(intcptVal).length > 0) {
+						  if (data.content.indexOf(">>") > -1 && data.content.indexOf(intcptVal) < 0) {
+							  return;
+						  }
+					  }
+					  laytpl($("#dataView").html()).render(data, function(html){
+						  $("#msgText").append(html);
+					  });
+				  };
+				  socket.onopen = function(event){
+					  $("#titleName").text("网络正常("+ip+":"+port+")");
+				  };
+				  socket.onclose = function(event){
+					  $("#titleName").html("<font color='red'>网络断连</font>");
+				  };
+			  }else{
+				  $("#titleName").text("您的浏览器不兼容！无法使用");
+			  }
+		}
+		
+		bindClick();
+		
+		var msg_index;
+		function bindClick() {
+			$("#subMsg").click(function(){
+				
+				var reqData = $("#reqData").val();
+				
+				if ($.trim(reqData).length == 0) {
+					layer.msg("不能为空");
+					return;
+				}
+				
+				reqAjax({btnId:"subMsg", method:"post", param:reqData, url:"model1/contr",success:function(res){
+		        	//layer.msg('添加成功');
+		        	var jsObj = JSON.stringify(res, null, "\t"); // 缩进一个tab  
+		        	//jsObj = JSON.stringify(jsObj, null, 4);    // 缩进4个空格  
+		        	$("#resData").val(jsObj)
+		        },error:function(res){
+		        	layer.msg("请求错误");
+		        }})
+			})
+			
+			$(document).ajaxSend(function(){
+				msg_index = layer.load(1, {shade: false});
+			});
+			
+			$(document).ajaxStop(function(){
+			    setTimeout(function(){
+			        layer.close(msg_index);
+			    },100)
+			});
+		}
+		
+		var reqAjax = function(obj) {
+			obj = obj || {};
+			var opt = $.extend({btnId:"", method:"get", url:"", async:true, cache:false, global:true, param:{}, contentType:"application/json", success:false, error:false}, obj);
+			if($("#"+opt.btnId).hasClass("layui-btn-disabled")){
+				return false;
+			}
+			$("#"+opt.btnId).addClass("layui-btn-disabled");
+			var url = (opt.url.indexOf("http:") > -1) ? opt.url : (opt.url);
+			$.ajax({
+				type : opt.method, 
+				url : url, 
+				global:opt.global, 
+				data : opt.param, 
+				async : opt.async, 
+				cache : opt.cache, 
+				contentType:opt.contentType, 
+				dataType : "json",
+				success : function(res) {
+					$("#"+opt.btnId).removeClass("layui-btn-disabled");
+					//000000代表返回成功消息
+					opt.success(res);
+				},
+				error : function(){
+					$("#"+opt.btnId).removeClass("layui-btn-disabled");
+					if(opt.error){
+						var res = {
+							statusCode:"111111",
+							message:"系统异常"
+						}
+						opt.error(res);
+						return;
+					}
+					//$.tBox.error("系统异常");
+				}
+			});
+		}
+		
+	})
+
+</script>
+</body>
+</html>

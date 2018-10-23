@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.service.notify.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.service.notify.entity.Task" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="is_last_success" property="isLastSuccess" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, job_name, group_name, task_name, task_code, cron_expression, status, create_time, 
+    last_time, is_last_success
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_task
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_sys_task
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.service.notify.entity.Task" >
+    insert into t_sys_task (id, job_name, group_name, 
+      task_name, task_code, cron_expression, 
+      status, create_time, last_time, 
+      is_last_success)
+    values (#{id,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{taskName,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{cronExpression,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{isLastSuccess,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.service.notify.entity.Task" >
+    insert into t_sys_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="taskCode != null" >
+        task_code,
+      </if>
+      <if test="cronExpression != null" >
+        cron_expression,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="isLastSuccess != null" >
+        is_last_success,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCode != null" >
+        #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLastSuccess != null" >
+        #{isLastSuccess,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.service.notify.entity.Task" >
+    update t_sys_task
+    <set >
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCode != null" >
+        task_code = #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLastSuccess != null" >
+        is_last_success = #{isLastSuccess,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.service.notify.entity.Task" >
+    update t_sys_task
+    set 
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_code = #{taskCode,jdbcType=VARCHAR},
+      cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      is_last_success = #{isLastSuccess,jdbcType=TINYINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+  	 select 
+    	<include refid="Base_Column_List" />
+    from t_sys_task
+    <where>
+		<if test="paramObj.id != null and paramObj.comId != ''">
+			id = #{paramObj.id,jdbcType=VARCHAR}
+		</if>
+		<if test="paramObj.groupName != null and paramObj.groupName != ''">
+			group_name = #{paramObj.groupName,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </select>
+  
+  <select id="selecTasks" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.service.notify.entity.Task">
+  	select 
+    	<include refid="Base_Column_List" />
+    from t_sys_task
+  </select>
+  
+  <select id="updateByTaskNameAndGroupName" parameterType="cn.com.tw.paas.service.notify.entity.Task">
+  	update t_sys_task
+    <set >
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCode != null" >
+        task_code = #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLastSuccess != null" >
+        is_last_success = #{isLastSuccess,jdbcType=TINYINT},
+      </if>
+    </set>
+    where job_name = #{jobName,jdbcType=VARCHAR}
+    and group_name = #{groupName,jdbcType=VARCHAR}
+  </select>
+  
+  	<select id="selectByBeanParam" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.service.notify.entity.Task" >
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_task
+    where  1=1
+    <if test="taskName!= null and taskName!= ''">
+    		and job_name = #{taskName,jdbcType=VARCHAR}
+    </if>
+   <if test="groupName != null and groupName !=''">
+    	 and group_name = #{groupName,jdbcType=VARCHAR}
+    </if>
+     
+  </select>
+  
+  
+</mapper>

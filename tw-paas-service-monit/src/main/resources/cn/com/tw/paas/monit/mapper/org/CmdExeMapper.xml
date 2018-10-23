@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.CmdExeMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="business_no" property="businessNo" jdbcType="VARCHAR" />
+    <result column="cmd_code" property="cmdCode" jdbcType="VARCHAR" />
+    <result column="cmd_name" property="cmdName" jdbcType="VARCHAR" />
+    <result column="cmd_level" property="cmdLevel" jdbcType="INTEGER" />
+    <result column="conn_addr" property="connAddr" jdbcType="VARCHAR" />
+    <result column="param" property="param" jdbcType="VARCHAR" />
+    <result column="return_value" property="returnValue" jdbcType="VARCHAR" />
+    <result column="inn_num" property="innNum" jdbcType="INTEGER" />
+    <result column="handle_times" property="handleTimes" jdbcType="INTEGER" />
+    <result column="limit_handle_times" property="limitHandleTimes" jdbcType="INTEGER" />
+    <result column="cmd_block" property="cmdBlock" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="use_time" property="useTime" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, app_id, business_no, cmd_code, cmd_name, cmd_level, conn_addr, param, cmd_block,
+    return_value, inn_num, status, use_time, create_time,update_time,handle_times,limit_handle_times
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_cmd_exe
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_cmd_exe
+    where  1=1 
+      <if test="orgId != null" >
+       and org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="appId != null" >
+       and  app_id = #{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="businessNo != null" >
+       and  business_no = #{businessNo,jdbcType=VARCHAR}
+      </if>
+      <if test="cmdCode != null" >
+       and  cmd_code = #{cmdCode,jdbcType=VARCHAR}
+      </if>
+      <if test="cmdName != null" >
+       and  cmd_name = #{cmdName,jdbcType=VARCHAR}
+      </if>
+      <if test="cmdLevel != null" >
+       and  cmd_level = #{cmdLevel,jdbcType=INTEGER}
+      </if>
+      <if test="connAddr != null" >
+       and conn_addr = #{connAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="param != null" >
+       and  param = #{param,jdbcType=VARCHAR}
+      </if>
+      <if test="returnValue != null" >
+       and  return_value = #{returnValue,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="innNum != null" >
+       and inn_num = #{innNum,jdbcType=INTEGER}
+      </if>
+      <if test="status != null" >
+       and  status = #{status,jdbcType=TINYINT}
+      </if>
+      <if test="canStartQuery != null" >
+	       AND (`STATUS` = 10 OR (
+				`status` not in ( 10,1)
+				AND limit_handle_times is not null
+				AND handle_times &lt; limit_handle_times
+			)
+		)
+      </if>
+      <if test="statusNotIn != null" >
+	       and `status` not in
+	       <foreach collection="statusNotIn" item="notInItem" separator="," open="(" close=")">
+	       		${notInItem}
+	       </foreach>
+      </if>
+      <if test="delayMinute != null">
+		and create_time &lt; date_sub(sysdate(),interval ${delayMinute} minute)        	  
+      </if>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+  		select 
+		    <include refid="Base_Column_List" />
+	    from t_org_cmd_exe
+	    where  1=1 
+	  	  <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+	       and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramObj.businessNo != null and paramObj.businessNo != ''" >
+	       and  business_no = #{paramObj.businessNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramObj.cmdCode != null and paramObj.cmdCode != ''" >
+	       and  cmd_code = #{paramObj.cmdCode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramObj.connAddr != null and paramObj.connAddr != ''" >
+	       and conn_addr = #{paramObj.connAddr,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paramObj.status != null and paramObj.status != ''" >
+	       and `status` = #{paramObj.status,jdbcType=TINYINT}
+	      </if>
+	      
+	      order by create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_org_cmd_exe
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    insert into t_org_cmd_exe (id, org_id, app_id, 
+      business_no, cmd_code, cmd_name, 
+      cmd_level, conn_addr, param,handle_times,limit_handle_times,
+      return_value, inn_num, status,cmd_block, 
+      use_time, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{businessNo,jdbcType=VARCHAR}, #{cmdCode,jdbcType=VARCHAR}, #{cmdName,jdbcType=VARCHAR}, 
+      #{cmdLevel,jdbcType=INTEGER}, #{connAddr,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, 
+      #{handleTimes,jdbcType=INTEGER},#{limitHandleTimes,jdbcType=INTEGER},
+      #{returnValue,jdbcType=VARCHAR}, #{innNum,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{cmdBlock,jdbcType=TINYINT}, 
+      #{useTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    insert into t_org_cmd_exe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="businessNo != null" >
+        business_no,
+      </if>
+      <if test="cmdCode != null" >
+        cmd_code,
+      </if>
+      <if test="cmdName != null" >
+        cmd_name,
+      </if>
+      <if test="cmdLevel != null" >
+        cmd_level,
+      </if>
+      <if test="connAddr != null" >
+        conn_addr,
+      </if>
+      <if test="param != null" >
+        param,
+      </if>
+      <if test="handleTimes != null" >
+        handle_times,
+      </if>
+      <if test="limitHandleTimes != null" >
+        limit_handle_times,
+      </if>
+      <if test="returnValue != null" >
+        return_value,
+      </if>
+      <if test="innNum != null" >
+        inn_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="cmdBlock != null" >
+        cmd_block,
+      </if>
+      <if test="useTime != null" >
+        use_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNo != null" >
+        #{businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdCode != null" >
+        #{cmdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdName != null" >
+        #{cmdName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdLevel != null" >
+        #{cmdLevel,jdbcType=INTEGER},
+      </if>
+      <if test="connAddr != null" >
+        #{connAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTimes != null" >
+       	#{handleTimes,jdbcType=INTEGER},
+      </if>
+      <if test="limitHandleTimes != null" >
+         #{limitHandleTimes,jdbcType=INTEGER},
+      </if>
+      <if test="returnValue != null" >
+        #{returnValue,jdbcType=VARCHAR},
+      </if>
+      <if test="innNum != null" >
+        #{innNum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="cmdBlock != null" >
+        #{cmdBlock,jdbcType=TINYINT},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    update t_org_cmd_exe
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNo != null" >
+        business_no = #{businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdCode != null" >
+        cmd_code = #{cmdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdName != null" >
+        cmd_name = #{cmdName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmdLevel != null" >
+        cmd_level = #{cmdLevel,jdbcType=INTEGER},
+      </if>
+      <if test="connAddr != null" >
+        conn_addr = #{connAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        param = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTimes != null" >
+       	handle_times = #{handleTimes,jdbcType=INTEGER},
+      </if>
+      <if test="limitHandleTimes != null" >
+        limit_handle_times = #{limitHandleTimes,jdbcType=INTEGER},
+      </if>
+      
+      <if test="returnValue != null" >
+        return_value = #{returnValue,jdbcType=VARCHAR},
+      </if>
+      <if test="innNum != null" >
+        inn_num = #{innNum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="cmdBlock != null" >
+        cmd_block = #{cmdBlock,jdbcType=TINYINT},
+      </if>
+      <if test="useTime != null" >
+        use_time = #{useTime,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.org.CmdExe" >
+    update t_org_cmd_exe
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      business_no = #{businessNo,jdbcType=VARCHAR},
+      cmd_code = #{cmdCode,jdbcType=VARCHAR},
+      cmd_name = #{cmdName,jdbcType=VARCHAR},
+      cmd_level = #{cmdLevel,jdbcType=INTEGER},
+      conn_addr = #{connAddr,jdbcType=VARCHAR},
+      param = #{param,jdbcType=VARCHAR},
+      handle_times = #{handleTimes,jdbcType=INTEGER},
+      limit_handle_times = #{limitHandleTimes,jdbcType=INTEGER},
+      return_value = #{returnValue,jdbcType=VARCHAR},
+      inn_num = #{innNum,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      cmd_block = #{cmdBlock,jdbcType=TINYINT},
+      use_time = #{useTime,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

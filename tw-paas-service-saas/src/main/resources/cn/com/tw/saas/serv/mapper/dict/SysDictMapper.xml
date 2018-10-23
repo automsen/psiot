@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.dict.SysDictMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.dict.SysDict" >
+    <id column="dict_id" property="dictId" jdbcType="INTEGER" />
+    <result column="dict_code" property="dictCode" jdbcType="VARCHAR" />
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+    <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+    <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+    <result column="dict_type_name" property="dictTypeName" jdbcType="VARCHAR" />
+    <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dict_id, dict_code, dict_name, parent_code, dict_type, dict_type_name, is_usable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_dict
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByDictType" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select 
+    <include refid="Base_Column_List" />
+    from t_sys_dict
+    where dict_type=#{dictType,jdbcType=VARCHAR} and is_usable != 0
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.dict.SysDict">
+   select 
+    <include refid="Base_Column_List" />
+    from t_sys_dict
+    where is_usable != 0
+    <if test="dictName != null and dictName != ''">
+      and  dict_name = #{dictName,jdbcType=VARCHAR}
+    </if>
+    <if test="dictType != null and dictType != ''">
+      and  dict_type=#{dictType,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sys_dict
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+  select 
+    <include refid="Base_Column_List" />
+    from t_sys_dict
+    where 1=1 
+    <if test="paramObj.dictName != null and paramObj.dictName != ''">
+      and  dict_name = #{paramObj.dictName,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.dict.SysDict" >
+    insert into t_sys_dict (dict_id, dict_code, dict_name, 
+      parent_code, dict_type, dict_type_name, 
+      is_usable)
+    values (#{dictId,jdbcType=INTEGER}, #{dictCode,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, 
+      #{parentCode,jdbcType=VARCHAR}, #{dictType,jdbcType=VARCHAR}, #{dictTypeName,jdbcType=VARCHAR}, 
+      #{isUsable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.dict.SysDict" >
+    insert into t_sys_dict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        dict_id,
+      </if>
+      <if test="dictCode != null" >
+        dict_code,
+      </if>
+      <if test="dictName != null" >
+        dict_name,
+      </if>
+      <if test="parentCode != null" >
+        parent_code,
+      </if>
+      <if test="dictType != null" >
+        dict_type,
+      </if>
+      <if test="dictTypeName != null" >
+        dict_type_name,
+      </if>
+      <if test="isUsable != null" >
+        is_usable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictId != null" >
+        #{dictId,jdbcType=INTEGER},
+      </if>
+      <if test="dictCode != null" >
+        #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null" >
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictType != null" >
+        #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictTypeName != null" >
+        #{dictTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        #{isUsable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.dict.SysDict" >
+    update t_sys_dict
+    <set >
+      <if test="dictCode != null" >
+        dict_code = #{dictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null" >
+        dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        parent_code = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictType != null" >
+        dict_type = #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictTypeName != null" >
+        dict_type_name = #{dictTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        is_usable = #{isUsable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.dict.SysDict" >
+    update t_sys_dict
+    set dict_code = #{dictCode,jdbcType=VARCHAR},
+      dict_name = #{dictName,jdbcType=VARCHAR},
+      parent_code = #{parentCode,jdbcType=VARCHAR},
+      dict_type = #{dictType,jdbcType=VARCHAR},
+      dict_type_name = #{dictTypeName,jdbcType=VARCHAR},
+      is_usable = #{isUsable,jdbcType=TINYINT}
+    where dict_id = #{dictId,jdbcType=INTEGER}
+  </update>
+</mapper>

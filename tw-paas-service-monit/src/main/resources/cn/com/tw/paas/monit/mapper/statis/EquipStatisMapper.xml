@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.statis.EquipStatisMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="equip_categ_code" property="equipCategCode" jdbcType="VARCHAR" />
+    <result column="equip_type_code" property="equipTypeCode" jdbcType="VARCHAR" />
+    <result column="elec_equip_type_code" property="elecEquipTypeCode" jdbcType="VARCHAR" />
+    <result column="equip_number" property="equipNumber" jdbcType="VARCHAR" />
+    <result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+    <result column="day_time" property="dayTime" jdbcType="VARCHAR" />
+    <result column="collect_num" property="collectNum" jdbcType="INTEGER" />
+    <result column="collect_freq" property="collectFreq" jdbcType="INTEGER" />
+    <result column="collect_succ_rate" property="collectSuccRate" jdbcType="DECIMAL" />
+    <result column="stop_excep_num" property="stopExcepNum" jdbcType="INTEGER" />
+    <result column="last_collect_time" property="lastCollectTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, app_id, equip_categ_code, equip_type_code, elec_equip_type_code, equip_number, 
+    equip_name, day_time, collect_num, collect_freq, collect_succ_rate, stop_excep_num, 
+    last_collect_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equip_statis_day
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryByEquip" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equip_statis_day
+    where day_time = #{dayTime,jdbcType=VARCHAR} and equip_number = #{equipNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equip_statis_day
+    where org_id = #{paramObj.orgId,jdbcType=VARCHAR} and day_time = #{paramObj.dayTime, jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_org_equip_statis_day
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    insert into t_org_equip_statis_day (id, org_id, app_id, 
+      equip_categ_code, equip_type_code, elec_equip_type_code, 
+      equip_number, equip_name, day_time, 
+      collect_num, collect_freq, collect_succ_rate, 
+      stop_excep_num, last_collect_time, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{appId,jdbcType=INTEGER}, 
+      #{equipCategCode,jdbcType=VARCHAR}, #{equipTypeCode,jdbcType=VARCHAR}, #{elecEquipTypeCode,jdbcType=VARCHAR}, 
+      #{equipNumber,jdbcType=VARCHAR}, #{equipName,jdbcType=VARCHAR}, #{dayTime,jdbcType=VARCHAR}, 
+      #{collectNum,jdbcType=INTEGER}, #{collectFreq,jdbcType=INTEGER}, #{collectSuccRate,jdbcType=DECIMAL}, 
+      #{stopExcepNum,jdbcType=INTEGER}, #{lastCollectTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    insert into t_org_equip_statis_day
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="equipCategCode != null" >
+        equip_categ_code,
+      </if>
+      <if test="equipTypeCode != null" >
+        equip_type_code,
+      </if>
+      <if test="elecEquipTypeCode != null" >
+        elec_equip_type_code,
+      </if>
+      <if test="equipNumber != null" >
+        equip_number,
+      </if>
+      <if test="equipName != null" >
+        equip_name,
+      </if>
+      <if test="dayTime != null" >
+        day_time,
+      </if>
+      <if test="collectNum != null" >
+        collect_num,
+      </if>
+      <if test="collectFreq != null" >
+        collect_freq,
+      </if>
+      <if test="collectSuccRate != null" >
+        collect_succ_rate,
+      </if>
+      <if test="stopExcepNum != null" >
+        stop_excep_num,
+      </if>
+      <if test="lastCollectTime != null" >
+        last_collect_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="equipCategCode != null" >
+        #{equipCategCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipTypeCode != null" >
+        #{equipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecEquipTypeCode != null" >
+        #{elecEquipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipNumber != null" >
+        #{equipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="dayTime != null" >
+        #{dayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collectNum != null" >
+        #{collectNum,jdbcType=INTEGER},
+      </if>
+      <if test="collectFreq != null" >
+        #{collectFreq,jdbcType=INTEGER},
+      </if>
+      <if test="collectSuccRate != null" >
+        #{collectSuccRate,jdbcType=DECIMAL},
+      </if>
+      <if test="stopExcepNum != null" >
+        #{stopExcepNum,jdbcType=INTEGER},
+      </if>
+      <if test="lastCollectTime != null" >
+        #{lastCollectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateEquipStatisCollectNum" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    update t_org_equip_statis_day
+    set collect_num = collect_num + 1,
+      collect_freq = #{collectFreq,jdbcType=INTEGER},
+      collect_succ_rate = #{collectSuccRate,jdbcType=DECIMAL},
+      last_collect_time = #{lastCollectTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where day_time = #{dayTime,jdbcType=VARCHAR} and equip_number = #{equipNumber,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateEquipStatisStopExcepNum" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    update t_org_equip_statis_day
+    set stop_excep_num = stop_excep_num + 1, update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where day_time = #{dayTime,jdbcType=VARCHAR} and equip_number = #{equipNumber,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    update t_org_equip_statis_day
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="equipCategCode != null" >
+        equip_categ_code = #{equipCategCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipTypeCode != null" >
+        equip_type_code = #{equipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecEquipTypeCode != null" >
+        elec_equip_type_code = #{elecEquipTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="equipNumber != null" >
+        equip_number = #{equipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="dayTime != null" >
+        day_time = #{dayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collectNum != null" >
+        collect_num = #{collectNum,jdbcType=INTEGER},
+      </if>
+      <if test="collectFreq != null" >
+        collect_freq = #{collectFreq,jdbcType=INTEGER},
+      </if>
+      <if test="collectSuccRate != null" >
+        collect_succ_rate = #{collectSuccRate,jdbcType=DECIMAL},
+      </if>
+      <if test="stopExcepNum != null" >
+        stop_excep_num = #{stopExcepNum,jdbcType=INTEGER},
+      </if>
+      <if test="lastCollectTime != null" >
+        last_collect_time = #{lastCollectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.statis.EquipStatis" >
+    update t_org_equip_statis_day
+    set org_id = #{orgId,jdbcType=INTEGER},
+      app_id = #{appId,jdbcType=INTEGER},
+      equip_categ_code = #{equipCategCode,jdbcType=VARCHAR},
+      equip_type_code = #{equipTypeCode,jdbcType=VARCHAR},
+      elec_equip_type_code = #{elecEquipTypeCode,jdbcType=VARCHAR},
+      equip_number = #{equipNumber,jdbcType=VARCHAR},
+      equip_name = #{equipName,jdbcType=VARCHAR},
+      day_time = #{dayTime,jdbcType=VARCHAR},
+      collect_num = #{collectNum,jdbcType=INTEGER},
+      collect_freq = #{collectFreq,jdbcType=INTEGER},
+      collect_succ_rate = #{collectSuccRate,jdbcType=DECIMAL},
+      stop_excep_num = #{stopExcepNum,jdbcType=INTEGER},
+      last_collect_time = #{lastCollectTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

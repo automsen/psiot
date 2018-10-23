@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.room.SaasRoomMeterMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.room.SaasRoomMeter">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="have_room" property="haveRoom" jdbcType="TINYINT" />
+		<result column="region_id" property="regionId" jdbcType="VARCHAR" />
+		<result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+		<result column="room_id" property="roomId" jdbcType="VARCHAR" />
+		<result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+		<result column="room_name" property="roomName" jdbcType="VARCHAR" />
+		<result column="have_meter" property="haveMeter" jdbcType="TINYINT" />
+		<result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+		<result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		
+		<result column="have_water" property="haveWater" jdbcType="TINYINT" />
+		<result column="water_addr" property="waterAddr" jdbcType="VARCHAR" />
+		<result column="elec_addr" property="elecAddr" jdbcType="VARCHAR" />
+		<result column="account_status" property="accountStatus" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, org_id, have_room, region_id, region_no, room_id, room_number,
+		room_name, have_meter,
+		energy_type, meter_type, meter_addr, create_time, update_time
+	</sql>
+
+	<select id="selectByEntity" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_room_meter
+		<where>
+			<if test="orgId != null">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="haveRoom != null">
+				and have_room = #{haveRoom,jdbcType=TINYINT}
+			</if>
+			<if test="regionId != null">
+				and region_id = #{regionId,jdbcType=VARCHAR}
+			</if>
+			<if test="regionNo != null">
+				and region_no = #{regionNo,jdbcType=VARCHAR}
+			</if>
+			<if test="roomId != null">
+				and room_id = #{roomId,jdbcType=VARCHAR}
+			</if>
+			<if test="roomNumber != null">
+				and room_number = #{roomNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="roomName != null">
+				and room_name = #{roomName,jdbcType=VARCHAR}
+			</if>
+			<if test="haveMeter != null">
+				and have_meter = #{haveMeter,jdbcType=TINYINT}
+			</if>
+			<if test="energyType != null">
+				and energy_type = #{energyType,jdbcType=VARCHAR}
+			</if>
+			<if test="meterType != null">
+				and meter_type = #{meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="meterAddr != null">
+				and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+			MAX(
+					CASE
+					WHEN m.energy_type = '110000' THEN
+						m.meter_addr
+					ELSE
+						''
+					END
+				) AS elec_addr,
+			MAX(
+					CASE
+					WHEN m.energy_type = '120000' THEN
+						m.meter_addr
+					ELSE
+						''
+					END
+				) AS water_addr,r.room_id,r.region_no,r.org_id,r.region_id,r.room_name,r.room_number,r.account_status
+		FROM
+			t_saas_room r
+		LEFT JOIN t_saas_meter m ON m.room_id = r.room_id
+		WHERE 1=1
+			<if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+				and r.room_number 
+				like CONCAT('%', #{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.roomId != null and paramObj.roomId != ''">
+				and r.room_id =#{paramObj.roomId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.regionId != null and paramObj.regionId != ''">
+				and r.region_id =#{paramObj.regionId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+				and r.region_no =#{paramObj.regionNo,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and r.org_id =#{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+		GROUP BY r.room_id
+		ORDER BY r.room_number ASC
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_room_meter
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insert" parameterType="cn.com.tw.saas.serv.entity.room.SaasRoomMeter">
+		insert into t_saas_room_meter (id, org_id, have_room,
+		region_id, region_no, room_id,
+		room_number, room_name, have_meter,
+		energy_type, meter_type, meter_addr,
+		create_time, update_time)
+		values (uuid_short(), #{orgId,jdbcType=VARCHAR},
+		#{haveRoom,jdbcType=TINYINT},
+		#{regionId,jdbcType=VARCHAR}, #{regionNo,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR},
+		#{roomNumber,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR},
+		#{haveMeter,jdbcType=TINYINT},
+		#{energyType,jdbcType=VARCHAR}, #{meterType,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR},
+		now(), now())
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.room.SaasRoomMeter">
+		update t_saas_room_meter
+		<set>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="haveRoom != null">
+				have_room = #{haveRoom,jdbcType=TINYINT},
+			</if>
+			<if test="regionId != null">
+				region_id = #{regionId,jdbcType=VARCHAR},
+			</if>
+			<if test="regionNo != null">
+				region_no = #{regionNo,jdbcType=VARCHAR},
+			</if>
+			<if test="roomId != null">
+				room_id = #{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomNumber != null">
+				room_number = #{roomNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="roomName != null">
+				room_name = #{roomName,jdbcType=VARCHAR},
+			</if>
+			<if test="haveMeter != null">
+				have_meter = #{haveMeter,jdbcType=TINYINT},
+			</if>
+			<if test="energyType != null">
+				energy_type = #{energyType,jdbcType=VARCHAR},
+			</if>
+			<if test="meterType != null">
+				meter_type = #{meterType,jdbcType=VARCHAR},
+			</if>
+			<if test="meterAddr != null">
+				meter_addr = #{meterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_saas_room_meter
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+</mapper>

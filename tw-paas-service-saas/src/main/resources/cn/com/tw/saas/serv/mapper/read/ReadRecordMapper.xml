@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.read.ReadRecordMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.read.ReadRecord" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="loop_type" property="loopType" jdbcType="INTEGER" />
+        <result column="value1" property="value1" jdbcType="DECIMAL" />
+        <result column="value2" property="value2" jdbcType="DECIMAL" />
+        <result column="value3" property="value3" jdbcType="DECIMAL" />
+        <result column="value4" property="value4" jdbcType="DECIMAL" />
+        <result column="value5" property="value5" jdbcType="DECIMAL" />
+        <result column="value6" property="value6" jdbcType="DECIMAL" />
+        <result column="freeze_td" property="freezeTd" jdbcType="VARCHAR" />
+        <result column="is_manual" property="isManual" jdbcType="TINYINT" />
+        <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="saveTable" property="saveTable" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, org_id, meter_addr, loop_type, value1, value2, value3, value4, value5, value6, freeze_td, 
+        is_manual, read_time, create_time
+    </sql>
+    
+    <select id="selectByAddr" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        select 
+        <include refid="Base_Column_List" />,'${saveTable}' saveTable
+        from ${saveTable}
+        where meter_addr = '${meterAddr}' and loop_type = 0
+        order by freeze_td desc
+    </select>
+    
+    <select id="selectByAddrAndTd" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        select 
+        <include refid="Base_Column_List" />,'${saveTable}' saveTable
+        from ${saveTable}
+        where meter_addr = '${meterAddr}' and freeze_td LIKE CONCAT('${freezeTd}','%') and loop_type = ${loopType}
+        order by freeze_td asc
+    </select>
+
+	<select id="selectByAddrAndTd1" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        select 
+        <include refid="Base_Column_List" />,'${saveTable}' saveTable
+        from ${saveTable}
+        where meter_addr = '${meterAddr}' and freeze_td &gt;= '${freezeTd}' and loop_type = 0 <!-- and freeze_td &lt;='${freeadTd1}' -->
+        order by freeze_td asc
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        select 
+        <include refid="Base_Column_List" />,'${saveTable}' saveTable
+        from ${saveTable}
+        where id = '${id}'
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        replace into ${saveTable} (id, org_id, meter_addr, loop_type,
+            <if test="value1 != null" >
+            value1,
+            </if><if test="value2 != null" >
+            value2,
+            </if><if test="value3 != null" >
+            value3,
+            </if><if test="value4 != null" >
+            value4,
+            </if><if test="value5 != null" >
+            value5,
+            </if><if test="value6 != null" >
+            value6,
+            </if> 
+            freeze_td, is_manual, read_time, 
+            create_time)
+        values (uuid_short(), '${orgId}', '${meterAddr}', '${loopType}',
+            <if test="value1 != null" >
+            ${value1},
+            </if><if test="value2 != null" >
+            ${value2},
+            </if><if test="value3 != null" >
+            ${value3},
+            </if><if test="value4 != null" >
+            ${value4},
+            </if><if test="value5 != null" >
+            ${value5},
+            </if><if test="value6 != null" >
+            ${value6},
+            </if> 
+            '${freezeTd}', ${isManual}, 
+            from_unixtime(${readTimeStr}/1000,'%Y-%m-%d %H:%i:%S') , now())
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadRecord" statementType="STATEMENT">
+        update ${saveTable}
+        <set >
+            <if test="orgId != null" >
+                org_id = '${orgId}',
+            </if>
+            <if test="meterAddr != null" >
+                meter_addr = '${meterAddr}',
+            </if>
+            <if test="value1 != null" >
+                value1 = ${value1},
+            </if>
+            <if test="value2 != null" >
+                value2 = ${value2},
+            </if>
+            <if test="value3 != null" >
+                value3 = ${value3},
+            </if>
+            <if test="value4 != null" >
+                value4 = ${value4},
+            </if>
+            <if test="value5 != null" >
+                value5 = ${value5},
+            </if>
+            <if test="value6 != null" >
+                value6 = ${value6},
+            </if>
+            <if test="freezeTd != null" >
+                freeze_td = '${freezeTd}',
+            </if>
+            <if test="isManual != null" >
+                is_manual = ${isManual},
+            </if>
+        </set>
+        where id = '${id}'
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" statementType="STATEMENT">
+        delete from ${saveTable}
+        where id = '${id}'
+    </delete>
+	
+	<select id="selectDemandByMeterAddr" resultMap="BaseResultMap" parameterType="java.util.Map">      
+        SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			`t_read_elec_demand`
+		WHERE
+			read_time BETWEEN #{startTime}
+		AND #{endTime}
+		AND meter_addr= #{meterAddr}
+		ORDER BY
+			read_time
+    </select>
+	
+	
+</mapper>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.audit.AuditAccountMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.audit.AuditAccount" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="sub_account_id" property="subAccountId" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="price_mode_code" property="priceModeCode" jdbcType="VARCHAR" />
+        <result column="price_id" property="priceId" jdbcType="VARCHAR" />
+        <result column="price_name" property="priceName" jdbcType="VARCHAR" />
+        <result column="alarm_id" property="alarmId" jdbcType="VARCHAR" />
+        <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="start_read" property="startRead" jdbcType="DECIMAL" />
+        <result column="audit_type" property="auditType" jdbcType="TINYINT" />
+        <result column="audit_status" property="auditStatus" jdbcType="TINYINT" />
+        <result column="audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+        <result column="audit_version" property="auditVersion" jdbcType="VARCHAR" />
+        <result column="submit_id" property="submitId" jdbcType="VARCHAR" />
+        <result column="submit_name" property="submitName" jdbcType="VARCHAR" />
+        <result column="audit_id" property="auditId" jdbcType="VARCHAR" />
+        <result column="audit_name" property="auditName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="current_time_limit_id" property="currentTimeLimitId" jdbcType="VARCHAR" />
+        <result column="power_ladder_limit_id" property="powerLadderLimitId" jdbcType="VARCHAR" />
+        <result column="power_fluctuation_limit_id" property="powerFluctuationLimitId" jdbcType="VARCHAR" />
+        <result column="power_change_limit_id" property="powerChangeLimitId" jdbcType="VARCHAR" />
+        <result column="power_max_limit_id" property="powerMaxLimitId" jdbcType="VARCHAR" />
+        
+    <result column="user_info" property="userInfo" jdbcType="VARCHAR" />
+    <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+    <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+            id, org_id, room_id, room_number, region_full_name, meter_addr, sub_account_id, energy_type, 
+        price_mode_code, price_id, price_name, alarm_id, rule_name, start_time, start_read, 
+        audit_type, audit_status, audit_opinion, audit_version, submit_id, submit_name, audit_id, 
+        audit_name, create_time, update_time,current_time_limit_id,power_ladder_limit_id,
+        power_fluctuation_limit_id,power_change_limit_id,power_max_limit_id
+ </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_audit_account
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_audit_account
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.AuditAccount" >
+	    SELECT
+			aa.*,
+			c.room_id,
+		    c.customer_realname,
+		    c.customer_mobile1
+		FROM
+			t_saas_audit_account aa
+		LEFT JOIN (
+			SELECT
+				cr.room_id,
+				c.customer_realname,
+				c.customer_mobile1
+			FROM
+				t_saas_customer_room cr
+			LEFT JOIN t_saas_customer c ON c.customer_id = cr.customer_id
+			WHERE cr.`status` != '2'
+			GROUP BY
+				cr.room_id
+		) c ON aa.room_id = c.room_id
+		WHERE
+			aa.audit_status != 3
+      <if test="subAccountId != null and subAccountId != ''" >
+        and aa.sub_account_id = #{subAccountId,jdbcType=VARCHAR}
+      </if>
+      <if test="meterAddr != null and meterAddr != ''" >
+        and aa.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="energyType != null and energyType != ''" >
+        and aa.energy_type = #{energyType,jdbcType=VARCHAR}
+      </if>
+      <if test="priceModeCode != null and priceModeCode != ''" >
+        and aa.price_mode_code = #{priceModeCode,jdbcType=VARCHAR}
+      </if>
+      <if test="priceId != null and priceId != ''" >
+        and aa.price_id = #{priceId,jdbcType=VARCHAR}
+      </if>
+      <if test="alarmId != null and alarmId != ''" >
+        and aa.alarm_id = #{alarmId,jdbcType=VARCHAR}
+      </if>
+      <if test="startTime != null" >
+        and aa.start_time = #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="roomId != null and roomId != ''" >
+        and aa.room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="startRead != null and startRead != ''" >
+        and aa.start_read = #{startRead,jdbcType=DECIMAL}
+      </if>
+      <if test="auditStatus != null" >
+        and aa.audit_status = #{auditStatus,jdbcType=TINYINT}
+      </if>
+      <if test="auditVersion != null and auditVersion != ''" >
+        and aa.audit_version = #{auditVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="auditType != null">
+		and aa.audit_type = #{auditType,jdbcType=TINYINT}
+	  </if>
+	  <if test="submitId != null and submitId != ''" >
+        and aa.submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditId != null and auditId != ''" >
+        and aa.audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        and aa.org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        SELECT
+		  <!-- GROUP_CONCAT(CONCAT(if(aa.energy_type = "110000",'电','水'),"(",aa.meter_addr,")")) AS meter_addr,
+		  GROUP_CONCAT(aa.rule_name) AS rule_name,
+		  GROUP_CONCAT(aa.price_name) AS price_name, -->
+		  CONCAT(aa.region_full_name,"-",aa.room_number) AS room_number,
+		  aa.create_time,
+		  c.user_info,
+		  aa.audit_status,
+      	  aa.room_id,
+      	  aa.audit_version,
+      	  aa.audit_type,
+      	  aa.sub_account_id,
+      	  aa.submit_name,
+          aa.audit_name
+		  <!-- GROUP_CONCAT(aa.price_mode_code) as price_mode_code -->
+		FROM
+			t_saas_audit_account aa
+		LEFT JOIN (
+		SELECT
+			cr.room_id,
+		  GROUP_CONCAT(CONCAT(c.customer_realname,"(",c.customer_mobile1,")")) user_info
+		FROM
+			t_saas_customer_room cr 
+		LEFT JOIN t_saas_customer c ON c.customer_id = cr.customer_id
+		WHERE cr.`status` != '2'
+		GROUP BY cr.room_id
+		) c ON aa.room_id = c.room_id
+        <where>
+               aa.audit_status != 3
+			<if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+				and aa.room_number = #{paramObj.roomNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.userInfo != null and paramObj.userInfo != ''">
+				and c.user_info like CONCAT('%', #{paramObj.userInfo,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.auditType != null and paramObj.auditType != ''">
+				and aa.audit_type = #{paramObj.auditType,jdbcType=TINYINT}
+			</if>
+			<if test="paramObj.auditStatus != null and paramObj.auditStatus != ''">
+				and aa.audit_status = #{paramObj.auditStatus,jdbcType=TINYINT}
+			</if>
+			<if test="paramObj.submitId != null and paramObj.submitId != ''" >
+                and aa.submit_id = #{paramObj.submitId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.auditId != null and paramObj.auditId != ''" >
+                and aa.audit_id = #{paramObj.auditId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+                and aa.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+            </if>
+			 <if test="paramObj.startTime != null and paramObj.endTime != null" >
+               and ( aa.create_time between #{paramObj.startTime,jdbcType=TIMESTAMP} and #{paramObj.endTime,jdbcType=TIMESTAMP})
+            </if>
+		</where>
+		GROUP BY aa.room_id,aa.audit_version
+		ORDER BY aa.create_time DESC
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_audit_account
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.audit.AuditAccount" >
+        insert into t_saas_audit_account (id, org_id, room_id, 
+            room_number, region_full_name, meter_addr, 
+            sub_account_id, energy_type, price_mode_code, 
+            price_id, price_name, alarm_id, 
+            rule_name, start_time, start_read, 
+            audit_type, audit_status, audit_opinion, 
+            audit_version, submit_id, submit_name, 
+            audit_id, audit_name, create_time, 
+            update_time,current_time_limit_id,power_ladder_limit_id,
+        power_fluctuation_limit_id,power_change_limit_id,power_max_limit_id)
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+            #{roomNumber,jdbcType=VARCHAR}, #{regionFullName,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR}, 
+            #{subAccountId,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{priceModeCode,jdbcType=VARCHAR}, 
+            #{priceId,jdbcType=VARCHAR}, #{priceName,jdbcType=VARCHAR}, #{alarmId,jdbcType=VARCHAR}, 
+            #{ruleName,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{startRead,jdbcType=DECIMAL}, 
+            #{auditType,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT}, #{auditOpinion,jdbcType=VARCHAR}, 
+            #{auditVersion,jdbcType=VARCHAR}, #{submitId,jdbcType=VARCHAR}, #{submitName,jdbcType=VARCHAR}, 
+            #{auditId,jdbcType=VARCHAR}, #{auditName,jdbcType=VARCHAR}, now(), now(),#{currentTimeLimitId,jdbcType=VARCHAR},
+            #{powerLadderLimitId,jdbcType=VARCHAR},#{powerFluctuationLimitId,jdbcType=VARCHAR},#{powerChangeLimitId,jdbcType=VARCHAR},#{powerMaxLimitId,jdbcType=VARCHAR}
+            )
+    </insert>
+ 
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.audit.AuditAccount" >
+        update t_saas_audit_account
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null" >
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="regionFullName != null" >
+                region_full_name = #{regionFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="meterAddr != null" >
+                meter_addr = #{meterAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountId != null" >
+                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="priceModeCode != null" >
+                price_mode_code = #{priceModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="priceId != null" >
+                price_id = #{priceId,jdbcType=VARCHAR},
+            </if>
+            <if test="priceName != null" >
+                price_name = #{priceName,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmId != null" >
+                alarm_id = #{alarmId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleName != null" >
+                rule_name = #{ruleName,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startRead != null" >
+                start_read = #{startRead,jdbcType=DECIMAL},
+            </if>
+            <if test="auditType != null" >
+                audit_type = #{auditType,jdbcType=TINYINT},
+            </if>
+            <if test="auditStatus != null" >
+                audit_status = #{auditStatus,jdbcType=TINYINT},
+            </if>
+            <if test="auditOpinion != null" >
+                audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="auditVersion != null" >
+                audit_version = #{auditVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="submitId != null" >
+                submit_id = #{submitId,jdbcType=VARCHAR},
+            </if>
+            <if test="submitName != null" >
+                submit_name = #{submitName,jdbcType=VARCHAR},
+            </if>
+            <if test="auditId != null" >
+                audit_id = #{auditId,jdbcType=VARCHAR},
+            </if>
+            <if test="auditName != null" >
+                audit_name = #{auditName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="currentTimeLimitId != null" >
+                current_time_limit_id = #{currentTimeLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerLadderLimitId != null" >
+                power_ladder_limit_id = #{powerLadderLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerFluctuationLimitId != null" >
+                power_fluctuation_limit_id = #{powerFluctuationLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerChangeLimitId != null" >
+                power_change_limit_id = #{powerChangeLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerMaxLimitId != null" >
+                power_max_limit_id = #{powerMaxLimitId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

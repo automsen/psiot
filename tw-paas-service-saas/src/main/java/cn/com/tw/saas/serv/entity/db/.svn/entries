@@ -1,43 +1,0 @@
-10
-
-dir
-4750
-http://192.168.20.101/svn/tw/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db
-http://192.168.20.101/svn/tw
-
-
-
-2018-10-16T18:37:39.900891Z
-4675
-guozihao
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-99f458e5-3059-4e41-82f1-6ed59f488283
-
-rule
-dir
-
-base
-dir
-
-read
-dir
-
-cust
-dir
-
-sys
-dir
-

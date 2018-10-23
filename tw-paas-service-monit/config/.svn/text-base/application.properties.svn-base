@@ -1,2 +1,0 @@
-
-#feign.client.url.queue=http://localhost:8081/

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail
+END
+DeviceGroupGetDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail/DeviceGroupGetDetail.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail/package-info.java
+END
+DeviceGroupGetDetailResultData.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail/DeviceGroupGetDetailResultData.java
+END
+DeviceGroupGetDetailResultDataDevice.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail/DeviceGroupGetDetailResultDataDevice.java
+END
+DeviceGroupGetDetailResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/getdetail/DeviceGroupGetDetailResult.java
+END

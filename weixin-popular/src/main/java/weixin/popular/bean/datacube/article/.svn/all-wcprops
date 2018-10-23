@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article
+END
+ArticlesummaryResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/ArticlesummaryResult.java
+END
+UsershareResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/UsershareResult.java
+END
+Articlesummary.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/Articlesummary.java
+END
+Usershare.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/Usershare.java
+END
+Details.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/Details.java
+END
+ArticletotalResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/ArticletotalResult.java
+END
+Articletotal.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/Articletotal.java
+END
+UserreadResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/UserreadResult.java
+END
+Userread.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/datacube/article/Userread.java
+END

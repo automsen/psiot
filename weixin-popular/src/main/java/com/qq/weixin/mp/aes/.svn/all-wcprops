@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes
+END
+ByteGroup.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/ByteGroup.java
+END
+AesException.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/AesException.java
+END
+PKCS7Encoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/PKCS7Encoder.java
+END
+XMLParse.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/XMLParse.java
+END
+SHA1.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/SHA1.java
+END
+WXBizMsgCrypt.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/com/qq/weixin/mp/aes/WXBizMsgCrypt.java
+END

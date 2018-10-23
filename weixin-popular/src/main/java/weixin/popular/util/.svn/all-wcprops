@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util
+END
+SignatureUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/SignatureUtil.java
+END
+EmojiUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/EmojiUtil.java
+END
+JsonUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/JsonUtil.java
+END
+PayUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/PayUtil.java
+END
+StringUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/StringUtils.java
+END
+JsUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/JsUtil.java
+END
+MapUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/MapUtil.java
+END
+XMLConverUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/XMLConverUtil.java
+END
+StreamUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/StreamUtils.java
+END
+WxaUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/util/WxaUtil.java
+END

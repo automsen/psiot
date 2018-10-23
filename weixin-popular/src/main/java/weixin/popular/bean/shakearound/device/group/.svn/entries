@@ -1,0 +1,83 @@
+10
+
+dir
+4757
+http://192.168.20.101/svn/tw/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group
+http://192.168.20.101/svn/tw
+
+
+
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+99f458e5-3059-4e41-82f1-6ed59f488283
+
+delete
+dir
+
+deletedevice
+dir
+
+getdetail
+dir
+
+update
+dir
+
+add
+dir
+
+adddevice
+dir
+
+GroupInfo.java
+file
+
+
+
+
+2018-10-23T17:51:53.367666Z
+9dc8628a083918a43ba6f69dfeff0be9
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1063
+
+getlist
+dir
+

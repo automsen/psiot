@@ -1,0 +1,199 @@
+10
+
+dir
+4757
+http://192.168.20.101/svn/tw/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean
+http://192.168.20.101/svn/tw
+
+
+
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+99f458e5-3059-4e41-82f1-6ed59f488283
+
+media
+dir
+
+token
+dir
+
+wxopen
+dir
+
+paymch
+dir
+
+shorturl
+dir
+
+ticket
+dir
+
+message
+dir
+
+callbackip
+dir
+
+poi
+dir
+
+BaseResult.java
+file
+
+
+
+
+2018-10-23T17:51:54.613666Z
+5c482c9254a67bd87b3e4a55eddf98ba
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+776
+
+customservice
+dir
+
+material
+dir
+
+wxa
+dir
+
+open
+dir
+
+component
+dir
+
+comment
+dir
+
+sns
+dir
+
+menu
+dir
+
+shakearound
+dir
+
+xmlmessage
+dir
+
+AdaptorCDATA.java
+file
+
+
+
+
+2018-10-23T17:51:54.613666Z
+1261778e7cdbce6f120d713e85a98e63
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+392
+
+datacube
+dir
+
+DynamicField.java
+file
+
+
+
+
+2018-10-23T17:51:54.613666Z
+f2dfd36377d3a45099a2bc728e9b5a90
+2018-05-24T06:29:23.452089Z
+1659
+tanglongsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+309
+
+card
+dir
+
+qrcode
+dir
+
+user
+dir
+

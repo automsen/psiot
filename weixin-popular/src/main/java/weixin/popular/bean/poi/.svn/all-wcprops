@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi
+END
+PoiListResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/PoiListResult.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/package-info.java
+END
+BaseInfoResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/BaseInfoResult.java
+END
+BaseInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/BaseInfo.java
+END
+PoiResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/PoiResult.java
+END
+Poi.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/Poi.java
+END
+CategoryListResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/CategoryListResult.java
+END
+Photo.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/Photo.java
+END
+BusinessResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/BusinessResult.java
+END
+Business.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/poi/Business.java
+END

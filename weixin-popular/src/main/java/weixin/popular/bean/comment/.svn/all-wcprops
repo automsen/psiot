@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment
+END
+Comment.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/Comment.java
+END
+Params.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/Params.java
+END
+ReplyAdd.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/ReplyAdd.java
+END
+Reply.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/Reply.java
+END
+CommentListResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/CommentListResult.java
+END
+CommentList.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/comment/CommentList.java
+END

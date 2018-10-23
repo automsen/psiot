@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message
+END
+AroundBeacon.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/AroundBeacon.java
+END
+GetIndustryResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/GetIndustryResult.java
+END
+Industry.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/Industry.java
+END
+CurrentAutoreplyInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/CurrentAutoreplyInfo.java
+END
+Article.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/Article.java
+END
+CopyrightCheckResultItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/CopyrightCheckResultItem.java
+END
+CopyrightCheckResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/CopyrightCheckResult.java
+END
+PrivateTemplate.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/PrivateTemplate.java
+END
+EventMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/EventMessage.java
+END
+ChosenBeacon.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/ChosenBeacon.java
+END
+Uploadvideo.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/Uploadvideo.java
+END
+ApiAddTemplateResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/ApiAddTemplateResult.java
+END
+MessageSendResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/MessageSendResult.java
+END
+GetAllPrivateTemplateResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/message/GetAllPrivateTemplateResult.java
+END

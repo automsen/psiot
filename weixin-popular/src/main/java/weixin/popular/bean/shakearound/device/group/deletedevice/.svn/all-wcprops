@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/deletedevice
+END
+DeviceGroupDeleteDevice.java
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/deletedevice/DeviceGroupDeleteDevice.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/deletedevice/package-info.java
+END
+DeviceGroupDeleteDeviceResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/device/group/deletedevice/DeviceGroupDeleteDeviceResult.java
+END

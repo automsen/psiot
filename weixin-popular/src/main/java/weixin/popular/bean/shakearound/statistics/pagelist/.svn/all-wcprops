@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist
+END
+StatisticsPageListResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist/StatisticsPageListResult.java
+END
+StatisticsPageList.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist/StatisticsPageList.java
+END
+package-info.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist/package-info.java
+END
+StatisticsPageListResultDataPage.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist/StatisticsPageListResultDataPage.java
+END
+StatisticsPageListResultData.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/tw/!svn/ver/1659/projects/plat/trunk/weixin-popular/src/main/java/weixin/popular/bean/shakearound/statistics/pagelist/StatisticsPageListResultData.java
+END

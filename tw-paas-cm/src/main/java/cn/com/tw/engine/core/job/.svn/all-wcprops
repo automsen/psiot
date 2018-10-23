@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/tw/!svn/ver/4285/projects/plat/trunk/tw-paas-cm/src/main/java/cn/com/tw/engine/core/job
+END
+CollectJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tw/!svn/ver/4285/projects/plat/trunk/tw-paas-cm/src/main/java/cn/com/tw/engine/core/job/CollectJob.java
+END
+MonthCollectJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/4285/projects/plat/trunk/tw-paas-cm/src/main/java/cn/com/tw/engine/core/job/MonthCollectJob.java
+END
+DayCollectJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/4285/projects/plat/trunk/tw-paas-cm/src/main/java/cn/com/tw/engine/core/job/DayCollectJob.java
+END

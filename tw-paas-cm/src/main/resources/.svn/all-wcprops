@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/tw/!svn/ver/4487/projects/plat/trunk/tw-paas-cm/src/main/resources
+END
+application-prod.properties
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/tw/!svn/ver/4444/projects/plat/trunk/tw-paas-cm/src/main/resources/application-prod.properties
+END
+pubring.gpg
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/tw/!svn/ver/38/projects/plat/trunk/tw-paas-cm/src/main/resources/pubring.gpg
+END
+application-dev.properties
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/tw/!svn/ver/4308/projects/plat/trunk/tw-paas-cm/src/main/resources/application-dev.properties
+END
+application.properties
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/tw/!svn/ver/4204/projects/plat/trunk/tw-paas-cm/src/main/resources/application.properties
+END

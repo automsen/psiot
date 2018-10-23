@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>paas </title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../css/welcome.css"/>
+	<link rel="stylesheet" href="../../css/index.css" media="all"/>
+	<link rel="stylesheet" href="../../css/font-awesome.min.css"/>
+	<script src="../../js/layui/layui.js" charset="utf-8"></script>
+	<script src="main_en.js"></script>
+	
+</head>
+ <body> 
+<!--tab区域-->
+  <div class="tab-btn"> 
+   <div class="tab-btn-left"> 
+    <div class="first-btn left this" id="elecBtn"> 
+     <a href="#">elec</a> 
+    </div> 
+    <div class="first-btn left" id="waterBtn"> 
+     <a href="#">water</a> 
+    </div> 
+    <div class="first-btn left" id="gasBtn"> 
+     <a href="#">gas</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">hot</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">gateway</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">smoke detector</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">gas detector</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">location</a> 
+    </div> 
+    <div class="first-btn left unusable"> 
+     <a href="#">others</a> 
+    </div> 
+    <div class="clearfix"></div> 
+   </div> 
+  </div> 
+  <div class="s-main"> 
+   <div class=""> 
+    <!--表单区域--> 
+    <form id="s-form"> 
+     <div class="row-one"> 
+      <label class="left">Organization：</label> 
+      <div class="left form-text" id="orgName">
+        Demo
+      </div> 
+      <label class="left">Connected Qty.：</label> 
+      <div class="left form-text" id="totalOrgEquipment">
+        -- 
+      </div> 
+      <label class="left">Connected time：</label> 
+      <div class="left form-text" id="orgTime">
+        2018-01-24 10:41:42 
+      </div> 
+      <label class="left"></label> 
+      <div class="left form-text" id="btnDiv"></div> 
+      <div class="clearfix"></div> 
+     </div> 
+     <div class="row-one"> 
+      <label class="left">Meter's name：</label> 
+      <select class="left s-select" id="meterSelect" > </select> 
+      <label class="left">Meter's number：</label> 
+      <div class="left form-text meterInfo" id="commAddr"> 
+      </div> 
+      <label class="left">Type：</label> 
+      <div class="left form-text meterInfo" id="modelName"> 
+      </div> 
+      <label class="left">Method：</label> 
+      <div class="left form-text meterInfo" id="netType"> 
+      </div> 
+      <div class="clearfix"></div> 
+     </div> 
+     <div class="row-one elec"> 
+      <label class="left">Elec Type：</label> 
+      <div class="left form-text meterInfo" id="elecMeterType"> 
+      </div> 
+      <label class="left">VT Ratio：</label> 
+      <div class="left form-text meterInfo" id="voltageRatio"> 
+      </div> 
+      <label class="left">CT Ratio：</label> 
+      <div class="left form-text meterInfo" id="currentRatio"> 
+      </div> 
+      <label class="left"></label> 
+      <div class="left form-text"> 
+      </div> 
+      <div class="clearfix"></div> 
+     </div> 
+     <div class="row-one"> 
+      <label class="left">On-off control：</label> 
+      <div class="left form-text meterInfo" id="isRemoteControl"> 
+      </div> 
+      <label class="left">On-off state：</label> 
+      <div class="left form-text readValue" id="isOff"> 
+       <!-- <button type="button" class="btn-off">断开</button> --> 
+      </div> 
+      <label class="left">Meter's prepayment：</label> 
+      <div class="left form-text meterInfo" id="isCostControl"> 
+      </div> 
+      <label class="left">Surplus amount：</label> 
+      <div class="left form-text readValue" id="meterMoney"> 
+      </div> 
+      <div class="clearfix"></div> 
+     </div> 
+    </form> 
+    <div class="elec"> 
+     <!--三色表区域--> 
+     <div class="con-color"> 
+      <div class="con-purple left"> 
+       <div class="con-purple-one">
+       Combined active power energy(KW·h) 
+       </div> 
+       <div class="con-purple-two readTime" id="totalActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-three readValue" id="totalActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-four">
+        tip： 
+        <span id="totalActiveE1" class="readValue">--</span> &nbsp; &nbsp;peak： 
+        <span id="totalActiveE2" class="readValue">--</span> &nbsp; &nbsp;flat： 
+        <span id="totalActiveE3" class="readValue">--</span> &nbsp; &nbsp;valley： 
+        <span id="totalActiveE4" class="readValue">--</span> 
+       </div> 
+      </div> 
+      <div class="con-purple left con-orange"> 
+       <div class="con-purple-one">
+       Positive active power energy(KW·h) 
+       </div> 
+       <div class="con-purple-two readTime" id="positiveActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-three readValue" id="positiveActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-four">
+        tip： 
+        <span id="positiveActiveE1" class="readValue">--</span> &nbsp; &nbsp;peak： 
+        <span id="positiveActiveE2" class="readValue">--</span> &nbsp; &nbsp;flat： 
+        <span id="positiveActiveE3" class="readValue">--</span> &nbsp; &nbsp;valley： 
+        <span id="positiveActiveE4" class="readValue">--</span> 
+       </div> 
+      </div> 
+      <div class="con-purple left con-red"> 
+       <div class="con-purple-one">
+       Reverse active power energy(KW·h) 
+       </div> 
+       <div class="con-purple-two readTime" id="reverseActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-three readValue" id="reverseActiveE">
+         -- 
+       </div> 
+       <div class="con-purple-four">
+        tip： 
+        <span id="reverseActiveE1" class="readValue">--</span> &nbsp; &nbsp;peak： 
+        <span id="reverseActiveE2" class="readValue">--</span> &nbsp; &nbsp;flat： 
+        <span id="reverseActiveE3" class="readValue">--</span> &nbsp; &nbsp;valley： 
+        <span id="reverseActiveE4" class="readValue">--</span> 
+       </div> 
+      </div> 
+      <div class="clearfix"></div> 
+     </div> 
+     <!--三相区域--> 
+     <div class="con-sx"> 
+      <div class="con-sx-time"> 
+       <p class="left">Reading time：<span id="activeP" class="readTime">--</span></p> 
+       <div class="circle-purple left"></div> 
+       <p class="left">A phase</p> 
+       <div class="circle-orange left"></div> 
+       <p class="left">B phase</p> 
+       <div class="circle-red left"></div> 
+       <p class="left">C phase</p> 
+       <div class="clearfix"></div> 
+      </div> 
+      <div class="con-sx-meter"> 
+       <div class="meter-one left"> 
+        <h2>Active Power（kW）</h2> 
+        <div class="meter-one2" style="font-size: 24px">
+          Total： 
+         <span id="activeP" class="readValue">--</span> 
+        </div> 
+        <div class="meter-one2">
+          A phase： 
+         <span id="activePa" class="readValue">--</span> &nbsp; &nbsp;B phase： 
+         <span id="activePb" class="readValue">--</span> &nbsp; &nbsp;C phase： 
+         <span id="activePc" class="readValue">--</span> 
+        </div> 
+       </div> 
+       <div class="meter-one left"> 
+        <h2>Reactive Power（kVar）</h2> 
+        <div class="meter-one2" style="font-size: 24px">
+          Total： 
+         <span id="reactiveP" class="readValue">--</span> 
+        </div> 
+        <div class="meter-one2">
+          A phase： 
+         <span id="reactivePa" class="readValue">--</span> &nbsp; &nbsp;B phase： 
+         <span id="reactivePb" class="readValue">--</span> &nbsp; &nbsp;C phase： 
+         <span id="reactivePc" class="readValue">--</span> 
+        </div> 
+       </div> 
+       <div class="meter-one left"> 
+        <h2>Apparent Power（kVA）</h2> 
+        <div class="meter-one2" style="font-size: 24px">
+          Total： 
+         <span class="readValue">--</span> 
+        </div> 
+        <div class="meter-one2">
+          A phase： 
+         <span class="readValue">--</span> &nbsp; &nbsp;B phase： 
+         <span class="readValue">--</span> &nbsp; &nbsp;C phase： 
+         <span class="readValue">--</span> 
+        </div> 
+       </div> 
+       <div class="meter-one left"> 
+        <h2>Power Factor</h2> 
+        <div class="meter-one2" style="font-size: 24px">
+          Total： 
+         <span id="PF" class="readValue">--</span> 
+        </div> 
+        <div class="meter-one2">
+          A phase： 
+         <span id="PFa" class="readValue">--</span> &nbsp; &nbsp;B phase： 
+         <span id="PFb" class="readValue">--</span> &nbsp; &nbsp;C phase： 
+         <span id="PFc" class="readValue">--</span> 
+        </div> 
+       </div> 
+       <div class="clearfix"></div> 
+      </div> 
+     </div> 
+     <!--表格--> 
+     <table class="layui-table t-layui-table  s-table" t-options=""> 
+      <colgroup> 
+       <col width="20%" /> 
+       <col width="20%" /> 
+       <col width="20%" /> 
+       <col width="20%" /> 
+       <col width="20%" /> 
+      </colgroup> 
+      <thead> 
+       <tr> 
+        <th>Data Item</th> 
+        <th>A phase</th> 
+        <th>B phase</th> 
+        <th>C phase</th> 
+        <th>Reading time</th> 
+       </tr> 
+      </thead> 
+      <tbody> 
+       <tr> 
+        <td>Voltage（V）</td> 
+        <td id="Ua" class="readValue">--</td> 
+        <td id="Ub" class="readValue">--</td> 
+        <td id="Uc" class="readValue">--</td> 
+        <td id="Ua" class="readTime">--</td> 
+       </tr> 
+       <tr> 
+        <td>Current（A）</td> 
+        <td id="Ia" class="readValue">--</td> 
+        <td id="Ib" class="readValue">--</td> 
+        <td id="Ic" class="readValue">--</td> 
+        <td id="Ia" class="readTime">--</td> 
+       </tr> 
+      </tbody> 
+     </table> 
+    </div> 
+    <div class="water">
+     <div class="con-color"> 
+      <div class="con-purple left " style="visibility:hidden" > 
+<!-- 占位 -->
+      </div>
+      <div class="con-purple left"> 
+       <div class="con-purple-one" >
+         Current value(m³) 
+       </div> 
+        
+       <div class="con-purple-three readValue" id="waterFlow">
+         -- 
+       </div> 
+       <div class="con-purple-two readTime" id="waterFlow">
+         -- 
+       </div>
+      </div> 
+     </div>
+    </div>
+    <div class="gas">
+     <div class="con-color"> 
+     <div class="con-purple left " style="visibility:hidden" > 
+<!-- 占位 -->
+      </div> 
+      <div class="con-purple left"> 
+       <div class="con-purple-one" >
+         Current value(m³) 
+       </div> 
+        
+       <div class="con-purple-three readValue" id="waterFlow">
+         -- 
+       </div> 
+       <div class="con-purple-two readTime" id="waterFlow">
+         -- 
+       </div>
+      </div> 
+     </div>
+    </div>
+   </div> 
+  </div>
+ </body>
+</html>

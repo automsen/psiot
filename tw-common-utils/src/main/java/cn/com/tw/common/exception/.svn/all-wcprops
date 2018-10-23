@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/exception
+END
+RequestParamValidException.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/exception/RequestParamValidException.java
+END
+BusinessException.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/exception/BusinessException.java
+END

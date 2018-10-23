@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/web/anno/auth
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/web/anno/auth/Role.java
+END
+Permission.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/32/projects/plat/trunk/tw-common-utils/src/main/java/cn/com/tw/common/web/anno/auth/Permission.java
+END

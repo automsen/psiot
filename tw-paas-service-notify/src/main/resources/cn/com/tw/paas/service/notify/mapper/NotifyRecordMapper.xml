@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.service.notify.mapper.NotifyRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.service.notify.entity.NotifyRecord" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="plat_type" property="platType" jdbcType="TINYINT" />
+    <result column="notify_bus_type" property="notifyBusType" jdbcType="TINYINT" />
+    <result column="notify_type" property="notifyType" jdbcType="TINYINT" />
+    <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR" />
+    <result column="notify_to_no" property="notifyToNo" jdbcType="VARCHAR" />
+    <result column="notify_bus_no" property="notifyBusNo" jdbcType="VARCHAR" />
+    <result column="notify_to_user_id" property="notifyToUserId" jdbcType="VARCHAR" />
+    <result column="notify_to_user_name" property="notifyToUserName" jdbcType="VARCHAR" />
+    <result column="notify_content" property="notifyContent" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="ext_field1" property="extField1" jdbcType="VARCHAR" />
+    <result column="ext_field2" property="extField2" jdbcType="VARCHAR" />
+    <result column="ext_field3" property="extField3" jdbcType="VARCHAR" />
+    <result column="ext_field4" property="extField4" jdbcType="VARCHAR" />
+    <result column="ext_field5" property="extField5" jdbcType="VARCHAR" />
+    <result column="notify_level" property="notifyLevel" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="notify_times" property="notifyTimes" jdbcType="TINYINT" />
+    <result column="limit_notify_times" property="limitNotifyTimes" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_notify_time" property="lastNotifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_first" property="isFirst" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uuid, plat_type, notify_bus_type, notify_type, notify_url, notify_to_no, notify_bus_no, 
+    notify_to_user_id, notify_to_user_name, notify_content, org_id, ext_field1, ext_field2, ext_field3, 
+    ext_field4, ext_field5, notify_level, status, notify_times, limit_notify_times, create_time, 
+    last_notify_time, is_first
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_notify_record
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_sys_notify_record
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="clearNotifyRecord" parameterType="java.lang.String" >
+    delete from t_sys_notify_record
+    where (`status` = '111' OR `status` = '000') AND notify_type = #{notifyType,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="cn.com.tw.paas.service.notify.entity.NotifyRecord" >
+    insert into t_sys_notify_record (uuid, plat_type, notify_bus_type, 
+      notify_type, notify_url, notify_to_no, 
+      notify_bus_no, notify_to_user_id, notify_to_user_name, notify_content,
+      org_id, ext_field1, ext_field2, 
+      ext_field3, ext_field4, ext_field5, 
+      notify_level, status, notify_times, 
+      limit_notify_times, create_time, last_notify_time, 
+      is_first)
+    values (#{uuid,jdbcType=VARCHAR}, #{platType,jdbcType=TINYINT}, #{notifyBusType,jdbcType=TINYINT}, 
+      #{notifyType,jdbcType=TINYINT}, #{notifyUrl,jdbcType=VARCHAR}, #{notifyToNo,jdbcType=VARCHAR}, 
+      #{notifyBusNo,jdbcType=VARCHAR}, #{notifyToUserId,jdbcType=VARCHAR}, #{notifyToUserName,jdbcType=VARCHAR}, #{notifyContent,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR}, #{extField1,jdbcType=VARCHAR}, #{extField2,jdbcType=VARCHAR}, 
+      #{extField3,jdbcType=VARCHAR}, #{extField4,jdbcType=VARCHAR}, #{extField5,jdbcType=VARCHAR}, 
+      #{notifyLevel,jdbcType=TINYINT}, #{status,jdbcType=VARCHAR}, #{notifyTimes,jdbcType=TINYINT}, 
+      #{limitNotifyTimes,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastNotifyTime,jdbcType=TIMESTAMP}, 
+      #{isFirst,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.service.notify.entity.NotifyRecord" >
+    insert into t_sys_notify_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="platType != null" >
+        plat_type,
+      </if>
+      <if test="notifyBusType != null" >
+        notify_bus_type,
+      </if>
+      <if test="notifyType != null" >
+        notify_type,
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url,
+      </if>
+      <if test="notifyToNo != null" >
+        notify_to_no,
+      </if>
+      <if test="notifyBusNo != null" >
+        notify_bus_no,
+      </if>
+      <if test="notifyToUserId != null" >
+        notify_to_user_id,
+      </if>
+      <if test="notifyToUserName != null" >
+        notify_to_user_name,
+      </if>
+      <if test="notifyContent != null" >
+        notify_content,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="extField1 != null" >
+        ext_field1,
+      </if>
+      <if test="extField2 != null" >
+        ext_field2,
+      </if>
+      <if test="extField3 != null" >
+        ext_field3,
+      </if>
+      <if test="extField4 != null" >
+        ext_field4,
+      </if>
+      <if test="extField5 != null" >
+        ext_field5,
+      </if>
+      <if test="notifyLevel != null" >
+        notify_level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="notifyTimes != null" >
+        notify_times,
+      </if>
+      <if test="limitNotifyTimes != null" >
+        limit_notify_times,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastNotifyTime != null" >
+        last_notify_time,
+      </if>
+      <if test="isFirst != null" >
+        is_first,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="platType != null" >
+        #{platType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyBusType != null" >
+        #{notifyBusType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyType != null" >
+        #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyUrl != null" >
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToNo != null" >
+        #{notifyToNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusNo != null" >
+        #{notifyBusNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToUserId != null" >
+        #{notifyToUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToUserName != null" >
+        #{notifyToUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyContent != null" >
+        #{notifyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="extField1 != null" >
+        #{extField1,jdbcType=VARCHAR},
+      </if>
+      <if test="extField2 != null" >
+        #{extField2,jdbcType=VARCHAR},
+      </if>
+      <if test="extField3 != null" >
+        #{extField3,jdbcType=VARCHAR},
+      </if>
+      <if test="extField4 != null" >
+        #{extField4,jdbcType=VARCHAR},
+      </if>
+      <if test="extField5 != null" >
+        #{extField5,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyLevel != null" >
+        #{notifyLevel,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        #{notifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="limitNotifyTimes != null" >
+        #{limitNotifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNotifyTime != null" >
+        #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirst != null" >
+        #{isFirst,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.service.notify.entity.NotifyRecord" >
+    update t_sys_notify_record
+    <set >
+      <if test="platType != null" >
+        plat_type = #{platType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyBusType != null" >
+        notify_bus_type = #{notifyBusType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyType != null" >
+        notify_type = #{notifyType,jdbcType=TINYINT},
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToNo != null" >
+        notify_to_no = #{notifyToNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusNo != null" >
+        notify_bus_no = #{notifyBusNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToUserId != null" >
+        notify_to_user_id = #{notifyToUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyToUserName != null" >
+        notify_to_user_name = #{notifyToUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyContent != null" >
+        notify_content = #{notifyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="extField1 != null" >
+        ext_field1 = #{extField1,jdbcType=VARCHAR},
+      </if>
+      <if test="extField2 != null" >
+        ext_field2 = #{extField2,jdbcType=VARCHAR},
+      </if>
+      <if test="extField3 != null" >
+        ext_field3 = #{extField3,jdbcType=VARCHAR},
+      </if>
+      <if test="extField4 != null" >
+        ext_field4 = #{extField4,jdbcType=VARCHAR},
+      </if>
+      <if test="extField5 != null" >
+        ext_field5 = #{extField5,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyLevel != null" >
+        notify_level = #{notifyLevel,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        notify_times = #{notifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="limitNotifyTimes != null" >
+        limit_notify_times = #{limitNotifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNotifyTime != null" >
+        last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirst != null" >
+        is_first = #{isFirst,jdbcType=TINYINT},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.service.notify.entity.NotifyRecord" >
+    update t_sys_notify_record
+    set plat_type = #{platType,jdbcType=TINYINT},
+      notify_bus_type = #{notifyBusType,jdbcType=TINYINT},
+      notify_type = #{notifyType,jdbcType=TINYINT},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      notify_to_no = #{notifyToNo,jdbcType=VARCHAR},
+      notify_bus_no = #{notifyBusNo,jdbcType=VARCHAR},
+      notify_to_user_id = #{notifyToUserId,jdbcType=VARCHAR},
+      notify_to_user_name = #{notifyToUserName,jdbcType=VARCHAR},
+      notify_content = #{notifyContent,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      ext_field1 = #{extField1,jdbcType=VARCHAR},
+      ext_field2 = #{extField2,jdbcType=VARCHAR},
+      ext_field3 = #{extField3,jdbcType=VARCHAR},
+      ext_field4 = #{extField4,jdbcType=VARCHAR},
+      ext_field5 = #{extField5,jdbcType=VARCHAR},
+      notify_level = #{notifyLevel,jdbcType=TINYINT},
+      status = #{status,jdbcType=VARCHAR},
+      notify_times = #{notifyTimes,jdbcType=TINYINT},
+      limit_notify_times = #{limitNotifyTimes,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      is_first = #{isFirst,jdbcType=TINYINT}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPage" parameterType="cn.com.tw.common.web.entity.page.Page" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_notify_record
+		<where>
+			1=1 and plat_type = #{paramObj.platType, jdbcType=VARCHAR} and org_id = #{paramObj.orgId, jdbcType=VARCHAR}
+			<if test="paramObj.status != null and paramObj.status != ''">
+				and STATUS = #{paramObj.status,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.notifyBusType != null and paramObj.notifyBusType != ''">
+				and notify_bus_type = #{paramObj.notifyBusType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.notifyType != null and paramObj.notifyType != ''">
+				and notify_type = #{paramObj.notifyType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.notifyToNo != null and paramObj.notifyToNo != ''">
+				and notify_to_no = #{paramObj.notifyToNo,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and create_time &gt;= #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and create_time &lt;= #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by create_time desc
+  </select>
+  
+   <select id="queryListNotify" parameterType="cn.com.tw.common.web.entity.page.Page" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_notify_record
+		<where>
+			1=1
+			<if test="paramObj.status != null and paramObj.status != ''">
+				and STATUS in
+				<foreach collection="paramObj.status" index="index" item="item"
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+			</if>
+			<if test="paramObj.times != null and paramObj.times != ''">
+				and notify_times in
+				<foreach collection="paramObj.times" index="index" item="item"
+					open="(" separator="," close=")">
+					${item}
+				</foreach>
+			</if>
+		</where>
+		
+		order by create_time asc
+  </select>
+</mapper>

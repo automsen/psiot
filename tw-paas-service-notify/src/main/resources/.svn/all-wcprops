@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/tw/!svn/ver/4735/projects/psaas/trunk/tw-paas-service-notify/src/main/resources
+END
+application-prod.properties
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tw/!svn/ver/4209/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/application-prod.properties
+END
+application-local.properties
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/4734/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/application-local.properties
+END
+application-dev.properties
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/4209/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/application-dev.properties
+END
+application.properties
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/tw/!svn/ver/4209/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/application.properties
+END

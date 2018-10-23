@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/tw/!svn/ver/4117/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils
+END
+RegCacheService.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/4117/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/RegCacheService.java
+END
+TaskUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/28/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/TaskUtils.java
+END
+CRCCheck.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/2947/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/CRCCheck.java
+END
+MsgAysncService.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/4009/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/MsgAysncService.java
+END
+EngineUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/28/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/EngineUtils.java
+END
+DataUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/28/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/DataUtils.java
+END
+ResponseMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/28/projects/plat/trunk/tw-common-engine/src/main/java/cn/com/tw/engine/core/utils/ResponseMap.java
+END

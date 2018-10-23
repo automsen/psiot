@@ -76,4 +76,4 @@ logging:
   
 filter:
   exclude:
-    path: getSysManageLoginCode,error,/admin/token,/auth,/refresh,/selceTotalDevice,/export,/callback,/terminal_search,/mobileApi
+    path: getSysManageLoginCode,error,/admin/token,/auth,/refresh,/selceTotalDevice,/export,/callback,/terminal_search

@@ -1,0 +1,8 @@
+spring.application.name:monitor
+server.port:9001
+spring.boot.admin.url: http://localhost:9001
+management.security.enabled: false
+eureka.instance.leaseRenewalIntervalInSeconds: 10
+eureka.instance.prefer-ip-address=true
+eureka.client.registryFetchIntervalSeconds: 5
+eureka.client.serviceUrl.defaultZone: http://192.168.20.103:2000/eureka/

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/4735/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/cn/com/tw/paas/service/notify/mapper
+END
+TaskMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/4734/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/cn/com/tw/paas/service/notify/mapper/TaskMapper.xml
+END
+NotifyRecordMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tw/!svn/ver/4735/projects/psaas/trunk/tw-paas-service-notify/src/main/resources/cn/com/tw/paas/service/notify/mapper/NotifyRecordMapper.xml
+END

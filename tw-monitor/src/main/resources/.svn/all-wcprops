@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/tw/!svn/ver/3050/projects/plat/trunk/tw-monitor/src/main/resources
+END
+application-prod.properties
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/tw/!svn/ver/3050/projects/plat/trunk/tw-monitor/src/main/resources/application-prod.properties
+END
+application-dev.properties
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/tw/!svn/ver/3049/projects/plat/trunk/tw-monitor/src/main/resources/application-dev.properties
+END
+application.properties
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/tw/!svn/ver/1964/projects/plat/trunk/tw-monitor/src/main/resources/application.properties
+END

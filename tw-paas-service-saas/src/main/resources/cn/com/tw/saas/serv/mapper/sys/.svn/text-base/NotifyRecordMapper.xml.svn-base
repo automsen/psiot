@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.sys.NotifyRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.sys.NotifyRecord" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="notify_no" property="notifyNo" jdbcType="VARCHAR" />
+    <result column="notify_business_no" property="notifyBusinessNo" jdbcType="VARCHAR" />
+    <result column="notify_user_id" property="notifyUserId" jdbcType="VARCHAR" />
+    <result column="notify_level" property="notifyLevel" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="notify_type" property="notifyType" jdbcType="VARCHAR" />
+    <result column="notify_times" property="notifyTimes" jdbcType="TINYINT" />
+    <result column="limit_notify_times" property="limitNotifyTimes" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_notify_time" property="lastNotifyTime" jdbcType="TIMESTAMP" />
+    <result column="is_first" property="isFirst" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uuid, url, notify_no, notify_business_no, notify_user_id, notify_level, status, notify_type, 
+    notify_times, limit_notify_times, create_time, last_notify_time, is_first
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_notify_record
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_sys_notify_record
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.sys.NotifyRecord" >
+    insert into t_sys_notify_record (uuid, url, notify_no, 
+      notify_business_no, notify_user_id, notify_level, 
+      status, notify_type, notify_times, 
+      limit_notify_times, create_time, last_notify_time, 
+      is_first)
+    values (#{uuid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{notifyNo,jdbcType=VARCHAR}, 
+      #{notifyBusinessNo,jdbcType=VARCHAR}, #{notifyUserId,jdbcType=VARCHAR}, #{notifyLevel,jdbcType=TINYINT}, 
+      #{status,jdbcType=VARCHAR}, #{notifyType,jdbcType=VARCHAR}, #{notifyTimes,jdbcType=TINYINT}, 
+      #{limitNotifyTimes,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastNotifyTime,jdbcType=TIMESTAMP}, 
+      #{isFirst,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.db.sys.NotifyRecord" >
+    insert into t_sys_notify_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="notifyNo != null" >
+        notify_no,
+      </if>
+      <if test="notifyBusinessNo != null" >
+        notify_business_no,
+      </if>
+      <if test="notifyUserId != null" >
+        notify_user_id,
+      </if>
+      <if test="notifyLevel != null" >
+        notify_level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="notifyType != null" >
+        notify_type,
+      </if>
+      <if test="notifyTimes != null" >
+        notify_times,
+      </if>
+      <if test="limitNotifyTimes != null" >
+        limit_notify_times,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastNotifyTime != null" >
+        last_notify_time,
+      </if>
+      <if test="isFirst != null" >
+        is_first,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyNo != null" >
+        #{notifyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusinessNo != null" >
+        #{notifyBusinessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUserId != null" >
+        #{notifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyLevel != null" >
+        #{notifyLevel,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyType != null" >
+        #{notifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        #{notifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="limitNotifyTimes != null" >
+        #{limitNotifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNotifyTime != null" >
+        #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirst != null" >
+        #{isFirst,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.sys.NotifyRecord" >
+    update t_sys_notify_record
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyNo != null" >
+        notify_no = #{notifyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusinessNo != null" >
+        notify_business_no = #{notifyBusinessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUserId != null" >
+        notify_user_id = #{notifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyLevel != null" >
+        notify_level = #{notifyLevel,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyType != null" >
+        notify_type = #{notifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyTimes != null" >
+        notify_times = #{notifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="limitNotifyTimes != null" >
+        limit_notify_times = #{limitNotifyTimes,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNotifyTime != null" >
+        last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isFirst != null" >
+        is_first = #{isFirst,jdbcType=TINYINT},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.db.sys.NotifyRecord" >
+    update t_sys_notify_record
+    set url = #{url,jdbcType=VARCHAR},
+      notify_no = #{notifyNo,jdbcType=VARCHAR},
+      notify_business_no = #{notifyBusinessNo,jdbcType=VARCHAR},
+      notify_user_id = #{notifyUserId,jdbcType=VARCHAR},
+      notify_level = #{notifyLevel,jdbcType=TINYINT},
+      status = #{status,jdbcType=VARCHAR},
+      notify_type = #{notifyType,jdbcType=VARCHAR},
+      notify_times = #{notifyTimes,jdbcType=TINYINT},
+      limit_notify_times = #{limitNotifyTimes,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      is_first = #{isFirst,jdbcType=TINYINT}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

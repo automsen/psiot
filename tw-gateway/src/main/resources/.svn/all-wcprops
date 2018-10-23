@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/tw/!svn/ver/4354/projects/plat/trunk/tw-gateway/src/main/resources
+END
+application-dev.yml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/tw/!svn/ver/4353/projects/plat/trunk/tw-gateway/src/main/resources/application-dev.yml
+END
+application.yml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/tw/!svn/ver/4354/projects/plat/trunk/tw-gateway/src/main/resources/application.yml
+END
+application-prod.yml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/tw/!svn/ver/4352/projects/plat/trunk/tw-gateway/src/main/resources/application-prod.yml
+END
+application-local.yml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/tw/!svn/ver/4351/projects/plat/trunk/tw-gateway/src/main/resources/application-local.yml
+END

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.tw.saas.serv.mapper.view.CommTestMapper">
+	
+	<select id="selectByPage" parameterType="cn.com.tw.common.web.entity.page.Page" 
+	resultType="cn.com.tw.saas.serv.entity.view.maint.CommTestModel">
+	SELECT
+		m.meter_addr meterAddr,
+		m.meter_type meterType,
+		m.model_name meterModelName,
+		m.meter_spec meterSpec,
+		m.is_direct isDirect,
+		m.net_number netNumber,
+		m.room_id roomId,
+		m.meter_install_addr meterInstall,
+		rm.room_name roomName,
+		rm.room_number roomNumber,
+		rm.region_full_name regionFullName,
+		r.read_time readTime,
+		r.read_value readValue,
+		n.model_name netModelName,
+		n.net_install netInstall,
+		n.net_type netType
+	FROM
+		(
+			SELECT
+				meter_addr,
+				meter_type,
+				model_name,
+				meter_spec,
+				is_direct,
+				net_number,
+				room_id,
+				meter_install_addr
+			FROM
+				t_saas_meter
+			<where>
+				 org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+				<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+					AND meter_addr LIKE CONCAT('%', #{paramObj.meterAddr,jdbcType=VARCHAR}, '%')
+				</if>
+				<if test="paramObj.netNumber != null and paramObj.netNumber != ''">
+					AND net_number LIKE CONCAT('%', #{paramObj.netNumber,jdbcType=VARCHAR}, '%')
+				</if>
+			</where>
+		) m
+	INNER JOIN (
+		SELECT
+			room_id,
+			room_name,
+			room_number,
+			region_full_name
+		FROM
+			t_saas_room
+		<where>
+			org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			<if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+					AND room_number LIKE CONCAT('%', #{paramObj.roomNumber,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="paramObj.roomName != null and paramObj.roomName != ''">
+					AND room_name LIKE CONCAT('%', #{paramObj.roomName,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="paramObj.regionId != null and paramObj.regionId != ''">
+				AND (region_id LIKE CONCAT('%', #{paramObj.regionId,jdbcType=VARCHAR}, '%')
+				)
+			</if>
+			
+		</where>			
+	) rm ON m.room_id = rm.room_id
+	LEFT JOIN (
+		SELECT
+			meter_addr,
+			read_time,
+			read_value
+		FROM
+			t_read_last
+		<where>
+			 org_id = #{paramObj.orgId,jdbcType=VARCHAR} 
+			AND (
+			item_code = 'waterFlow'
+			OR item_code = 'totalActiveE'
+			)
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				AND meter_addr LIKE CONCAT('%', #{paramObj.meterAddr,jdbcType=VARCHAR}, '%')
+			</if>
+		</where>
+	) r ON m.meter_addr = r.meter_addr
+	LEFT JOIN (
+		SELECT
+			net_number,
+			model_name,
+			net_install,
+			net_type
+		FROM
+			t_saas_net
+		<where>
+			 org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			<if test="paramObj.netNumber != null and paramObj.netNumber != ''">
+				AND net_number LIKE CONCAT('%', #{paramObj.netNumber,jdbcType=VARCHAR}, '%')
+			</if>
+		</where>
+	) n ON m.net_number = n.net_number
+	
+	 ORDER BY r.read_time desc
+	</select>
+
+</mapper>

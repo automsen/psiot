@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/4683/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base
+END
+CmdInsMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/3253/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/CmdInsMapper.xml
+END
+InsDataItemMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/4683/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/InsDataItemMapper.xml
+END
+ModbusDataItemMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/4011/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/ModbusDataItemMapper.xml
+END
+CmdMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/4555/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/CmdMapper.xml
+END
+DataItemMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/2093/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/DataItemMapper.xml
+END
+InsMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/4064/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/base/InsMapper.xml
+END

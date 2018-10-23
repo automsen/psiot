@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>用户注册编辑</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../../css/main.css"/>
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css"/>
+	<script src="../../../js/layui/layui.js" charset="utf-8"></script>
+  	<link rel="stylesheet" href="../../../css/index.css" media="all" />
+</head>
+<body>
+	<div style="width:500px;height:100%;margin: 0 auto; padding-top:10px">   
+		<form class="layui-form" id="s_form"> 
+		<input type="hidden" id="userId" name="userId" T-name="userId"/>
+			<div class="layui-form-item">
+				<label class="layui-form-label">登录用户名</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="required|lengthUserName" name="userName" T-name="userName" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+						
+			<div class="layui-form-item">
+				<label class="layui-form-label">真实姓名</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="required|lengthRealName" name="realName" T-name="realName"  placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+			
+			<!--<div class="layui-form-item">
+				<label class="layui-form-label">用户单位</label>
+				<div class="layui-input-block">
+				    <select name="orgId" class="layui-select T-select" T-options="url:'org/all',value:'orgId',name:'orgName',isShowSel:'false'">
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户角色</label>
+				<div class="layui-input-block">
+				    <select  name="" T-name="" class="layui-select T-select" T-options="">
+				    	<option>--请选择--</option>
+					</select>
+				</div>
+			</div>-->
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">联系电话</label>
+					<div class="layui-input-block">
+						<input type="tel" lay-verify="phone" name="phone" T-name="phone"  placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+						
+			<div class="layui-form-item">
+				<label class="layui-form-label">邮箱地址</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="email"  name="email" T-name="email" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户状态</label>
+				<div class="layui-input-block">
+				    <select name="isUsable" class="layui-select T-select" T-options="">
+				    	<option value="1" selected>正常</option>
+				    	<option value="0">停用</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户密码</label>
+					<div class="layui-input-block">
+						<input type="password" lay-verify="password" id="password" name="password" T-name="password" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+						
+			<div class="layui-form-item">
+				<label class="layui-form-label">确认密码</label>
+					<div class="layui-input-block">
+						<input type="password" lay-verify="confirm_password" id="confirm_password" name="confirm_password" T-name="confirm_password" placeholder="再次输入密码" class="layui-input"/>
+					</div>
+			</div>
+			
+			<div id="elec"></div>
+			
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit="" lay-filter="tijiao" id="subBtn">提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					<!--<button type="reset" class="layui-btn layui-btn-primary">返回</button>-->
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script src="./userRegistraion_edit.js" charset="utf-8"></script>
+	
+	<script>
+		layui.use(['form', 'layedit', 'laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			,layedit = layui.layedit
+			,laydate = layui.laydate;
+			  
+			//日期
+			laydate.render({
+			    elem: '#date'
+			});
+			laydate.render({
+				elem: '#date1'
+			});
+		 
+		});
+	</script>
+
+</body>
+</html>

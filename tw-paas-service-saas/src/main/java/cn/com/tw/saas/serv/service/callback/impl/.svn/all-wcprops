@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tw/!svn/ver/3696/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/callback/impl
+END
+SwitchOffServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/tw/!svn/ver/1039/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/callback/impl/SwitchOffServiceImpl.java
+END
+SwitchOnServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tw/!svn/ver/1039/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/callback/impl/SwitchOnServiceImpl.java
+END
+ReadCommonServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/tw/!svn/ver/1090/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/callback/impl/ReadCommonServiceImpl.java
+END
+ReadTestServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tw/!svn/ver/3696/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/callback/impl/ReadTestServiceImpl.java
+END

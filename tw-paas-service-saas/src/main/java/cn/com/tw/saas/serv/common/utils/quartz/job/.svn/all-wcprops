@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/tw/!svn/ver/4485/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job
+END
+MeterUseDayAndMonthAndYearJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/tw/!svn/ver/1617/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/MeterUseDayAndMonthAndYearJob.java
+END
+MeterUseQuantumJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/tw/!svn/ver/1732/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/MeterUseQuantumJob.java
+END
+AllowanceJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/tw/!svn/ver/4134/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/AllowanceJob.java
+END
+TestJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/581/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/TestJob.java
+END
+RechargeFixedJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tw/!svn/ver/4273/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/RechargeFixedJob.java
+END
+NotAllDayPowerSupplyJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/tw/!svn/ver/3657/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/NotAllDayPowerSupplyJob.java
+END
+MeterUseMonthAndYearJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/tw/!svn/ver/4485/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/common/utils/quartz/job/MeterUseMonthAndYearJob.java
+END

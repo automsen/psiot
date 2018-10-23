@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/3977/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule
+END
+EnergyPriceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/3977/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/EnergyPriceMapper.xml
+END
+EnergyAllowanceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/2257/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/EnergyAllowanceMapper.xml
+END
+RuleAppendMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/1836/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/RuleAppendMapper.xml
+END
+RuleElecMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/3967/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/RuleElecMapper.xml
+END
+SurchargeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/600/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/SurchargeMapper.xml
+END
+RuleAlarmMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/3977/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/rule/RuleAlarmMapper.xml
+END

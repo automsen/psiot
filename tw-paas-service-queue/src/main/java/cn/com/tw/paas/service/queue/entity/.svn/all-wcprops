@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/tw/!svn/ver/3803/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity
+END
+Event.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/3449/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity/Event.java
+END
+WaterUnderVoltageEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/3456/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity/WaterUnderVoltageEvent.java
+END
+ElecUnderVoltageEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/3467/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity/ElecUnderVoltageEvent.java
+END
+StopValEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/3449/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity/StopValEvent.java
+END
+ReadHistory.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/3803/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/entity/ReadHistory.java
+END

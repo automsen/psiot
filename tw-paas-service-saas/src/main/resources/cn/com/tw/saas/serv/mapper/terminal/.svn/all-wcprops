@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/terminal
+END
+MeterMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/terminal/MeterMapper.xml
+END
+SaasNetMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/1344/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/terminal/SaasNetMapper.xml
+END
+MeterHisMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/3885/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/terminal/MeterHisMapper.xml
+END

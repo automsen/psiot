@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.sys.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.sys.User" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+    <result column="orgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u.user_id, u.user_name, u.password, u.phone, u.email, u.qq, u.wechat, u.real_name, u.is_usable, u.create_time
+  </sql>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+          <include refid="Base_Column_List" />
+        from t_sys_user u
+        <where>
+            <!-- is_usable = 1 -->
+			<if test="paramObj.userName != null and paramObj.userName != ''">
+				and u.user_name like CONCAT('%', #{paramObj.userName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.phone != null and paramObj.phone != ''">
+				and u.phone like CONCAT('%', #{paramObj.phone,jdbcType=VARCHAR},'%')
+			</if>
+		</where>
+  </select>
+  
+  <select id="selectUserAll" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.sys.User" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_sys_user u
+        <where>
+            <!-- is_usable = 1 -->
+			<if test="userName != null and userName != ''">
+				and u.user_name like CONCAT('%', #{userName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="phone != null and phone != ''">
+				and u.phone like CONCAT('%', #{phone,jdbcType=VARCHAR},'%')
+			</if>
+		</where>
+  </select>
+  
+   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_sys_user u
+        <where>
+			<if test="userName != null and userName != ''">
+				and u.user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+		</where>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_user u
+    where u.user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_sys_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.sys.User" >
+    insert into t_sys_user (user_id, user_name, password, 
+      phone, email, qq, wechat, 
+      real_name, is_usable,create_time
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{isUsable,jdbcType=TINYINT}, #{create_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.sys.User" >
+    insert into t_sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="isUsable != null" >
+        is_usable,
+      </if>
+      <if test="createTime != null" >
+       create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+       #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.sys.User" >
+    update t_sys_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        is_usable = #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+      	create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.sys.User" >
+    update t_sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      is_usable = #{isUsable,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="userLogin" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.sys.User">
+    SELECT
+		<include refid="Base_Column_List" />
+	FROM
+		t_sys_user u
+	WHERE
+		user_name = #{userName,jdbcType=VARCHAR}
+	AND
+    	password = #{password,jdbcType=VARCHAR}
+  </select>
+</mapper>

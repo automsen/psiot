@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/sys
+END
+SysUserMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/sys/SysUserMapper.java
+END
+TaskMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/tw/!svn/ver/581/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/sys/TaskMapper.java
+END
+ExceptionsRecordsMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/sys/ExceptionsRecordsMapper.java
+END
+NotifyRecordMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/775/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/sys/NotifyRecordMapper.java
+END

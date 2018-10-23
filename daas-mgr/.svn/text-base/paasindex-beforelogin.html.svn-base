@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/layui.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="css/paasindex-beforelogin.css" media="all"/>
+		<script src="js/layui.js"></script>
+		<title>首页</title>
+	</head>
+	<body>
+		<!--顶部-->
+		<div class="s-top">
+			<div class="left s-logo">
+				<img src="images/logo_sb.png" width="90" height="54" />
+				<span>时波物联网接入管理平台</span>
+			</div>
+			<div class="right">
+				<div class="btn-login left"><a href="">登录</a></div>
+				<div class="left ce-change">
+					<span><a href="#">简体中文</a></span>
+					<img src="images/icon_fgx.png" width="1" height="20" />
+					<span><a href="#">English</a></span>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<!--内容区域-->
+		<div class="main-two">
+			<div class="s-toppiece">
+				<div class="left piece-sum">
+					<div class="piece-sum-child">
+						<img class="left" src="images/icon_sum.png" width="160" height="160" />
+						<p class="left text-sum">设备接入总数 Qty.<br/>100000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="left piece-meter">
+					<div class="left con-db">
+						<div class="con-db-child">
+							<img class="left" src="images/icon_db.png" width="100" height="100" />
+							<p class="left text-meter" id="totalElecMeter">电表 Ammeter<br/>20000</p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="left con-sb">
+						<div class="con-db-child">
+							<img class="left" src="images/icon_sb.png" width="100" height="100" />
+							<p class="left text-meter" id="totalWaterMeter">水表 Watermeter<br/>10000</p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="left con-db con-rqb">
+						<div class="con-db-child">
+							<img class="left" src="images/icon_rqb.png" width="100" height="100" />
+							<p class="left text-meter">燃气表 Gasmeter<br/>20000</p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="left con-sb con-rlb">
+						<div class="con-db-child">
+							<img class="left" src="images/icon_rlb.png" width="100" height="100" />
+							<p class="left text-meter">热量表 Calorimeter<br/>10000</p>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="s-bottompiece">
+				<div class="left con-wg">
+					<div class="con-wg-child">
+						<img class="left" src="images/icon_wg.png" width="100" height="100" />
+						<p class="left bottom-text-meter" id="totalGateway">网关<br/><span class="text-en">Get Way</span><br/>10000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="left con-wg con-yw">
+					<div class="con-wg-child">
+						<img class="left" src="images/icon_yw.png" width="100" height="100" />
+						<p class="left bottom-text-meter">烟雾报警器<br/><span class="text-en">Smoke Detector</span><br/>10000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="left con-wg  con-kr">
+					<div class="con-wg-child">
+						<img class="left" src="images/icon_kr.png" width="100" height="100" />
+						<p class="left bottom-text-meter">可燃气体检测<br/><span style="font-size: 14px;">Conbustible Gas Detector</span><br/>10000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="left con-wg con-dw">
+					<div class="con-wg-child">
+						<img class="left" src="images/icon_dw.png" width="100" height="100" />
+						<p class="left bottom-text-meter">定位设备<br/><span class="text-en">Position Sensor</span><br/>10000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="left con-wg con-qt">
+					<div class="con-wg-child">
+						<img class="left" src="images/icon_qt.png" width="100" height="100" />
+						<p class="left bottom-text-meter">其他<br/><span class="text-en">Others</span><br/>10000</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!--底部条-->
+		<div class="bottom-item">
+			<p>武汉时波网络技术有限公司&nbsp; &nbsp;版权所有©2017&nbsp; &nbsp;网址：www.tw-iot.com</p>
+		</div>
+	</body>
+</html>

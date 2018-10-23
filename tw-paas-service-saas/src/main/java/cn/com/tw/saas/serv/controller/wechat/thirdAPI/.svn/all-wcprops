@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/4273/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/controller/wechat/thirdAPI
+END
+ALIPayService.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tw/!svn/ver/1459/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/controller/wechat/thirdAPI/ALIPayService.java
+END
+WechatPayService.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/tw/!svn/ver/4273/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/controller/wechat/thirdAPI/WechatPayService.java
+END

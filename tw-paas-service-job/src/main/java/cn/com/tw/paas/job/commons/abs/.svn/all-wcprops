@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/tw/!svn/ver/3919/projects/psaas/trunk/tw-paas-service-job/src/main/java/cn/com/tw/paas/job/commons/abs
+END
+AbstractSimpleDataJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/3919/projects/psaas/trunk/tw-paas-service-job/src/main/java/cn/com/tw/paas/job/commons/abs/AbstractSimpleDataJob.java
+END
+AbstractDataItemJob.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/3919/projects/psaas/trunk/tw-paas-service-job/src/main/java/cn/com/tw/paas/job/commons/abs/AbstractDataItemJob.java
+END

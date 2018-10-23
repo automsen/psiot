@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.TerminalEquipChildrenMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren">
+		<id column="equip_id" property="equipId" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="dtu_id" property="dtuId" jdbcType="VARCHAR" />
+		<result column="children_equip_number" property="childrenEquipNumber" jdbcType="VARCHAR" />
+		<result column="children_equip_name" property="childrenEquipName" jdbcType="VARCHAR" />
+		<result column="equip_type" property="equipType" jdbcType="VARCHAR" />
+		<result column="equip_model" property="equipModel" jdbcType="VARCHAR" />
+		<result column="manufacturer" property="manufacturer" jdbcType="VARCHAR" />
+		<result column="soft_versoin" property="softVersoin" jdbcType="VARCHAR" />
+		<result column="protocol_versoin" property="protocolVersoin" jdbcType="VARCHAR" />
+		<result column="order_num" property="orderNum" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		equip_id, org_id, app_id, dtu_id, children_equip_number, children_equip_name, equip_type,
+		equip_model, order_num,
+		manufacturer, soft_versoin, protocol_versoin, create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_org_terminal_equip_children
+		where equip_id = #{equipId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_org_terminal_equip_children
+		where equip_id = #{equipId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren">
+		insert into t_org_terminal_equip_children (equip_id, org_id, app_id,
+		dtu_id, children_equip_number, children_equip_name,
+		equip_type, equip_model, manufacturer,
+		soft_versoin, protocol_versoin, create_time, update_time, order_num
+		)
+		values (#{equipId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{dtuId,jdbcType=VARCHAR}, #{childrenEquipNumber,jdbcType=VARCHAR}, #{childrenEquipName,jdbcType=VARCHAR},
+		#{equipType,jdbcType=VARCHAR}, #{equipModel,jdbcType=VARCHAR},
+		#{manufacturer,jdbcType=VARCHAR},
+		#{softVersoin,jdbcType=VARCHAR}, #{protocolVersoin,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{orderNum,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren">
+		insert into t_org_terminal_equip_children
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="equipId != null">
+				equip_id,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="dtuId != null">
+				dtu_id,
+			</if>
+			<if test="childrenEquipNumber != null">
+				children_equip_number,
+			</if>
+			<if test="childrenEquipName != null">
+				children_equip_name,
+			</if>
+			<if test="equipType != null">
+				equip_type,
+			</if>
+			<if test="equipModel != null">
+				equip_model,
+			</if>
+			<if test="manufacturer != null">
+				manufacturer,
+			</if>
+			<if test="softVersoin != null">
+				soft_versoin,
+			</if>
+			<if test="protocolVersoin != null">
+				protocol_versoin,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="orderNum != null">
+				order_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="equipId != null">
+				#{equipId,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="dtuId != null">
+				#{dtuId,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenEquipNumber != null">
+				#{childrenEquipNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenEquipName != null">
+				#{childrenEquipName,jdbcType=VARCHAR},
+			</if>
+			<if test="equipType != null">
+				#{equipType,jdbcType=VARCHAR},
+			</if>
+			<if test="equipModel != null">
+				#{equipModel,jdbcType=VARCHAR},
+			</if>
+			<if test="manufacturer != null">
+				#{manufacturer,jdbcType=VARCHAR},
+			</if>
+			<if test="softVersoin != null">
+				#{softVersoin,jdbcType=VARCHAR},
+			</if>
+			<if test="protocolVersoin != null">
+				#{protocolVersoin,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderNum != null">
+				#{orderNum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren">
+		update t_org_terminal_equip_children
+		<set>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="dtuId != null">
+				dtu_id = #{dtuId,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenEquipNumber != null">
+				children_equip_number = #{childrenEquipNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenEquipName != null">
+				children_equip_name = #{childrenEquipName,jdbcType=VARCHAR},
+			</if>
+			<if test="equipType != null">
+				equip_type = #{equipType,jdbcType=VARCHAR},
+			</if>
+			<if test="equipModel != null">
+				equip_model = #{equipModel,jdbcType=VARCHAR},
+			</if>
+			<if test="manufacturer != null">
+				manufacturer = #{manufacturer,jdbcType=VARCHAR},
+			</if>
+			<if test="softVersoin != null">
+				soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+			</if>
+			<if test="protocolVersoin != null">
+				protocol_versoin = #{protocolVersoin,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderNum != null">
+				order_num = #{orderNum,jdbcType=INTEGER},
+			</if>
+		</set>
+		where equip_id = #{equipId,jdbcType=VARCHAR},
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren">
+		update t_org_terminal_equip_children
+		set org_id = #{orgId,jdbcType=VARCHAR},
+		app_id = #{appId,jdbcType=VARCHAR},
+		dtu_id = #{dtuId,jdbcType=VARCHAR},
+		children_equip_number = #{childrenEquipNumber,jdbcType=VARCHAR},
+		children_equip_name = #{childrenEquipName,jdbcType=VARCHAR},
+		equip_type = #{equipType,jdbcType=VARCHAR},
+		equip_model = #{equipModel,jdbcType=VARCHAR},
+		manufacturer = #{manufacturer,jdbcType=VARCHAR},
+		soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+		protocol_versoin = #{protocolVersoin,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		order_num = #{orderNum,jdbcType=INTEGER}
+		where equip_id = #{equipId,jdbcType=VARCHAR}
+	</update>
+	
+		<select id="selectByEquipNumber" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_org_terminal_equip_children
+		where children_equip_number = #{childrenEquipNumber,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByDtuId" parameterType="java.lang.String">
+		delete from t_org_terminal_equip_children
+		where dtu_id = #{equipId,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="selectByEntity" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipChildren" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_org_terminal_equip_children
+		where
+			1=1
+			<if test='orgId != null and orgId != ""'>
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test='appId != null and appId !=""'>
+				and app_id = #{appId,jdbcType=VARCHAR}
+			</if>
+			<if test='dtuId != null and dtuId != ""'>
+				and dtu_id = #{dtuId,jdbcType=VARCHAR}
+			</if>
+			<if test='childrenEquipNumber != null and childrenEquipNumber != ""'>
+				and children_equip_number = #{childrenEquipNumber,jdbcType=VARCHAR}
+			</if>
+			<if test='childrenEquipName != null and childrenEquipName != ""'>
+				and children_equip_name = #{childrenEquipName,jdbcType=VARCHAR}
+			</if>
+			<if test='equipType != null and equipType != ""'>
+				and equip_type = #{equipType,jdbcType=VARCHAR}
+			</if>
+			<if test='equipModel != null and equipModel != ""'>
+				and equip_model = #{equipModel,jdbcType=VARCHAR}
+			</if>
+			<if test='manufacturer != null and manufacturer != ""'>
+				and manufacturer = #{manufacturer,jdbcType=VARCHAR}
+			</if>
+			<if test='softVersoin != null and softVersoin != ""'>
+				and soft_versoin = #{softVersoin,jdbcType=VARCHAR}
+			</if>
+			<if test= 'protocolVersoin != null and protocolVersoin != ""'>
+				and protocol_versoin = #{protocolVersoin,jdbcType=VARCHAR}
+			</if>
+	</select>
+</mapper>

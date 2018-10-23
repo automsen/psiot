@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/4517/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/dao/read
+END
+HApiLogDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/1755/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/dao/read/HApiLogDao.java
+END
+HReadHisDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/4517/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/dao/read/HReadHisDao.java
+END
+HReadLastDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/4255/projects/plat/trunk/tw-paas-service-queue/src/main/java/cn/com/tw/paas/service/queue/dao/read/HReadLastDao.java
+END

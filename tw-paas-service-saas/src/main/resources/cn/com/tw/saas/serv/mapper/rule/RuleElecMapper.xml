@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.rule.RuleElecMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+    <id column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="rule_type" property="ruleType" jdbcType="VARCHAR" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+    <result column="loop_type" property="loopType" jdbcType="INTEGER" />
+    <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+    <result column="set_json" property="setJson" jdbcType="VARCHAR" />
+    <result column="factory_json" property="factoryJson" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rule_id, org_id, rule_type, rule_name, room_use, loop_type, is_default, set_json, 
+    factory_json, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_rule_elec
+    where rule_id = #{ruleId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT
+		<include refid="Base_Column_List" />
+	FROM
+		`t_saas_rule_elec`
+	WHERE
+		rule_name = #{ruleName,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_elec
+        <where>
+			  <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+		        and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.ruleType != null and paramObj.ruleType != ''" >
+		        and rule_type = #{paramObj.ruleType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.ruleName != null and paramObj.ruleName != ''" >
+		        and rule_name like CONCAT('%', #{paramObj.ruleName,jdbcType=VARCHAR},'%')
+		      </if>
+		      <if test="paramObj.roomUse != null and paramObj.roomUse != ''" >
+		        and room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.loopType != null" >
+		        and loop_type = #{paramObj.loopType,jdbcType=INTEGER}
+		      </if>
+		      <if test="paramObj.isDefault != null" >
+		        and is_default = #{paramObj.isDefault,jdbcType=TINYINT}
+		      </if>
+		      <if test="paramObj.setJson != null and paramObj.setJson != ''" >
+		        and set_json = #{paramObj.setJson,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.factoryJson != null" >
+		        and factory_json = #{paramObj.factoryJson,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.createTime != null" >
+		        and create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="paramObj.updateTime != null" >
+		        and update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		</where>
+		ORDER BY create_time DESC
+  </select>
+  
+  
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_elec
+        <where>
+			  <if test="orgId != null and orgId != ''" >
+		        and org_id = #{orgId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="ruleType != null and ruleType != ''" >
+		        and rule_type = #{ruleType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="ruleName != null and ruleName != ''" >
+		        and rule_name like CONCAT('%', #{ruleName,jdbcType=VARCHAR},'%')
+		      </if>
+		      <if test="roomUse != null" >
+		        and room_use = #{roomUse,jdbcType=VARCHAR}
+		      </if>
+		      <if test="loopType != null" >
+		        and loop_type = #{loopType,jdbcType=INTEGER}
+		      </if>
+		      <if test="isDefault != null" >
+		        and is_default = #{isDefault,jdbcType=TINYINT}
+		      </if>
+		      <if test="setJson != null" >
+		        and set_json = #{setJson,jdbcType=VARCHAR}
+		      </if>
+		      <if test="factoryJson != null" >
+		        and factory_json = #{factoryJson,jdbcType=VARCHAR}
+		      </if>
+		      <if test="createTime != null" >
+		        and create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateTime != null" >
+		        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		</where>
+		ORDER BY create_time DESC
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_rule_elec
+    where rule_id = #{ruleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+    insert into t_saas_rule_elec (rule_id, org_id, rule_type, 
+      rule_name, room_use, loop_type, 
+      is_default, set_json, factory_json, 
+      create_time, update_time)
+    values (UUID_SHORT(), #{orgId,jdbcType=VARCHAR}, #{ruleType,jdbcType=VARCHAR}, 
+      #{ruleName,jdbcType=VARCHAR}, #{roomUse,jdbcType=VARCHAR}, #{loopType,jdbcType=INTEGER}, 
+      #{isDefault,jdbcType=TINYINT}, #{setJson,jdbcType=VARCHAR}, #{factoryJson,jdbcType=VARCHAR}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+    insert into t_saas_rule_elec
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="ruleType != null" >
+        rule_type,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="roomUse != null" >
+        room_use,
+      </if>
+      <if test="loopType != null" >
+        loop_type,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="setJson != null" >
+        set_json,
+      </if>
+      <if test="factoryJson != null" >
+        factory_json,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        #{ruleType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        #{roomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="loopType != null" >
+        #{loopType,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="setJson != null" >
+        #{setJson,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryJson != null" >
+        #{factoryJson,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+    update t_saas_rule_elec
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null" >
+        rule_type = #{ruleType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        room_use = #{roomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="loopType != null" >
+        loop_type = #{loopType,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="setJson != null" >
+        set_json = #{setJson,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryJson != null" >
+        factory_json = #{factoryJson,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.db.rule.RuleElec" >
+    update t_saas_rule_elec
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      rule_type = #{ruleType,jdbcType=VARCHAR},
+      rule_name = #{ruleName,jdbcType=VARCHAR},
+      room_use = #{roomUse,jdbcType=VARCHAR},
+      loop_type = #{loopType,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=TINYINT},
+      set_json = #{setJson,jdbcType=VARCHAR},
+      factory_json = #{factoryJson,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where rule_id = #{ruleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

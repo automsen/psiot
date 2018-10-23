@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/4544/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/audit
+END
+AuditAccountMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/2578/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/audit/AuditAccountMapper.xml
+END
+AuditRoomMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3977/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/audit/AuditRoomMapper.xml
+END
+ClearingMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/4544/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/audit/ClearingMapper.xml
+END

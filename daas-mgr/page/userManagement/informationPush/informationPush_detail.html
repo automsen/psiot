@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>应用设置详情</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../../css/main.css"/>
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css"/>
+	<script src="../../../js/layui/layui.js" charset="utf-8"></script>
+  	<link rel="stylesheet" href="../../../css/index.css" media="all" />
+</head>
+<body>
+
+	<div class="t-align-center" id="appInformationDate">  
+	     <input type="hidden" id="appId" name="appId" T-name="appId"/> 
+		  
+		    <div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="accreditedName">机构名称</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="orgName"></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="applicationName">应用名称</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="appName"></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="accreditedNumber">机构编号</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="orgCode"></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="pushURL">推送URL</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="callbackUrl"></div>
+				</div>
+			</div>
+			
+			<!--<div class="layui-form-item">
+				<label class="layui-form-label">重传次数</label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name=""></div>
+				</div>
+			</div>
+		  
+		    <div class="layui-form-item">
+				<label class="layui-form-label">推送状态</label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name=""></div>
+				</div>
+			</div>-->
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="createTime">创建时间</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="createTime" T-type="date"></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="serviceExpirationTime">服务到期时间</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="serviceTime" T-type="date"></div>
+				</div>
+			</div>
+			
+			<!--<div class="layui-form-item">
+				<label class="layui-form-label">套餐服务</label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name=""></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">服务到期时间</label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name=""></div>
+				</div>
+			</div>-->
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="applicationLogo">应用标志</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="appKey"></div>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span i18n-message="theKey">密钥</span></label>
+				<div class="layui-input-block">
+					<div class="layui-form-mid" T-name="secretKey"></div>
+				</div>
+			</div>
+
+	</div>		
+	
+	<script src="./informationPush_detail.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.room.ClearAllowanceRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.room.ClearAllowanceRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="clear_time" property="clearTime" jdbcType="TIMESTAMP" />
+    <result column="room_balance" property="roomBalance" jdbcType="DECIMAL" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_account_id" property="roomAccountId" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="room_full_name" property="roomFullName" jdbcType="VARCHAR" />
+    <result column="elec_allowance_balance" property="elecAllowanceBalance" jdbcType="DECIMAL" />
+    <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="water_allowance_balance" property="waterAllowanceBalance" jdbcType="DECIMAL" />
+    <result column="elec_allowance_rule_id" property="elecAllowanceRuleId" jdbcType="VARCHAR" />
+    <result column="water_allowance_rule_id" property="waterAllowanceRuleId" jdbcType="VARCHAR" />
+    <result column="elec_allowance_type" property="elecAllowanceType" jdbcType="VARCHAR" />
+    <result column="water_allowance_type" property="waterAllowanceType" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, clear_time, room_balance, room_id, room_account_id, room_name, room_number, room_full_name, 
+    elec_allowance_balance, operator_id, operator_name, create_time, update_time, water_allowance_balance, 
+    elec_allowance_rule_id, water_allowance_rule_id, elec_allowance_type, water_allowance_type,org_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_clear_allowance_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_clear_allowance_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.room.ClearAllowanceRecord" >
+    insert into t_saas_clear_allowance_record (id, clear_time, room_balance, 
+      room_id, room_account_id, room_name, 
+      room_number, room_full_name, elec_allowance_balance, 
+      operator_id, operator_name, create_time, 
+      update_time, water_allowance_balance, elec_allowance_rule_id, 
+      water_allowance_rule_id, elec_allowance_type, 
+      water_allowance_type,org_id)
+    values (uuid_short(), now(), #{roomBalance,jdbcType=DECIMAL}, 
+      #{roomId,jdbcType=VARCHAR}, #{roomAccountId,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{roomNumber,jdbcType=VARCHAR}, #{roomFullName,jdbcType=VARCHAR}, #{elecAllowanceBalance,jdbcType=DECIMAL}, 
+      #{operatorId,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR},now(), 
+      now(), #{waterAllowanceBalance,jdbcType=DECIMAL}, #{elecAllowanceRuleId,jdbcType=VARCHAR}, 
+      #{waterAllowanceRuleId,jdbcType=VARCHAR}, #{elecAllowanceType,jdbcType=VARCHAR}, 
+      #{waterAllowanceType,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.room.ClearAllowanceRecord" >
+    insert into t_saas_clear_allowance_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clearTime != null" >
+        clear_time,
+      </if>
+      <if test="roomBalance != null" >
+        room_balance,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomAccountId != null" >
+        room_account_id,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="roomNumber != null" >
+        room_number,
+      </if>
+      <if test="roomFullName != null" >
+        room_full_name,
+      </if>
+      <if test="elecAllowanceBalance != null" >
+        elec_allowance_balance,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="waterAllowanceBalance != null" >
+        water_allowance_balance,
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        elec_allowance_rule_id,
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        water_allowance_rule_id,
+      </if>
+      <if test="elecAllowanceType != null" >
+        elec_allowance_type,
+      </if>
+      <if test="waterAllowanceType != null" >
+        water_allowance_type,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="clearTime != null" >
+        #{clearTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roomBalance != null" >
+        #{roomBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAccountId != null" >
+        #{roomAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFullName != null" >
+        #{roomFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceBalance != null" >
+        #{elecAllowanceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waterAllowanceBalance != null" >
+        #{waterAllowanceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceType != null" >
+        #{elecAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceType != null" >
+        #{waterAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.room.ClearAllowanceRecord" >
+    update t_saas_clear_allowance_record
+    <set >
+      <if test="clearTime != null" >
+        clear_time = #{clearTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roomBalance != null" >
+        room_balance = #{roomBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomAccountId != null" >
+        room_account_id = #{roomAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        room_number = #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFullName != null" >
+        room_full_name = #{roomFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceBalance != null" >
+        elec_allowance_balance = #{elecAllowanceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waterAllowanceBalance != null" >
+        water_allowance_balance = #{waterAllowanceBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceType != null" >
+        elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceType != null" >
+        water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.room.ClearAllowanceRecord" >
+    update t_saas_clear_allowance_record
+    set clear_time = #{clearTime,jdbcType=TIMESTAMP},
+      room_balance = #{roomBalance,jdbcType=DECIMAL},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      room_account_id = #{roomAccountId,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_number = #{roomNumber,jdbcType=VARCHAR},
+      room_full_name = #{roomFullName,jdbcType=VARCHAR},
+      elec_allowance_balance = #{elecAllowanceBalance,jdbcType=DECIMAL},
+      operator_id = #{operatorId,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      water_allowance_balance = #{waterAllowanceBalance,jdbcType=DECIMAL},
+      elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+      water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

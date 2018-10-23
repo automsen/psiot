@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.ApiLogMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.ApiLog" >
+        <id column="log_id" property="logId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+        <result column="app_id" property="appId" jdbcType="VARCHAR" />
+        <result column="app_name" property="appName" jdbcType="VARCHAR" />
+        <result column="api_url" property="apiUrl" jdbcType="VARCHAR" />
+        <result column="authToken" property="authtoken" jdbcType="VARCHAR" />
+        <result column="requestor_ip" property="requestorIp" jdbcType="VARCHAR" />
+        <result column="app_business_no" property="appBusinessNo" jdbcType="VARCHAR" />
+        <result column="request_data" property="requestData" jdbcType="VARCHAR" />
+        <result column="request_time" property="requestTime" jdbcType="TIMESTAMP" />
+        <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+        <result column="business_no" property="businessNo" jdbcType="VARCHAR" />
+        <result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+        <result column="response_data" property="responseData" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+     <!-- <resultMap id="joinResultMap" type="cn.com.tw.paas.monit.entity.business.org.ApiLogExpand" extends="BaseResultMap" >
+    		
+     </resultMap> -->
+
+    <sql id="Base_Column_List" >
+        log_id, org_id, org_name, app_id, app_name, api_url, authToken, requestor_ip, app_business_no, request_data, 
+        request_time, business_type, business_no, status_code, response_data, create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_org_api_log
+        where log_id = #{logId,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+		        a.log_id,
+				a.org_id,
+				a.org_name,
+				a.app_id,
+				a.app_name,
+				a.api_url,
+				a.authToken,
+				a.requestor_ip,
+				a.app_business_no,
+				a.request_data,
+				a.request_time,
+				a.business_type,
+				a.business_no,
+				a.status_code,
+				a.response_data,
+				a.create_time
+		FROM
+			t_org_api_log a
+        <where>
+			<if test="paramObj.appId != null and paramObj.appId != ''">
+				and a.app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.statusCode != null and paramObj.statusCode != ''">
+				and a.status_code = #{paramObj.statusCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and (a.org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				a.org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				)
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and a.request_time &gt;=  #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and a.request_time &lt;=  #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		GROUP BY a.create_time DESC
+  </select>
+  
+   <select id="selectApiLogExpandByShow" resultMap="BaseResultMap" parameterType="java.util.Map" >
+        select 
+		        a.log_id,
+				a.org_id,
+				a.org_name,
+				a.app_id,
+				a.app_name,
+				a.api_url,
+				a.authToken,
+				a.requestor_ip,
+				a.app_business_no,
+				a.request_data,
+				a.request_time,
+				a.business_type,
+				a.business_no,
+				a.status_code,
+				a.response_data,
+				a.create_time
+		FROM
+			t_org_api_log a
+        <where>
+			<if test="paramObj.appId != null and paramObj.appId != ''">
+				and a.app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				<!-- and (a.org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				a.org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				) -->
+				and a.org_id = #{paramObj.orgId,jdbcType=VARCHAR}			
+			</if>
+			<if test="paramObj.statusCode != null and paramObj.statusCode != ''">
+				and a.status_code = #{paramObj.statusCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and a.request_time &gt;=  #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and a.request_time &lt;=  #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		GROUP BY a.create_time DESC
+		LIMIT #{offset}, #{end}
+  </select>
+
+    <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.ApiLog" >
+        insert into t_org_api_log (log_id, org_id, org_name, app_id, app_name,
+            api_url, authToken, requestor_ip, 
+            app_business_no, request_data, request_time, 
+            business_type, business_no, status_code, 
+            response_data, create_time)
+        values (#{logId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR},
+            #{apiUrl,jdbcType=VARCHAR}, #{authtoken,jdbcType=VARCHAR}, #{requestorIp,jdbcType=VARCHAR}, 
+            #{appBusinessNo,jdbcType=VARCHAR}, #{requestData,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP}, 
+            #{businessType,jdbcType=VARCHAR}, #{businessNo,jdbcType=VARCHAR}, #{statusCode,jdbcType=VARCHAR}, 
+            #{responseData,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.ApiLog" >
+        update t_org_api_log
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="orgName != null" >
+                org_name = #{orgName,jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null" >
+                app_id = #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null" >
+                app_name = #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="apiUrl != null" >
+                api_url = #{apiUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="authtoken != null" >
+                authToken = #{authtoken,jdbcType=VARCHAR},
+            </if>
+            <if test="requestorIp != null" >
+                requestor_ip = #{requestorIp,jdbcType=VARCHAR},
+            </if>
+            <if test="appBusinessNo != null" >
+                app_business_no = #{appBusinessNo,jdbcType=VARCHAR},
+            </if>
+            <if test="requestData != null" >
+                request_data = #{requestData,jdbcType=VARCHAR},
+            </if>
+            <if test="requestTime != null" >
+                request_time = #{requestTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="businessType != null" >
+                business_type = #{businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="businessNo != null" >
+                business_no = #{businessNo,jdbcType=VARCHAR},
+            </if>
+            <if test="statusCode != null" >
+                status_code = #{statusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="responseData != null" >
+                response_data = #{responseData,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where log_id = #{logId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_org_api_log
+        where log_id = #{logId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

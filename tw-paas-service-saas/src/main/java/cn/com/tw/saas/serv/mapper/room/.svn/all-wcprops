@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/4703/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room
+END
+SaasRegionMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/4031/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/SaasRegionMapper.java
+END
+ClearAllowanceRecordMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/4703/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/ClearAllowanceRecordMapper.java
+END
+RoomMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/RoomMapper.java
+END
+AllowancePlanMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/4001/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/AllowancePlanMapper.java
+END
+RoomHisMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/3676/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/RoomHisMapper.java
+END
+SaasRoomMeterMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/822/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/SaasRoomMeterMapper.java
+END
+AllowanceRecordMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/4167/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/AllowanceRecordMapper.java
+END
+RoomMeterSwitchingManagentMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/tw/!svn/ver/2324/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/RoomMeterSwitchingManagentMapper.java
+END
+SaasRoomMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/tw/!svn/ver/1405/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/SaasRoomMapper.java
+END
+SaasSurchargeRoomMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/72/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/room/SaasSurchargeRoomMapper.java
+END

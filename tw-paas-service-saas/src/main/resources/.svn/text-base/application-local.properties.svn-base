@@ -1,0 +1,103 @@
+spring.application.name=service-saas
+eureka.client.serviceUrl.defaultZone: http://localhost:2000/eureka/
+eureka.instance.prefer-ip-address=true
+
+#数据库访问配置
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://192.168.20.102:3306/saas_sch?useUnicode\=true&characterEncoding\=utf-8
+spring.datasource.username=root
+spring.datasource.password=ENC(eS+Qv7wolcEFFy/diQG4kQ==)
+jasypt.encryptor.password=asdasdasdasdasd
+
+# 下面为连接池的补充设置，应用到上面所有数据源中
+# 初始化大小，最小，最大
+spring.datasource.initialSize=5
+spring.datasource.minIdle=5
+spring.datasource.maxActive=20
+# 配置获取连接等待超时的时间
+spring.datasource.maxWait=60000
+# 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 
+spring.datasource.timeBetweenEvictionRunsMillis=60000
+# 配置一个连接在池中最小生存的时间，单位是毫秒 
+spring.datasource.minEvictableIdleTimeMillis=300000
+spring.datasource.validationQuery=SELECT 1 FROM DUAL
+spring.datasource.testWhileIdle=true
+spring.datasource.testOnBorrow=false
+spring.datasource.testOnReturn=false
+# 打开PSCache，并且指定每个连接上PSCache的大小 
+spring.datasource.poolPreparedStatements=true
+spring.datasource.maxPoolPreparedStatementPerConnectionSize=20
+# 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙 
+spring.datasource.filters=stat,wall,log4j
+# 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+spring.datasource.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+# 合并多个DruidDataSource的监控数据
+#spring.datasource.useGlobalDataSourceStat=true
+
+eureka.instance.prefer-ip-address=true
+
+#freemarker config
+logging.level.cn.com=DEBUG
+#config of server
+server.port: 8082
+server.context-path: /
+server.session.timeout:1800
+#log config
+logging.file=logs/saas.log  
+logging.level=debug  
+
+#kafka config
+spring.kafka.bootstrap-servers=192.168.20.103:9092
+spring.kafka.consumer.group-id=defautgroup
+spring.kafka.consumer.auto-offset-reset=earliest
+
+#snowf 序号生成规则定义
+#spring.snowf.workerId=0
+#spring.snowf.dataId=0
+paas.url=http://127.0.0.1:2100/ps_api
+paas.appKey=APP_5df4ba26c000000
+paas.secret=fdea58bee3094bb1a7c36130c467d548
+
+hadoop.hbase.zookeeper.property.clientPort=2181
+hadoop.hbase.zookeeper.quorum=192.168.20.102
+hadoop.hbase.master=192.168.20.102:16010
+
+##weixin 
+weixin.appid=wxc88cad4ade027d73
+weixin.secret=0244277c24f0dbf1bc3040e4c790972e
+weixin.mchid=1491567212
+weixin.key=fhgbhsd123DFGfgFFGOJWRlikjhhghgd
+weixin.signType=MD5
+weixin.scan.payResultUrl=http://wx.tw-iot.cn/atm/rechargeCallback
+
+##alipay
+alipay.payResultUrl=http://wx.tw-iot.cn/atm/alipayCallback
+
+http.proxy.hostname=
+http.proxy.port=0
+
+
+#################redis\u57FA\u7840\u914D\u7F6E#################
+spring.redis.database=0
+spring.redis.host=192.168.20.111
+#spring.redis.host=127.0.0.1
+spring.redis.password=
+spring.redis.port=6379
+# \u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4 \u5355\u4F4D ms\uFF08\u6BEB\u79D2\uFF09
+spring.redis.timeout=3000
+
+#################redis\u7EBF\u7A0B\u6C60\u8BBE\u7F6E#################
+# \u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5927\u7A7A\u95F2\u8FDE\u63A5\uFF0C\u9ED8\u8BA4\u503C\u662F8\u3002
+#spring.redis.pool.max-idle=300
+#\u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5\uFF0C\u9ED8\u8BA4\u503C\u662F0\u3002
+#spring.redis.pool.min-idle=0
+# \u5982\u679C\u8D4B\u503C\u4E3A-1\uFF0C\u5219\u8868\u793A\u4E0D\u9650\u5236\uFF1B\u5982\u679Cpool\u5DF2\u7ECF\u5206\u914D\u4E86maxActive\u4E2Ajedis\u5B9E\u4F8B\uFF0C\u5219\u6B64\u65F6pool\u7684\u72B6\u6001\u4E3Aexhausted(\u8017\u5C3D)\u3002
+#spring.redis.pool.max-active=300
+# \u7B49\u5F85\u53EF\u7528\u8FDE\u63A5\u7684\u6700\u5927\u65F6\u95F4\uFF0C\u5355\u4F4D\u6BEB\u79D2\uFF0C\u9ED8\u8BA4\u503C\u4E3A-1\uFF0C\u8868\u793A\u6C38\u4E0D\u8D85\u65F6\u3002\u5982\u679C\u8D85\u8FC7\u7B49\u5F85\u65F6\u95F4\uFF0C\u5219\u76F4\u63A5\u629B\u51FAJedisConnectionException
+#spring.redis.pool.max-wait=-1
+
+#################redis\u54E8\u5175\u8BBE\u7F6E#################
+# Redis\u670D\u52A1\u5668master\u7684\u540D\u5B57
+#spring.redis.sentinel.master=master8026
+# redis-sentinel\u7684\u914D\u7F6E\u5730\u5740\u548C\u7AEF\u53E3
+#spring.redis.sentinel.nodes=10.189.80.25:26379,10.189.80.26:26379,10.189.80.27:26378

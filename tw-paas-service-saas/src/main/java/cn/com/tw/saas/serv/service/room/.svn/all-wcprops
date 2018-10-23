@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/4703/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room
+END
+RoomHisService.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/3690/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/RoomHisService.java
+END
+SaasRoomMeterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/1829/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/SaasRoomMeterService.java
+END
+RoomMeterSwitchingManagentService.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/tw/!svn/ver/2325/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/RoomMeterSwitchingManagentService.java
+END
+SaasRoomService.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/1829/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/SaasRoomService.java
+END
+AllowanceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/4167/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/AllowanceService.java
+END
+SaasSurchargeRoomService.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/72/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/SaasSurchargeRoomService.java
+END
+SaasRegionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/4268/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/SaasRegionService.java
+END
+RoomService.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/4652/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/room/RoomService.java
+END

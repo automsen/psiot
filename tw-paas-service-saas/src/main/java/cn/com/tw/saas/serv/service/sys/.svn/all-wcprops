@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/sys
+END
+TaskService.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/581/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/sys/TaskService.java
+END
+ExceptionsRecordsService.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/tw/!svn/ver/4740/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/sys/ExceptionsRecordsService.java
+END
+SysUserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/sys/SysUserService.java
+END

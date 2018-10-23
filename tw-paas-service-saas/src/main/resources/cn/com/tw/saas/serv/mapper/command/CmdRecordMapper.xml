@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.command.CmdRecordMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.command.CmdRecord">
+		<id column="cmd_id" property="cmdId" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="meter_id" property="meterId" jdbcType="VARCHAR" />
+		<result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+		<result column="cmd_code" property="cmdCode" jdbcType="VARCHAR" />
+		<result column="task_id" property="taskId" jdbcType="VARCHAR" />
+		<result column="cmd_name" property="cmdName" jdbcType="VARCHAR" />
+		<result column="cmd_level" property="cmdLevel" jdbcType="VARCHAR" />
+		<result column="use_time" property="useTime" jdbcType="INTEGER" />
+		<result column="param" property="param" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="return_value" property="returnValue" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="cmd_objid" property="cmdObjid" jdbcType="VARCHAR" />
+		<result column="cmd_table" property="cmdTable" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cmd_id, org_id, meter_id, meter_addr, cmd_code, task_id, cmd_name, cmd_level,
+		use_time,
+		param, reason, return_value, status, create_time, update_time, cmd_objid,
+		cmd_table
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_cmd_record
+		where cmd_id = #{cmdId,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_saas_cmd_record
+		where cmd_id = #{cmdId,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="cn.com.tw.saas.serv.entity.command.CmdRecord">
+		insert into t_saas_cmd_record (cmd_id, org_id, meter_id,
+		meter_addr, cmd_code, task_id,
+		cmd_name, cmd_level, use_time,
+		param, reason, return_value,
+		status, create_time, update_time, cmd_objid, cmd_table
+		)
+		values (#{cmdId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR},
+		#{meterId,jdbcType=VARCHAR},
+		#{meterAddr,jdbcType=VARCHAR}, #{cmdCode,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR},
+		#{cmdName,jdbcType=VARCHAR}, #{cmdLevel,jdbcType=VARCHAR},
+		#{useTime,jdbcType=INTEGER},
+		#{param,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{returnValue,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{cmdObjid,jdbcType=VARCHAR}, #{cmdTable,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.command.CmdRecord">
+		update t_saas_cmd_record
+		<set>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="meterId != null">
+				meter_id = #{meterId,jdbcType=VARCHAR},
+			</if>
+			<if test="meterAddr != null">
+				meter_addr = #{meterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdCode != null">
+				cmd_code = #{cmdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				task_id = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdName != null">
+				cmd_name = #{cmdName,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdLevel != null">
+				cmd_level = #{cmdLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="useTime != null">
+				use_time = #{useTime,jdbcType=INTEGER},
+			</if>
+			<if test="param != null">
+				param = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				reason = #{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="returnValue != null">
+				return_value = #{returnValue,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cmdObjid != null">
+				cmd_objid = #{cmdObjid,jdbcType=VARCHAR},
+			</if>
+			<if test="cmdTable != null">
+				cmd_table = #{cmdTable,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where cmd_id = #{cmdId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPage" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		t_saas_cmd_record
+		<where>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterId != null and paramObj.meterId != ''">
+				and meter_id like CONCAT('%',#{paramObj.meterId,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				and meter_addr like CONCAT('%',#{paramObj.meterAddr,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.cmdCode != null and paramObj.cmdCode != ''">
+				and cmd_code = #{paramObj.cmdCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.cmdName != null and paramObj.cmdName != ''">
+				and cmd_name like CONCAT('%',#{paramObj.cmdName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.status != null and paramObj.status != ''">
+				and status = #{paramObj.status,jdbcType=TINYINT}
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+
+</mapper>

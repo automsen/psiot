@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/tw/!svn/ver/4708/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics
+END
+MeterUseMonthService.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/tw/!svn/ver/2923/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics/MeterUseMonthService.java
+END
+MeterUseQuantumService.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tw/!svn/ver/4485/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics/MeterUseQuantumService.java
+END
+MeterUseDayService.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/2923/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics/MeterUseDayService.java
+END
+MeterUseHourService.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/2923/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics/MeterUseHourService.java
+END
+MeterUseYearService.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/2923/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/statistics/MeterUseYearService.java
+END

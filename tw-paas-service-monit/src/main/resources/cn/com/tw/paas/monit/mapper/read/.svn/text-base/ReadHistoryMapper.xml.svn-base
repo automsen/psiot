@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.read.ReadHistoryMapper">
+	<resultMap id="BaseResultMap"
+		type="cn.com.tw.paas.monit.entity.db.read.ReadHistory">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+		<result column="elec_meter_type" property="elecMeterType"
+			jdbcType="VARCHAR" />
+		<result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+		<result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+		<result column="item_name" property="itemName" jdbcType="VARCHAR" />
+		<result column="read_value" property="readValue" jdbcType="VARCHAR" />
+		<result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="joinResultMap" type="cn.com.tw.paas.monit.entity.business.read.ReadHistoryExtend" extends="BaseResultMap" >
+	    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+	    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+	  </resultMap>
+
+	<sql id="Base_Column_List">
+		id, org_id, app_id, meter_type, elec_meter_type, meter_addr, item_code,
+		item_name,
+		read_value, read_time, create_time, update_time
+	</sql>
+
+	<insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		insert into t_read_history (id, org_id, app_id,
+		meter_type, elec_meter_type, meter_addr,
+		item_code, item_name, read_value,
+		read_time, create_time, update_time
+		)
+		values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR},
+		#{meterType,jdbcType=VARCHAR}, #{elecMeterType,jdbcType=VARCHAR},
+		#{meterAddr,jdbcType=VARCHAR},
+		#{itemCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{readValue,jdbcType=VARCHAR},
+		#{readTime,jdbcType=TIMESTAMP}, now(), now()
+		)
+	</insert>
+	
+	
+	<select id="selectTrace" resultMap="joinResultMap"
+		parameterType="cn.com.tw.paas.monit.entity.business.read.ReadHistoryExtend">
+		SELECT
+			meter_addr,
+			read_time,
+			read_value,
+			item_code
+		FROM
+			t_read_history
+		<where>
+			<if test="meterAddr != null and meterAddr != ''">
+				and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="startTimeStr != null and startTimeStr != ''">
+				and read_time &gt;= #{startTimeStr,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTimeStr != null and endTimeStr != ''">
+				and read_time &lt;= #{endTimeStr,jdbcType=TIMESTAMP}
+			</if>
+			AND (
+				item_code = 'longitude'
+				OR item_code = 'latitude'
+			)
+		</where>
+		GROUP BY read_time,item_code
+		
+	</select>
+	
+	
+	<select id="select24hours" resultMap="joinResultMap" parameterType="cn.com.tw.paas.monit.entity.business.read.ReadHistoryExtend">
+		SELECT
+			*
+		FROM
+			t_read_history h
+		WHERE 1=1
+		<if test="orgId != null and orgId != ''">
+			AND h.org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+		<if test="itemCode != null and itemCode != ''">
+			AND h.item_code = #{itemCode,jdbcType=VARCHAR}
+		</if>
+		<if test="meterAddr != null and meterAddr != ''">
+			AND h.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		</if>
+		<if test="startTimeStr != null and startTimeStr != ''">
+			AND h.read_time &gt;= str_to_date(DATE_FORMAT(#{startTimeStr,jdbcType=VARCHAR},'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s')
+			AND h.read_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(#{startTimeStr,jdbcType=VARCHAR},'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND)
+		</if>
+		ORDER BY h.read_time
+	</select>
+	
+	
+	
+
+	<select id="selectPage" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+		<include refid="Base_Column_List" />
+		from
+		t_read_history
+		<where>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and (org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				)
+			</if>
+			<if test="paramObj.appId != null and paramObj.appId != ''">
+				and app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterType != null and paramObj.meterType != ''">
+				and meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				and meter_addr like CONCAT('%', #{paramObj.meterAddr,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.itemCode != null and paramObj.itemCode != ''">
+				and item_code = #{paramObj.itemCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and read_time &gt;= #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and read_time &lt;= #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY read_time DESC
+	</select>
+	
+	<select id="selectHistoryShow" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		from
+		t_read_history
+		<where>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and (org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				)
+			</if>
+			<if test="paramObj.appId != null and paramObj.appId != ''">
+				and app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterType != null and paramObj.meterType != ''">
+				and meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				and meter_addr like CONCAT('%', #{paramObj.meterAddr,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.itemCode != null and paramObj.itemCode != ''">
+				and item_code = #{paramObj.itemCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and read_time &gt;= #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and read_time &lt;= #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY read_time DESC
+		LIMIT #{offset}, #{end}
+	</select>
+	
+	<select id="selectList" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.paas.monit.entity.business.read.ReadHistoryExtend">
+		SELECT
+		<include refid="Base_Column_List" />
+		from
+		t_read_history
+		<where>
+			<if test="orgId != null and orgId != ''">
+				org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="appId != null and appId != ''">
+				and app_id = #{appId,jdbcType=VARCHAR}
+			</if>
+			<if test="meterType != null and meterType != ''">
+				and meter_type = #{meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="meterAddr != null and meterAddr != ''">
+				and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="itemCode != null and itemCode != ''">
+				and item_code = #{itemCode,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and read_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and read_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY meter_addr ,read_time DESC
+	</select>
+	
+	<select id="selectListForApi" resultType="cn.com.tw.paas.monit.entity.business.read.ReadHistorySimple"
+		parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+			meter_addr meterAddr,item_code itemCode, item_name itemName,
+			read_value readValue, read_time readTime
+		from
+		t_read_history
+		<where>
+			org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			and app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			<if test="paramObj.meterType != null and paramObj.meterType != ''">
+				and meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				and meter_addr = #{paramObj.meterAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.itemCode != null and paramObj.itemCode != ''">
+				and item_code = #{paramObj.itemCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTimeStr != null and paramObj.endTimeStr != null" >
+				and (read_time BETWEEN #{paramObj.startTimeStr,jdbcType=TIMESTAMP} AND #{paramObj.endTimeStr,jdbcType=TIMESTAMP}) 
+			</if>
+		</where>
+		ORDER BY meter_addr ,read_time DESC
+	</select>
+</mapper>

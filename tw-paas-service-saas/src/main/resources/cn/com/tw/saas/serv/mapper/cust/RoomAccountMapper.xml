@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.cust.RoomAccountMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.cust.RoomAccount" >
+        <id column="account_id" property="accountId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="balance" property="balance" jdbcType="DECIMAL" />
+        <result column="account_status" property="accountStatus" jdbcType="TINYINT" />
+        <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        account_id, org_id, room_id, balance, account_status, operator_id, operator_name, create_time, 
+        update_time
+    </sql>
+    
+    <!-- 查询房间客户仪表扩展信息 -->
+ <select id="selectForExtendList" resultType="cn.com.tw.saas.serv.entity.view.serve.RoomExtend" 
+ parameterType="cn.com.tw.saas.serv.entity.business.cust.CustRoomParam">    
+<!-- 商铺信息查询 -->
+SELECT r.room_id roomId,r.room_name roomName,r.room_number roomNumber,r.region_full_name regionFullName,
+    r.account_id accountId,r.balance balance,
+    cust.custIds,cust.custNames,cust.custMobiles,cust.custInfos,
+    csa.energyTypes,csa.meterAddrs,csa.meterInfos
+FROM
+(
+	SELECT room_id,room_name,account_id,room_number,region_full_name ,balance
+	FROM t_saas_room
+	<where> org_id = #{orgId,jdbcType=VARCHAR}
+	and room_use = '1710'
+	and account_status = 1
+	<if test="regionNo != null and regionNo != ''">
+	and region_no = #{regionNo,jdbcType=VARCHAR}
+	</if>
+	<if test="roomName != null and roomName != ''">
+	and room_name LIKE CONCAT('%', #{roomName,jdbcType=VARCHAR}, '%')
+	</if>
+	<if test="roomNumber != null and roomNumber != ''">
+	and room_number LIKE CONCAT('%', #{roomNumber,jdbcType=VARCHAR}, '%')
+	</if>
+	</where>
+) r
+INNER JOIN
+(
+	SELECT cr.room_account_id,cr.room_id,
+		GROUP_CONCAT(c.customer_id) custIds,GROUP_CONCAT(c.customer_realname) custNames,
+		GROUP_CONCAT(c.customer_mobile1) custMobiles,GROUP_CONCAT(c.custInfo) custInfos
+	FROM 
+	(
+		SELECT room_account_id,customer_id,room_id 
+		FROM t_saas_customer_room 
+		where org_id = #{orgId,jdbcType=VARCHAR}
+		and status = 1
+	) cr 
+	INNER JOIN 
+	(
+		SELECT customer_id,customer_realname,customer_mobile1,
+			CONCAT(customer_realname,':',customer_mobile1) custInfo
+		FROM t_saas_customer
+		<where> org_id = #{orgId,jdbcType=VARCHAR}
+		<if test="customerMobile1 != null and customerMobile1 != ''">
+		and customer_mobile1 LIKE CONCAT('%', #{customerMobile1,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="customerRealname != null and customerRealname != ''">
+		and customer_realname LIKE CONCAT('%', #{customerRealname,jdbcType=VARCHAR}, '%')
+		</if>
+		</where>
+	) c on cr.customer_id = c.customer_id
+	GROUP BY room_id
+) cust ON cust.room_account_id = r.account_id
+LEFT JOIN
+(
+	SELECT room_id,account_id,GROUP_CONCAT(energy_type) energyTypes,
+		GROUP_CONCAT(meter_addr) meterAddrs,
+		GROUP_CONCAT(CONCAT(energy_type,':',meter_addr)) meterInfos
+	FROM t_saas_meter
+	WHERE org_id = #{orgId,jdbcType=VARCHAR}
+	GROUP BY room_id
+) csa on csa.room_id = r.room_id
+<if test="(customerMobile1 == null or customerMobile1 == '') and (customerRealname == null or customerRealname == '')">
+union
+<!-- 宿舍信息查询 -->
+SELECT r.room_id roomId,r.room_name roomName,r.room_number roomNumber,r.region_full_name regionFullName,
+    r.account_id accountId,r.balance balance,
+    '' custIds,'' custNames,'' custMobiles,'' custInfos,
+    csa.energyTypes,csa.meterAddrs,csa.meterInfos
+FROM
+(
+	SELECT room_id,room_name,account_id,room_number,region_full_name ,balance
+	FROM t_saas_room
+	<where> org_id = #{orgId,jdbcType=VARCHAR}
+	and room_use = '1720'
+	and account_status =1
+	<if test="regionNo != null and regionNo != ''">
+	and region_no = #{regionNo,jdbcType=VARCHAR}
+	</if>
+	<if test="roomName != null and roomName != ''">
+	and room_name LIKE CONCAT('%', #{roomName,jdbcType=VARCHAR}, '%')
+	</if>
+	<if test="roomNumber != null and roomNumber != ''">
+	and room_number LIKE CONCAT('%', #{roomNumber,jdbcType=VARCHAR}, '%')
+	</if>
+	</where>
+) r
+LEFT JOIN
+(
+	SELECT room_id,account_id,GROUP_CONCAT(energy_type) energyTypes,
+		GROUP_CONCAT(meter_addr) meterAddrs,
+		GROUP_CONCAT(CONCAT(energy_type,':',meter_addr)) meterInfos
+	FROM t_saas_meter
+	WHERE org_id = #{orgId,jdbcType=VARCHAR}
+	GROUP BY room_id
+) csa on csa.room_id = r.room_id
+</if>
+	</select>
+	
+	<select id="selectForAllExtendList" resultType="cn.com.tw.saas.serv.entity.view.serve.RoomExtend" 
+ parameterType="cn.com.tw.saas.serv.entity.business.cust.CustRoomParam">    
+SELECT r.room_id roomId,r.room_name roomName,r.room_number roomNumber,r.region_full_name regionFullName,
+    r.account_id accountId,r.balance balance,
+    cust.custIds,cust.custNames,cust.custMobiles,cust.custInfos,
+    csa.energyTypes,csa.meterAddrs,csa.meterInfos
+FROM
+(
+	SELECT room_id,room_name,account_id,room_number,region_full_name ,balance
+	FROM t_saas_room
+	<where> org_id = #{orgId,jdbcType=VARCHAR}
+	<if test="regionNo != null and regionNo != ''">
+	and region_no = #{regionNo,jdbcType=VARCHAR}
+	</if>
+	<if test="roomName != null and roomName != ''">
+	and room_name LIKE CONCAT('%', #{roomName,jdbcType=VARCHAR}, '%')
+	</if>
+	<if test="roomNumber != null and roomNumber != ''">
+	and room_number LIKE CONCAT('%', #{roomNumber,jdbcType=VARCHAR}, '%')
+	</if>
+	</where>
+) r
+LEFT JOIN 
+(
+	SELECT cr.room_account_id,cr.room_id,
+		GROUP_CONCAT(c.customer_id) custIds,GROUP_CONCAT(c.customer_realname) custNames,
+		GROUP_CONCAT(c.customer_mobile1) custMobiles,GROUP_CONCAT(c.custInfo) custInfos
+	FROM 
+	(
+		SELECT room_account_id,customer_id,room_id 
+		FROM t_saas_customer_room 
+		where org_id = #{orgId,jdbcType=VARCHAR}
+		and status = 1
+	) cr 
+	INNER JOIN 
+	(
+		SELECT customer_id,customer_realname,customer_mobile1,
+			CONCAT(customer_realname,':',customer_mobile1) custInfo
+		FROM t_saas_customer
+		<where> org_id = #{orgId,jdbcType=VARCHAR}
+		<if test="customerMobile1 != null and customerMobile1 != ''">
+		and customer_mobile1 LIKE CONCAT('%', #{customerMobile1,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="customerRealname != null and customerRealname != ''">
+		and customer_realname LIKE CONCAT('%', #{customerRealname,jdbcType=VARCHAR}, '%')
+		</if>
+		</where>
+	) c on cr.customer_id = c.customer_id
+	GROUP BY room_id
+) cust ON cust.room_account_id = r.account_id
+LEFT JOIN
+(
+	SELECT room_id,account_id,GROUP_CONCAT(energy_type) energyTypes,
+		GROUP_CONCAT(meter_addr) meterAddrs,
+		GROUP_CONCAT(CONCAT(energy_type,':',meter_addr)) meterInfos
+	FROM t_saas_meter
+	WHERE org_id = #{orgId,jdbcType=VARCHAR}
+	GROUP BY room_id
+) csa on csa.room_id = r.room_id
+	</select>
+
+    <update id="updateOnlyBalance" parameterType="cn.com.tw.saas.serv.entity.db.cust.RoomAccount" >
+        update t_saas_cust_room_account
+        <set >
+                balance = balance + #{balance,jdbcType=DECIMAL},
+                update_time = now(),
+        </set>
+        where account_id = #{accountId,jdbcType=VARCHAR}
+    </update>
+    	
+    <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.cust.RoomAccount">
+  		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_saas_cust_room_account
+		WHERE
+			room_id = #{roomId,jdbcType=VARCHAR}
+		AND
+			account_status = "1"
+	</select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_cust_room_account
+        where account_id = #{accountId,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.cust.RoomAccount" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_cust_room_account
+        <where>
+        <if test="orgId != null" >
+                and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="roomId != null" >
+                and room_id = #{roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="accountStatus != null" >
+                and account_status = #{accountStatus,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.cust.RoomAccount" >
+        insert into t_saas_cust_room_account (account_id, org_id, room_id, 
+            balance, account_status, operator_id, 
+            operator_name, create_time, update_time
+            )
+        values (#{accountId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+            #{balance,jdbcType=DECIMAL}, #{accountStatus,jdbcType=TINYINT}, #{operatorId,jdbcType=VARCHAR}, 
+            #{operatorName,jdbcType=VARCHAR}, now(), now()
+            )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.cust.RoomAccount" >
+        update t_saas_cust_room_account
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="operatorId != null" >
+                operator_id = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorName != null" >
+                operator_name = #{operatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where account_id = #{accountId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_cust_room_account
+        where account_id = #{accountId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

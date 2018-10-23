@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal
+END
+SaasNetService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/954/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/SaasNetService.java
+END
+FeignNetService.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/1361/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/FeignNetService.java
+END
+MeterHisService.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3876/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/MeterHisService.java
+END
+SaasMeterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/1442/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/SaasMeterService.java
+END
+FeignMeterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/1361/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/FeignMeterService.java
+END
+MeterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/MeterService.java
+END

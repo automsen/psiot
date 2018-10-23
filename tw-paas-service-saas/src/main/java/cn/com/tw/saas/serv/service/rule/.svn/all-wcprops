@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/3998/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule
+END
+EnergyAllowanceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/1778/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/EnergyAllowanceService.java
+END
+RuleAppendService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/1836/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/RuleAppendService.java
+END
+RuleElecService.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/2395/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/RuleElecService.java
+END
+SurchargeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/72/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/SurchargeService.java
+END
+RuleAlarmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/tw/!svn/ver/72/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/RuleAlarmService.java
+END
+EnergyPriceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/563/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/rule/EnergyPriceService.java
+END

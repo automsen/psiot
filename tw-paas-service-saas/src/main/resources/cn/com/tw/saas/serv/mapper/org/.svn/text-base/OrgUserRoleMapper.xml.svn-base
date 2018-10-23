@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.org.OrgUserRoleMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.org.OrgUserRole" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, org_id, role_id, role_code, user_id, room_id, create_time
+    </sql>
+    
+   <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from t_saas_org_user_role
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_org_user_role
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.org.OrgUserRole" >
+        insert into t_saas_org_user_role (id, org_id, role_id, 
+            role_code, user_id, room_id, 
+            create_time)
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
+            #{roleCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+            now())
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.org.OrgUserRole" >
+        update t_saas_org_user_role
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null" >
+                role_id = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null" >
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_org_user_role
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

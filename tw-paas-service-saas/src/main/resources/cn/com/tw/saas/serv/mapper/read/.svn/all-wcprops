@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/read
+END
+VReadLastElecMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/read/VReadLastElecMapper.xml
+END
+ReadLastMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/3735/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/read/ReadLastMapper.xml
+END
+ReadManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3163/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/read/ReadManualMapper.xml
+END
+ReadRecordMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/read/ReadRecordMapper.xml
+END

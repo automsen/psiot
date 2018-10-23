@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/java/cn/com/tw/paas/monit/mapper/sys
+END
+UserMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/tw/!svn/ver/2386/projects/psaas/trunk/tw-paas-service-monit/src/main/java/cn/com/tw/paas/monit/mapper/sys/UserMapper.java
+END
+DictMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/tw/!svn/ver/71/projects/psaas/trunk/tw-paas-service-monit/src/main/java/cn/com/tw/paas/monit/mapper/sys/DictMapper.java
+END
+AreaMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/java/cn/com/tw/paas/monit/mapper/sys/AreaMapper.java
+END

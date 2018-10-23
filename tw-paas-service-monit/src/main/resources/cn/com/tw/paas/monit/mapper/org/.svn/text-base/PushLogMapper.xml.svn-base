@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.PushLogMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.PushLog" >
+    <id column="log_id" property="logId" jdbcType="VARCHAR" />
+    <result column="push_url" property="pushUrl" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="push_data" property="pushData" jdbcType="VARCHAR" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="app_business_no" property="appBusinessNo" jdbcType="VARCHAR" />
+    <result column="business_no" property="businessNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_push_time" property="lastPushTime" jdbcType="TIMESTAMP" />
+    <result column="try_times" property="tryTimes" jdbcType="INTEGER" />
+    <result column="push_status" property="pushStatus" jdbcType="VARCHAR" />
+    <result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="joinResultMap" type="cn.com.tw.paas.monit.entity.business.org.PushLogExpand" extends="BaseResultMap" >
+        <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+	    <result column="org_status" property="orgStatus" jdbcType="VARCHAR" />
+	    <result column="org_level" property="orgLevel" jdbcType="INTEGER" />
+	    <result column="unified_code" property="unifiedCode" jdbcType="VARCHAR" />
+	    <result column="org_type" property="orgType" jdbcType="VARCHAR" />
+	    <result column="org_addr" property="orgAddr" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    log_id, push_url, org_id, org_name, app_id, app_name, push_data, business_type, app_business_no, business_no, 
+    create_time, last_push_time, try_times, push_status, status_code
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_push_log
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPushLogPage" resultMap="joinResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+       SELECT
+			l.log_id,
+			l.push_url,
+			l.org_id,
+			l.org_name,
+			l.app_id,
+			l.app_name,
+			l.push_data,
+			l.business_type,
+			l.app_business_no,
+			l.business_no,
+			l.create_time,
+			l.last_push_time,
+			l.try_times,
+			l.push_status,
+			l.status_code
+		FROM
+			t_org_push_log l
+        <where>
+            <if test="paramObj.orgName != null and paramObj.orgName != ''">
+				and l.org_name like CONCAT('%', #{paramObj.orgName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				<!-- and (l.org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				l.org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				) -->
+				and l.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.pushStatus != null and paramObj.pushStatus != ''">
+				and l.push_status = #{paramObj.pushStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and l.create_time &gt;=  #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and l.create_time &lt;=  #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY l.create_time desc
+  </select>
+  
+  <select id="selectPushLogShow" resultMap="joinResultMap" parameterType="java.util.Map" >
+       SELECT
+			l.log_id,
+			l.push_url,
+			l.org_id,
+			l.org_name,
+			l.app_id,
+			l.app_name,
+			l.push_data,
+			l.business_type,
+			l.app_business_no,
+			l.business_no,
+			l.create_time,
+			l.last_push_time,
+			l.try_times,
+			l.push_status,
+			l.status_code
+		FROM
+			t_org_push_log l
+        <where>
+            <if test="paramObj.orgName != null and paramObj.orgName != ''">
+				and l.org_name like CONCAT('%', #{paramObj.orgName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				<!-- and (l.org_id = #{paramObj.orgId,jdbcType=VARCHAR} OR 
+				l.org_id in(select org_id from t_org where parent_org_id = #{paramObj.orgId,jdbcType=VARCHAR})
+				) -->
+				and l.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.pushStatus != null and paramObj.pushStatus != ''">
+				and l.push_status = #{paramObj.pushStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTime != null and paramObj.startTime != ''">
+				and l.create_time &gt;=  #{paramObj.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="paramObj.endTime != null and paramObj.endTime != ''">
+				and l.create_time &lt;=  #{paramObj.endTime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		ORDER BY l.create_time desc
+		LIMIT #{offset}, #{end}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_org_push_log
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.PushLog" >
+    insert into t_org_push_log (log_id, push_url, org_id, org_name,
+      app_id, app_name, push_data, business_type, 
+      app_business_no, business_no, create_time, 
+      last_push_time, try_times, push_status, 
+      status_code)
+    values (#{logId,jdbcType=VARCHAR}, #{pushUrl,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR},
+      #{appId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{pushData,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, 
+      #{appBusinessNo,jdbcType=VARCHAR}, #{businessNo,jdbcType=VARCHAR}, now(), 
+      #{lastPushTime,jdbcType=TIMESTAMP}, #{tryTimes,jdbcType=INTEGER}, #{pushStatus,jdbcType=VARCHAR}, 
+      #{statusCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.org.PushLog" >
+    insert into t_org_push_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="pushUrl != null" >
+        push_url,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="pushData != null" >
+        push_data,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="appBusinessNo != null" >
+        app_business_no,
+      </if>
+      <if test="businessNo != null" >
+        business_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastPushTime != null" >
+        last_push_time,
+      </if>
+      <if test="tryTimes != null" >
+        try_times,
+      </if>
+      <if test="pushStatus != null" >
+        push_status,
+      </if>
+      <if test="statusCode != null" >
+        status_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="pushUrl != null" >
+        #{pushUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="pushData != null" >
+        #{pushData,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="appBusinessNo != null" >
+        #{appBusinessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNo != null" >
+        #{businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPushTime != null" >
+        #{lastPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tryTimes != null" >
+        #{tryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.PushLog" >
+    update t_org_push_log
+    <set >
+      <if test="pushUrl != null" >
+        push_url = #{pushUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="pushData != null" >
+        push_data = #{pushData,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="appBusinessNo != null" >
+        app_business_no = #{appBusinessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNo != null" >
+        business_no = #{businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPushTime != null" >
+        last_push_time = #{lastPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tryTimes != null" >
+        try_times = #{tryTimes,jdbcType=INTEGER},
+      </if>
+      <if test="pushStatus != null" >
+        push_status = #{pushStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        status_code = #{statusCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.org.PushLog" >
+    update t_org_push_log
+    set push_url = #{pushUrl,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      push_data = #{pushData,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      app_business_no = #{appBusinessNo,jdbcType=VARCHAR},
+      business_no = #{businessNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_push_time = #{lastPushTime,jdbcType=TIMESTAMP},
+      try_times = #{tryTimes,jdbcType=INTEGER},
+      push_status = #{pushStatus,jdbcType=VARCHAR},
+      status_code = #{statusCode,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+</mapper>

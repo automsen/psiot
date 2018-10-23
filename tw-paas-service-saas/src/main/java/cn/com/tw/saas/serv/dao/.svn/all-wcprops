@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/tw/!svn/ver/1121/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/dao
+END
+TerminalHisDataDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/1098/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/dao/TerminalHisDataDao.java
+END
+TerminalLastDataDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/tw/!svn/ver/1121/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/dao/TerminalLastDataDao.java
+END

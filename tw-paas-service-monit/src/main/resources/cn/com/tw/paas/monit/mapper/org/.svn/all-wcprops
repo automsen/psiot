@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org
+END
+OrgApplicationMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/3783/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/OrgApplicationMapper.xml
+END
+ApiLogMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/562/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/ApiLogMapper.xml
+END
+TerminalEquipParamDtuMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/tw/!svn/ver/4705/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/TerminalEquipParamDtuMapper.xml
+END
+TerminalEquipMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/TerminalEquipMapper.xml
+END
+OrgLocationMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/OrgLocationMapper.xml
+END
+PushLogMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/562/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/PushLogMapper.xml
+END
+OrgResidentMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/4744/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/OrgResidentMapper.xml
+END
+OrgUserMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/71/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/OrgUserMapper.xml
+END
+OrgMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/71/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/OrgMapper.xml
+END
+TerminalEquipChildrenMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/tw/!svn/ver/4713/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/TerminalEquipChildrenMapper.xml
+END
+NetEquipMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/3658/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/NetEquipMapper.xml
+END
+InsExeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/4359/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/InsExeMapper.xml
+END
+EquipNetStatusMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/4310/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/EquipNetStatusMapper.xml
+END
+EquipGroupMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/3783/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/EquipGroupMapper.xml
+END
+CmdExeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/4535/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/CmdExeMapper.xml
+END
+EquipInsGroupMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/71/projects/psaas/trunk/tw-paas-service-monit/src/main/resources/cn/com/tw/paas/monit/mapper/org/EquipInsGroupMapper.xml
+END

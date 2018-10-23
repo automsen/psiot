@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.rule.EnergyAllowanceMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.rule.EnergyAllowance" >
+        <id column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="rule_no" property="ruleNo" jdbcType="VARCHAR" />
+        <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="allowance_type" property="allowanceType" jdbcType="VARCHAR" />
+        <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+        <result column="allowance_quota" property="allowanceQuota" jdbcType="DECIMAL" />
+        <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+        <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+        <result column="is_history" property="isHistory" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        rule_id, org_id, rule_no, rule_name, energy_type, allowance_type, room_use, allowance_quota, 
+        is_default, is_usable, is_history, create_time, update_time
+    </sql>
+    
+    <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyAllowance" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_allowance
+        <where>
+            <if test="orgId != null and energyType != ''" >
+               and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="ruleNo != null and ruleNo != ''" >
+               and rule_no = #{ruleNo,jdbcType=VARCHAR}
+            </if>
+            <if test="ruleName != null and ruleName != ''" >
+               and rule_name = #{ruleName,jdbcType=VARCHAR}
+            </if>
+            <if test="energyType != null and energyType != ''" >
+               and energy_type = #{energyType,jdbcType=VARCHAR}
+            </if>
+            <if test="allowanceType != null and allowanceType != ''" >
+               and allowance_type = #{allowanceType,jdbcType=VARCHAR}
+            </if>
+            <if test="roomUse != null and roomUse != ''" >
+               and room_use = #{roomUse,jdbcType=VARCHAR}
+            </if>
+            <if test="allowanceQuota != null" >
+               and allowance_quota = #{allowanceQuota,jdbcType=DECIMAL}
+            </if>
+            <if test="isDefault != null" >
+               and is_default = #{isDefault,jdbcType=TINYINT}
+            </if>
+            <if test="isUsable != null" >
+               and is_usable = #{isUsable,jdbcType=TINYINT}
+            </if>
+            <if test="isHistory != null" >
+               and is_history = #{isHistory,jdbcType=TINYINT}
+            </if>        
+        </where>
+    </select>    
+    
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_allowance
+        <where>
+            <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+               and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.ruleNo != null and paramObj.ruleNo != ''" >
+               and rule_no = #{paramObj.ruleNo,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.ruleName != null and paramObj.ruleName != ''" >
+               and rule_name like concat ("%",#{paramObj.ruleName,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="paramObj.energyType != null and paramObj.energyType != ''" >
+               and energy_type = #{paramObj.energyType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.allowanceType != null and paramObj.allowanceType != ''" >
+               and allowance_type = #{paramObj.allowanceType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomUse != null and paramObj.roomUse != ''" >
+               and room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.allowanceQuota != null" >
+               and allowance_quota = #{paramObj.allowanceQuota,jdbcType=DECIMAL}
+            </if>
+            <if test="paramObj.isDefault != null" >
+               and is_default = #{paramObj.isDefault,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.isUsable != null" >
+               and is_usable = #{paramObj.isUsable,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.isHistory != null" >
+               and is_history = #{paramObj.isHistory,jdbcType=TINYINT}
+            </if>        
+        </where>
+    </select>
+    
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_allowance
+        where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyAllowance" >
+        insert into t_saas_rule_energy_allowance (rule_id, org_id, rule_no, 
+            rule_name, energy_type, allowance_type, 
+            room_use, allowance_quota, is_default, 
+            is_usable, is_history, create_time, 
+            update_time)
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{ruleNo,jdbcType=VARCHAR}, 
+            #{ruleName,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{allowanceType,jdbcType=VARCHAR}, 
+            #{roomUse,jdbcType=VARCHAR}, #{allowanceQuota,jdbcType=DECIMAL}, #{isDefault,jdbcType=TINYINT}, 
+            #{isUsable,jdbcType=TINYINT}, #{isHistory,jdbcType=TINYINT}, now(), 
+            now())
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyAllowance" >
+        update t_saas_rule_energy_allowance
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleNo != null" >
+                rule_no = #{ruleNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleName != null" >
+                rule_name = #{ruleName,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="allowanceType != null" >
+                allowance_type = #{allowanceType,jdbcType=VARCHAR},
+            </if>
+            <if test="roomUse != null" >
+                room_use = #{roomUse,jdbcType=VARCHAR},
+            </if>
+            <if test="allowanceQuota != null" >
+                allowance_quota = #{allowanceQuota,jdbcType=DECIMAL},
+            </if>
+            <if test="isDefault != null" >
+                is_default = #{isDefault,jdbcType=TINYINT},
+            </if>
+            <if test="isUsable != null" >
+                is_usable = #{isUsable,jdbcType=TINYINT},
+            </if>
+            <if test="isHistory != null" >
+                is_history = #{isHistory,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+                update_time = now()
+        </set>
+        where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_rule_energy_allowance
+        where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -1,0 +1,1049 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.room.RoomMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.room.Room" >
+        <id column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+        <result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+        <result column="region_number" property="regionNumber" jdbcType="VARCHAR" />
+        <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+        <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="area" property="area" jdbcType="DECIMAL" />
+        <result column="people_limit" property="peopleLimit" jdbcType="INTEGER" />
+        <result column="people_number" property="peopleNumber" jdbcType="INTEGER" />
+        <result column="account_status" property="accountStatus" jdbcType="TINYINT" />
+        <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+        <result column="balance" property="balance" jdbcType="DECIMAL" />
+        <result column="elec_allowance_type" property="elecAllowanceType" jdbcType="VARCHAR" />
+        <result column="elec_allowance_rule_id" property="elecAllowanceRuleId" jdbcType="VARCHAR" />
+        <result column="elec_allowance" property="elecAllowance" jdbcType="DECIMAL" />
+        <result column="water_allowance_type" property="waterAllowanceType" jdbcType="VARCHAR" />
+        <result column="water_allowance_rule_id" property="waterAllowanceRuleId" jdbcType="VARCHAR" />
+        <result column="water_allowance" property="waterAllowance" jdbcType="DECIMAL" />
+        <result column="rental_id" property="rentalId" jdbcType="VARCHAR" />
+        <result column="property_id" property="propertyId" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+        <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+        <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+        <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+        <result column="sub_water_balance" property="subWaterBalance" jdbcType="DECIMAL" />
+        <result column="sub_elec_balance" property="subElecBalance" jdbcType="DECIMAL" />
+        <result column="totle_balance" property="totleBalance" jdbcType="DECIMAL" />
+        <result column="elec_meter" property="elecMeter" jdbcType="VARCHAR" />
+	    <result column="elec_install_addr" property="elecInstallAddr" jdbcType="VARCHAR" />
+	    <result column="water_meter" property="waterMeter" jdbcType="VARCHAR" />
+	    <result column="water_install_addr" property="waterInstallAddr" jdbcType="VARCHAR" />
+	    <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+	    
+	    <!-- 欠费类型 -->
+	    <result column="balance_type" property="balanceType" jdbcType="VARCHAR" />
+	    
+	    <!-- 房态管理扩展字段 -->
+	    <result column="e_meter_addr" property="eMeterAddr" jdbcType="VARCHAR" />
+	    <result column="e_alarm_id" property="eAlarmId" jdbcType="VARCHAR" />
+	    <result column="e_rule_name" property="eRuleName" jdbcType="VARCHAR" />
+	    <result column="e_price_id" property="ePriceId" jdbcType="VARCHAR" />
+	    <result column="e_price_name" property="ePriceName" jdbcType="VARCHAR" />
+	    <result column="e_price_mode_code" property="ePriceModeCode" jdbcType="VARCHAR" />
+	    <result column="w_meter_addr" property="wMeterAddr" jdbcType="VARCHAR" />
+	    <result column="w_alarm_id" property="wAlarmId" jdbcType="VARCHAR" />
+	    <result column="w_rule_name" property="wRuleName" jdbcType="VARCHAR" />
+	    <result column="w_price_id" property="wPriceId" jdbcType="VARCHAR" />
+	    <result column="w_price_name" property="wPriceName" jdbcType="VARCHAR" />
+	    <result column="w_price_mode_code" property="wPriceModeCode" jdbcType="VARCHAR" />
+	    <result column="last_recharge_time" property="lastRechargeTime" jdbcType="TIMESTAMP" />
+	    <result column="is_used" property="isUsed" jdbcType="TINYINT" />
+	    <!-- 房态管理扩展字段 -->
+	    
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        room_id, org_id, region_id, region_no, region_number, region_full_name, room_use, 
+        room_number, room_name, area, people_limit, people_number, account_status, account_id, 
+        balance, elec_allowance_type, elec_allowance_rule_id, elec_allowance, water_allowance_type, 
+        water_allowance_rule_id, water_allowance, rental_id, property_id, start_time, end_time, 
+        create_time, update_time, last_recharge_time, is_used
+    </sql>
+    
+    <resultMap id="allowanceInMap" type="cn.com.tw.saas.serv.entity.room.RoomAllowanceInfo" extends="BaseResultMap" >
+	    <result column="lastExcuteTime" property="lastExcuteTime" jdbcType="TIMESTAMP"/>
+	    <result column="lastVolume" property="lastVolume" jdbcType="DECIMAL" />
+        <result column="nextExcuteTime" property="nextExcuteTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="selectByPageForAllowance" resultMap="allowanceInMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+    SELECT * FROM 
+    (SELECT
+		room_id,
+		org_id,
+		region_id,
+		region_no,
+		region_number,
+		region_full_name,
+		room_use,
+		room_number,
+		room_name,
+		area,
+		people_limit,
+		people_number,
+		account_status,
+		account_id,
+		balance,
+		elec_allowance_type,
+		elec_allowance_rule_id,
+		elec_allowance,
+		water_allowance_type,
+		water_allowance_rule_id,
+		water_allowance,
+		rental_id,
+		property_id,
+		start_time,
+		end_time,
+		create_time,
+		update_time,
+		last_recharge_time,
+		is_used,
+		(SELECT volume FROM t_saas_room_allowance_record WHERE room_id = r.room_id AND `status` = 1 and volume>0 ORDER BY execute_time DESC LIMIT 1) lastVolume,
+	    (SELECT execute_time FROM t_saas_room_allowance_record WHERE room_id = r.room_id AND `status` = 1 and volume>0 ORDER BY execute_time DESC LIMIT 1) lastExcuteTime,
+	    (SELECT execute_time FROM t_saas_room_allowance_record WHERE room_id = r.room_id AND `status` = 0 ORDER BY execute_time ASC LIMIT 1) nextExcuteTime
+	    from t_saas_room r
+	 <where>
+   	  r.account_status = 1
+     <if test="paramObj.orgId != null and paramObj.orgId != ''">
+      and  r.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.regionId != null and paramObj.regionId != ''">
+      and  r.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+      and  r.region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+      and  r.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="paramObj.roomUse != null and paramObj.roomUse != ''">
+      and  r.room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+     </if>
+     </where>
+	 ) t
+    <where>
+     <if test="paramObj.startTime !=null and paramObj.startTime !='' and paramObj.endTime !=null and paramObj.endTime !=''">
+       t.lastExcuteTime BETWEEN #{paramObj.startTime} AND #{paramObj.endTime}
+     </if>
+    </where>
+    ORDER BY
+	t.region_number,t.room_number
+  </select>
+  
+  
+  
+  <select id="selectRoomStatusByPage" resultMap="allowanceInMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+    SELECT
+    	r.region_full_name,
+		r.region_no,
+		r.region_id,
+		r.room_id,
+		r.room_name,
+		r.room_number,
+		r.room_use,
+		r.account_status,
+		r.account_id,
+		e.meter_addr AS e_meter_addr,
+		e.alarm_id as e_alarm_id,
+	  	e.rule_name as e_rule_name,
+		e.price_id as e_price_id,
+	  	e.price_name as e_price_name,
+		e.price_mode_code as e_price_mode_code,
+		w.meter_addr AS w_meter_addr,
+		w.alarm_id AS w_alarm_id,
+ 	 	w.rule_name AS w_rule_name,
+		w.price_id AS w_price_id,
+	  	w.price_name AS w_price_name,
+		w.price_mode_code AS w_price_mode_code
+	FROM
+		t_saas_room r
+	LEFT JOIN (
+		SELECT
+			m.room_id,
+	    	m.meter_addr,
+		  	m.alarm_id,
+		  	m.price_id,
+		  	m.price_mode_code,
+	    	a.rule_name,
+	    	p.price_name
+		FROM
+			t_saas_meter m
+	  LEFT JOIN t_saas_rule_alarm a ON a.alarm_id = m.alarm_id
+	  LEFT JOIN t_saas_rule_energy_price p ON p.price_id = m.price_id
+		WHERE
+			m.energy_type = '110000' and m.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+	) e ON r.room_id = e.room_id
+	LEFT JOIN (
+		SELECT
+			m.room_id,
+	    	m.meter_addr,
+		  	m.alarm_id,
+		  	m.price_id,
+		  	m.price_mode_code,
+	    	a.rule_name,
+	    	p.price_name
+		FROM
+			t_saas_meter m
+	  LEFT JOIN t_saas_rule_alarm a ON a.alarm_id = m.alarm_id
+	  LEFT JOIN t_saas_rule_energy_price p ON p.price_id = m.price_id
+		WHERE
+			m.energy_type = '120000' and m.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+	) w ON r.room_id = w.room_id
+    <where>
+        r.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+     <if test="paramObj.regionId != null and paramObj.regionId != ''">
+      and  r.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+      and  r.region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+      and  r.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="paramObj.roomUse != null and paramObj.roomUse != ''">
+      and  r.room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.roomName != null and paramObj.roomName != ''">
+      and  r.room_name like concat ('%',#{paramObj.roomName,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="paramObj.accountStatus != null and paramObj.accountStatus != ''">
+      and  r.account_status = #{paramObj.accountStatus,jdbcType=VARCHAR}
+     </if>
+    </where>
+  </select>
+  
+  
+	
+        <!-- 更新余额专用 -->
+	<update id="updateForBalance" parameterType="cn.com.tw.saas.serv.entity.room.Room" >
+        update t_saas_room
+        <set >
+            balance = balance + #{balance,jdbcType=DECIMAL},
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+                update_time = now(),
+                last_recharge_time = now()
+        </set>
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </update>
+    
+    <!-- 更新补助余额专用 -->
+	<update id="updateForAllowance" parameterType="cn.com.tw.saas.serv.entity.room.Room" >
+        update t_saas_room
+        <set >
+            <if test="elecAllowance != null" >
+                elec_allowance = elec_allowance + #{elecAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="waterAllowance != null" >
+                water_allowance = water_allowance + #{waterAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+                update_time = now()
+        </set>
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </update>
+    
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_room
+    <where>
+     <if test="paramObj.orgId != null and paramObj.orgId != ''">
+      and  org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.regionId != null and paramObj.regionId != ''">
+      and  region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+      and  region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+      and  room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+     </if>
+     <if test="paramObj.roomUse != null and paramObj.roomUse != ''">
+      and  room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+     </if>
+     <if test="paramObj.dorm != null and paramObj.dorm != ''">
+        <!-- 服务宿舍  房间状态不为 维护 和 废弃中的房间 -->
+     	 and  account_status != '0' and account_status != '3'
+     </if>
+    </where>
+  </select>
+  
+  <select id="selectRoomAndCust" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+		r.*,
+	    c.customer_mobile1,
+	    c.customer_no,
+	    c.customer_realname
+	FROM
+		t_saas_room r
+	LEFT JOIN t_saas_customer_room cr ON cr.room_id = r.room_id
+	LEFT JOIN t_saas_customer c ON cr.customer_id = c.customer_id
+	where r.room_id = #{roomId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectRoomMeterByregionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	  SELECT
+		r.*, 
+	  	m.meter_addr elec_meter,
+		m.meter_install_addr as elec_install_addr,
+	  	w.meter_addr as water_meter,
+	  	w.meter_install_addr as water_install_addr
+	  FROM
+		t_saas_room r
+	  LEFT JOIN (SELECT * FROM t_saas_meter WHERE energy_type = '110000') m ON m.room_id = r.room_id
+	  LEFT JOIN (SELECT * FROM t_saas_meter WHERE energy_type = '120000') w ON w.room_id = r.room_id
+	  WHERE r.region_id = #{0} AND r.org_id = #{1}
+	  GROUP BY
+		r.region_id,
+		r.room_number
+  </select>
+  
+  
+  <select id="selectRoomCustByRegionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	    SELECT
+			r.room_id,
+		    r.region_id,
+		    r.room_number,
+		    r.room_name,
+		    r.account_status
+		FROM
+			t_saas_room r
+		WHERE r.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+		and room_id not in (
+		select room_id from t_saas_customer_room
+		where `status` = '1')
+  </select>
+  
+  <select id="selectRoomMeterByRegionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	    SELECT
+			r.room_id,
+		    r.region_id,
+		    r.room_number,
+		    r.room_name,
+		    r.account_status
+		FROM
+			t_saas_room r
+		LEFT JOIN t_saas_meter m ON m.room_id = r.room_id
+		WHERE r.region_id = #{paramObj.regionId,jdbcType=VARCHAR} AND m.room_id is NULL
+  </select>
+  
+
+  <!-- 房间关联客户查询  -->
+  <select id="selectWithCustByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+			r.*, cust.customer_realname,cust.customer_mobile1,cust.customer_no
+		FROM
+			(select * FROM t_saas_room 
+		<where> 
+		org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+		and account_id IS NOT NULL AND account_status != 0 AND account_status != 3
+		<if test="paramObj.regionId != null and paramObj.regionId != ''">
+	      	and  region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+	    </if>
+	    <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+	      	and  region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+	    </if>
+		<if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+	      	and  room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+	    </if>
+	    <if test="paramObj.roomUse != null and paramObj.roomUse != ''">
+      		and  room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+     	</if>
+		</where>
+			) r
+		INNER JOIN (
+			SELECT
+				room_id,
+				room_account_id,
+				customer_id
+			FROM
+				t_saas_customer_room
+			<where>
+				org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			and (`status` = 1 or `status` = 0)
+			</where>
+		) cr ON cr.room_account_id = r.account_id
+		INNER JOIN (
+			SELECT
+				customer_realname,
+				customer_mobile1,
+				customer_no,
+				customer_id
+			FROM
+				t_saas_customer c
+			<where>
+				c.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			<if test="paramObj.customerRealname != null and paramObj.customerRealname != ''">
+				and  c.customer_realname like concat ('%',#{paramObj.customerRealname,jdbcType=VARCHAR},'%')
+			</if>
+				<if test="paramObj.customerMobile1 != null and paramObj.customerMobile1 != ''">
+				and  c.customer_mobile1 like concat ('%',#{paramObj.customerMobile1,jdbcType=VARCHAR},'%')
+			</if>	
+			</where>
+		) cust ON cr.customer_id = cust.customer_id
+  </select>
+    
+  <!-- 商户房间余额  -->
+  <select id="selectShopRoomBalanceByPage" resultMap="BaseResultMap" 
+  			parameterType="cn.com.tw.common.web.entity.page.Page">
+	    SELECT p.* from(
+	    SELECT
+			r.*,
+		  cust.customer_realname,
+		  elec.alarm_id,
+		  elec.sub_elec_balance,
+		  cust.customer_mobile1,
+		  water.sub_water_balance,
+		  (r.balance + if(elec.sub_elec_balance IS null , 0 ,elec.sub_elec_balance) +
+		   if(water.sub_water_balance IS null , 0 ,water.sub_water_balance)) AS totle_balance
+		FROM
+			t_saas_room r
+		LEFT JOIN (SELECT
+			c.customer_realname,
+			c.customer_mobile1,
+		  cr.room_account_id
+		FROM
+			t_saas_customer c 
+		LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id) 
+					cust on cust.room_account_id = r.account_id 
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_elec_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '110000') elec ON elec.account_id = r.account_id
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_water_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '120000') water ON water.account_id = r.account_id
+		) p
+		<if test="paramObj.balanceType == 1">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="paramObj.balanceType == 0">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="paramObj.balanceType == 3">
+	      	
+	     </if>
+    <where>
+    		and p.room_use = '1710'
+		   <if test="paramObj.balanceType == 1">
+		   	and  p.totle_balance &lt; k1.alarm1_value
+		   	and  p.totle_balance &gt;= 0
+			<!-- and  (p.totle_balance &gt; 0||p.totle_balance == 0) -->
+		   </if>
+		   <if test="paramObj.balanceType == 0">
+		   	and  p.totle_balance &lt; 0
+		   </if>
+	     <if test="paramObj.orgId != null and paramObj.orgId != ''">
+	      	and  p.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.regionId != null and paramObj.regionId != ''">
+	      	and  p.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+	      	and  p.region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+	      	and  p.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+	     </if>
+	     <if test="paramObj.customerRealname != null and paramObj.customerRealname != ''">
+	      	and  p.customer_realname like concat ('%',#{paramObj.customerRealname,jdbcType=VARCHAR},'%')
+	     </if>
+    </where>
+   GROUP BY p.room_id
+  </select>
+  
+   <!-- 商户房间余额导出excel  -->
+  <select id="shopbalanceExport" resultMap="BaseResultMap" 
+  			parameterType="cn.com.tw.saas.serv.entity.room.Room">
+	    <!-- SELECT p.* from(
+	    SELECT
+			r.*,
+		  cust.customer_realname,
+		  elec.alarm_id,
+		  elec.sub_elec_balance,
+		  cust.customer_mobile1,
+		  water.sub_water_balance,
+		  (r.balance + if(elec.sub_elec_balance IS null , 0 ,elec.sub_elec_balance) +
+		   if(water.sub_water_balance IS null , 0 ,water.sub_water_balance)) AS totle_balance
+		FROM
+			t_saas_room r
+		LEFT JOIN (SELECT
+			c.customer_realname,
+			c.customer_mobile1,
+		  cr.room_account_id
+		FROM
+			t_saas_customer c 
+		LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id) 
+					cust on cust.room_account_id = r.account_id 
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_elec_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '110000') elec ON elec.account_id = r.account_id
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_water_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '120000') water ON water.account_id = r.account_id
+		) p
+		<if test="balanceType == 1">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="balanceType == 0">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="balanceType == 3">
+	      	
+	     </if>
+    <where>
+    		and p.room_use = '1710'
+		   <if test="balanceType == 1">
+		   	and  p.totle_balance &lt; k1.alarm1_value
+		   	and  p.totle_balance &gt;= 0
+			and  (p.totle_balance &gt; 0||p.totle_balance == 0)
+		   </if>
+		   <if test="balanceType == 0">
+		   	and  p.totle_balance &lt; 0
+		   </if>
+	     <if test="orgId != null and orgId != ''">
+	      	and  p.org_id = #{orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="regionId != null and regionId != ''">
+	      	and  p.region_id = #{regionId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="regionNo != null and regionNo != ''">
+	      	and  p.region_no = #{regionNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="roomNumber != null and roomNumber != ''">
+	      	and  p.room_number like concat ('%',#{roomNumber,jdbcType=VARCHAR},'%')
+	     </if>
+	     <if test="customerRealname != null and customerRealname != ''">
+	      	and  p.customer_realname like concat ('%',#{customerRealname,jdbcType=VARCHAR},'%')
+	     </if>
+    </where>
+   GROUP BY p.room_id -->
+   SELECT p.* from(
+	    SELECT
+			r.*,
+		  cust.customer_realname,
+		  elec.alarm_id,
+		  elec.sub_elec_balance,
+		  cust.customer_mobile1,
+		  water.sub_water_balance,
+		  (r.balance + if(elec.sub_elec_balance IS null , 0 ,elec.sub_elec_balance) +
+		   if(water.sub_water_balance IS null , 0 ,water.sub_water_balance)) AS totle_balance
+		FROM
+			t_saas_room r
+		LEFT JOIN (SELECT
+			c.customer_realname,
+			c.customer_mobile1,
+		  cr.room_account_id
+		FROM
+			t_saas_customer c 
+		LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id) 
+					cust on cust.room_account_id = r.account_id 
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_elec_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '110000') elec ON elec.account_id = r.account_id
+		LEFT JOIN (SELECT
+			m.alarm_id,
+			m.account_id,
+		  m.balance AS sub_water_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '120000') water ON water.account_id = r.account_id
+		) p
+		<!-- <if test="balanceType == 1">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="balanceType == 0">
+	      	LEFT JOIN(
+				SELECT
+				k.alarm_id,
+				k.alarm1_value
+				FROM
+				t_saas_rule_alarm k
+			) k1 on k1.alarm_id=p.alarm_id 
+	     </if>
+	     <if test="balanceType == 3">
+	      	
+	     </if> -->
+    <where>
+    		and p.room_use = '1710'
+		  <!--  <if test="balanceType == 1">
+		   	and  p.totle_balance &lt; k1.alarm1_value
+		   	and  p.totle_balance &gt;= 0
+			and  (p.totle_balance &gt; 0||p.totle_balance == 0)
+		   </if>
+		   <if test="balanceType == 0">
+		   	and  p.totle_balance &lt; 0
+		   </if> -->
+	     <if test="orgId != null and orgId != ''">
+	      	and  p.org_id = #{orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="regionId != null and regionId != ''">
+	      	and  p.region_id = #{regionId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="regionNo != null and regionNo != ''">
+	      	and  p.region_no = #{regionNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="roomNumber != null and roomNumber != ''">
+	      	and  p.room_number like concat ('%',#{roomNumber,jdbcType=VARCHAR},'%')
+	     </if>
+	     <if test="customerRealname != null and customerRealname != ''">
+	      	and  p.customer_realname like concat ('%',#{customerRealname,jdbcType=VARCHAR},'%')
+	     </if>
+    </where>
+   GROUP BY p.room_id
+  </select>
+  
+  
+  <!-- 宿舍房间余额  -->
+  <select id="selectDormRoomBalanceByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+	    SELECT
+			r.*,
+	  		<!-- cust.customer_realname, -->
+		  	elec.sub_elec_balance,
+		  	water.sub_water_balance,
+		  	(r.balance + if(elec.sub_elec_balance IS null , 0 ,elec.sub_elec_balance) + if(water.sub_water_balance IS null , 0 ,water.sub_water_balance)) AS totle_balance
+		FROM
+			t_saas_room r
+		<!-- LEFT JOIN (
+		SELECT
+		  GROUP_CONCAT(CONCAT(c.customer_realname,'(',c.customer_mobile1,')')) AS customer_realname,
+		  cr.room_account_id
+		FROM
+			t_saas_customer c 
+		LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+		GROUP BY cr.room_account_id) cust on cust.room_account_id = r.account_id -->
+		LEFT JOIN (SELECT
+			m.account_id,
+		  m.balance AS sub_elec_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '110000') elec ON elec.account_id = r.account_id
+		LEFT JOIN (SELECT
+			m.account_id,
+		  m.balance AS sub_water_balance
+		FROM
+			t_saas_meter m
+		WHERE m.energy_type = '120000') water ON water.account_id = r.account_id
+    <where>
+           r.account_status =1 and r.room_use = '1720'
+	     <if test="paramObj.orgId != null and paramObj.orgId != ''">
+	      	and  r.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.regionId != null and paramObj.regionId != ''">
+	      	and  r.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+	      	and  r.region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+	      	and  r.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+	     </if>
+    </where>
+    GROUP BY r.room_id
+    ORDER BY
+     r.room_number 
+  </select>
+  
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.room.Room">
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_room
+    <where>
+   	  <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionId != null and regionId !=''" >
+        and region_id = #{regionId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionNo != null and regionNo !=''" >
+        and region_no = #{regionNo,jdbcType=VARCHAR}
+      </if>
+      <if test="regionNumber != null and regionNumber !=''" >
+        and region_number = #{regionNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomUse != null and roomUse != ''" >
+        and room_use = #{roomUse,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber != ''" >
+        and room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName != ''" >
+        and room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="peopleLimit != null" >
+        and people_limit = #{peopleLimit,jdbcType=INTEGER}
+      </if>
+      <if test="peopleNumber != null" >
+        and people_number = #{peopleNumber,jdbcType=INTEGER}
+      </if>
+      <if test="accountStatus != null" >
+        and account_status = #{accountStatus,jdbcType=TINYINT}
+      </if>
+      <if test="accountId != null" >
+        and account_id = #{accountId,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowanceRuleId != null and elecAllowanceRuleId !=''" >
+        and elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowanceRuleId != null and waterAllowanceRuleId !=''" >
+        and water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+     </where>
+  </select>
+  
+  <select id="selectIsNotAbandon" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.room.Room">
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_room
+    <where>
+        account_status != 3
+   	  <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionId != null and regionId !=''" >
+        and region_id = #{regionId,jdbcType=VARCHAR}
+      </if>
+      <if test="regionNo != null and regionNo !=''" >
+        and region_no = #{regionNo,jdbcType=VARCHAR}
+      </if>
+      <if test="regionNumber != null and regionNumber !=''" >
+        and region_number = #{regionNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomUse != null and roomUse != ''" >
+        and room_use = #{roomUse,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber != ''" >
+        and room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName != ''" >
+        and room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="peopleLimit != null" >
+        and people_limit = #{peopleLimit,jdbcType=INTEGER}
+      </if>
+      <if test="peopleNumber != null" >
+        and people_number = #{peopleNumber,jdbcType=INTEGER}
+      </if>
+      <if test="accountStatus != null" >
+        and account_status = #{accountStatus,jdbcType=TINYINT}
+      </if>
+      <if test="accountId != null" >
+        and account_id = #{accountId,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowanceRuleId != null and elecAllowanceRuleId !=''" >
+        and elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowanceRuleId != null and waterAllowanceRuleId !=''" >
+        and water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+     </where>
+  </select>
+  
+  
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_room
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.room.Room" >
+        insert into t_saas_room (room_id, org_id, region_id, 
+            region_no, region_number, region_full_name, 
+            room_use, room_number, room_name, 
+            area, people_limit, people_number, 
+            account_status, account_id, balance, 
+            elec_allowance_type, elec_allowance_rule_id, 
+            elec_allowance, water_allowance_type, water_allowance_rule_id, 
+            water_allowance, rental_id, property_id, 
+            start_time, end_time, create_time, 
+            update_time,last_recharge_time,is_used)
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, 
+            #{regionNo,jdbcType=VARCHAR}, #{regionNumber,jdbcType=VARCHAR}, #{regionFullName,jdbcType=VARCHAR}, 
+            #{roomUse,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+            #{area,jdbcType=DECIMAL}, #{peopleLimit,jdbcType=INTEGER}, #{peopleNumber,jdbcType=INTEGER}, 
+            #{accountStatus,jdbcType=TINYINT}, #{accountId,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, 
+            #{elecAllowanceType,jdbcType=VARCHAR}, #{elecAllowanceRuleId,jdbcType=VARCHAR}, 
+            #{elecAllowance,jdbcType=DECIMAL}, #{waterAllowanceType,jdbcType=VARCHAR}, #{waterAllowanceRuleId,jdbcType=VARCHAR}, 
+            #{waterAllowance,jdbcType=DECIMAL}, #{rentalId,jdbcType=VARCHAR}, #{propertyId,jdbcType=VARCHAR}, 
+            #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+            now(), now(),#{lastRechargeTime,jdbcType=TIMESTAMP},#{isUsed,jdbcType=TINYINT})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.room.Room" >
+        update t_saas_room
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionId != null" >
+                region_id = #{regionId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionNo != null" >
+                region_no = #{regionNo,jdbcType=VARCHAR},
+            </if>
+            <if test="regionNumber != null" >
+                region_number = #{regionNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="regionFullName != null" >
+                region_full_name = #{regionFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomUse != null" >
+                room_use = #{roomUse,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null" >
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null" >
+                room_name = #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null" >
+                area = #{area,jdbcType=DECIMAL},
+            </if>
+            <if test="peopleLimit != null" >
+                people_limit = #{peopleLimit,jdbcType=INTEGER},
+            </if>
+            <if test="peopleNumber != null" >
+                people_number = #{peopleNumber,jdbcType=INTEGER},
+            </if>
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="accountId != null" >
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="elecAllowanceType != null" >
+                elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+            </if>
+            <if test="elecAllowanceRuleId != null" >
+                elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="elecAllowance != null" >
+                elec_allowance = #{elecAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="waterAllowanceType != null" >
+                water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+            </if>
+            <if test="waterAllowanceRuleId != null" >
+                water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="waterAllowance != null" >
+                water_allowance = #{waterAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="rentalId != null" >
+                rental_id = #{rentalId,jdbcType=VARCHAR},
+            </if>
+            <if test="propertyId != null" >
+                property_id = #{propertyId,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null" >
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRechargeTime != null" >
+                last_recharge_time = #{lastRechargeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isUsed != null" >
+                is_used = #{isUsed,jdbcType=TINYINT},
+            </if>
+                update_time = now()
+                
+        </set>
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_room
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </delete>
+    
+    <update id="cleanRoomAccount" parameterType="cn.com.tw.saas.serv.entity.room.Room" >
+        update t_saas_room
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionId != null" >
+                region_id = #{regionId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionNo != null" >
+                region_no = #{regionNo,jdbcType=VARCHAR},
+            </if>
+            <if test="regionNumber != null" >
+                region_number = #{regionNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="regionFullName != null" >
+                region_full_name = #{regionFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomUse != null" >
+                room_use = #{roomUse,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null" >
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null" >
+                room_name = #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null" >
+                area = #{area,jdbcType=DECIMAL},
+            </if>
+            <if test="peopleLimit != null" >
+                people_limit = #{peopleLimit,jdbcType=INTEGER},
+            </if>
+            <if test="peopleNumber != null" >
+                people_number = #{peopleNumber,jdbcType=INTEGER},
+            </if>
+            <if test="accountStatus != null" >
+                account_status = #{accountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="accountId != null" >
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="elecAllowanceType != null" >
+                elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+            </if>
+            <if test="elecAllowanceRuleId != null" >
+                elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="elecAllowance != null" >
+                elec_allowance = #{elecAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="waterAllowanceType != null" >
+                water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+            </if>
+            <if test="waterAllowanceRuleId != null" >
+                water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="waterAllowance != null" >
+                water_allowance = #{waterAllowance,jdbcType=DECIMAL},
+            </if>
+            <if test="rentalId != null" >
+                rental_id = #{rentalId,jdbcType=VARCHAR},
+            </if>
+            <if test="propertyId != null" >
+                property_id = #{propertyId,jdbcType=VARCHAR},
+            </if>
+               start_time = #{startTime,jdbcType=TIMESTAMP},
+               end_time = #{endTime,jdbcType=TIMESTAMP},
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+                update_time = now()
+        </set>
+        where room_id = #{roomId,jdbcType=VARCHAR}
+    </update>
+	
+	<select id="selectRoomWithThreePhaseByRegionId" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.room.Room">
+		SELECT
+			r.*
+		FROM
+			t_saas_room r
+		LEFT JOIN t_saas_meter m ON r.room_id = m.room_id
+		WHERE
+			r.org_id = ${orgId}
+		<if test='regionId != null and regionId !=""'>
+		AND r.region_id IN (
+			SELECT
+				id
+			FROM
+				t_saas_region
+			WHERE
+				(
+					id = #{regionId}
+					AND is_leaf = 1
+				)
+			OR (
+				p_region_no IN (
+					SELECT
+						region_no
+					FROM
+						t_saas_region
+					WHERE
+						id = #{regionId}
+				)
+			)
+		)
+		</if>
+		AND m.meter_type = '112000'
+	</select>
+	
+</mapper>

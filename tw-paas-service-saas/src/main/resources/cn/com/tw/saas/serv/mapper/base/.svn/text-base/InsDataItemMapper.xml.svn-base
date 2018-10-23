@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.base.InsDataItemMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.base.InsDataItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="ins_id" property="insId" jdbcType="VARCHAR" />
+        <result column="item_index" property="itemIndex" jdbcType="INTEGER" />
+        <result column="save_table" property="saveTable" jdbcType="VARCHAR" />
+        <result column="save_index" property="saveIndex" jdbcType="INTEGER" />
+        <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        id, ins_id, item_index, save_index, item_code
+    </sql>
+    
+    <resultMap id="joinResultMap" type="cn.com.tw.saas.serv.entity.db.base.InsDataItem" extends="BaseResultMap" >
+	    <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+	    <result column="is_multiply_ct" property="isMultiplyCt" jdbcType="TINYINT" />
+        <result column="is_multiply_pt" property="isMultiplyPt" jdbcType="TINYINT" />
+	</resultMap>
+    
+    
+    <resultMap id="InsMap" type="cn.com.tw.saas.serv.entity.db.base.Ins" >
+        <id column="ins_id" property="id" jdbcType="VARCHAR" />
+        <result column="control_code" property="controlCode" jdbcType="VARCHAR" />
+        <result column="data_marker" property="dataMarker" jdbcType="VARCHAR" />
+        <result column="soft_version" property="softVersion" jdbcType="VARCHAR" />
+        <result column="ins_name" property="insName" jdbcType="VARCHAR" />
+        <result column="is_curve" property="isCurve" jdbcType="TINYINT" />
+        <result column="param_num" property="paramNum" jdbcType="INTEGER" />
+        <result column="return_num" property="returnNum" jdbcType="INTEGER" />
+        <result column="format" property="format" jdbcType="VARCHAR" />
+        <result column="length" property="length" jdbcType="VARCHAR" />
+        <collection property="items" resultMap="joinResultMap" />
+    </resultMap>
+
+
+    <sql id="Ins_Column_List" >
+        id, control_code, data_marker, soft_version, ins_name, is_curve, param_num, return_num, 
+        is_usable, create_time, update_time
+    </sql>
+    
+    <select id="selectSaveTable" resultMap="joinResultMap" >
+SELECT DISTINCT
+	d.item_code,
+	id.save_table,
+	id.save_index,
+	d.is_multiply_ct,
+	d.is_multiply_pt
+FROM
+	t_base_data_item d
+LEFT JOIN t_base_ins_data_item id ON id.item_code = d.item_code
+    </select>
+    
+    <select id="selectHaveDataItem" resultMap="InsMap" >
+	SELECT
+		i.id i_id,
+		control_code,
+		data_marker,
+		soft_version,
+		ins_name,
+		is_curve,
+		param_num,
+		return_num,
+		ins_id,
+		item_index,
+		save_table,
+		save_index,
+		item_code,
+		is_multiply_ct,
+		is_multiply_pt,
+		item_name
+	FROM
+		t_base_ins i
+	INNER JOIN (
+		SELECT
+			ins_id,
+			item_index,
+			save_table,
+			save_index,
+			idi.item_code,
+			di.is_multiply_ct,
+			di.is_multiply_pt,
+			di.item_name
+		FROM
+			t_base_ins_data_item idi
+		INNER JOIN t_base_data_item di ON idi.item_code = di.item_code
+	) d ON i.id = d.ins_id
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_base_ins_data_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.base.InsDataItem" >
+        insert into t_base_ins_data_item (id, ins_id, item_index, 
+            save_index, item_code)
+        values (#{id,jdbcType=INTEGER}, #{insId,jdbcType=VARCHAR}, #{itemIndex,jdbcType=INTEGER}, 
+            #{saveIndex,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.base.InsDataItem" >
+        update t_base_ins_data_item
+        <set >
+            <if test="insId != null" >
+                ins_id = #{insId,jdbcType=VARCHAR},
+            </if>
+            <if test="itemIndex != null" >
+                item_index = #{itemIndex,jdbcType=INTEGER},
+            </if>
+            <if test="saveIndex != null" >
+                save_index = #{saveIndex,jdbcType=INTEGER},
+            </if>
+            <if test="itemCode != null" >
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_base_ins_data_item
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

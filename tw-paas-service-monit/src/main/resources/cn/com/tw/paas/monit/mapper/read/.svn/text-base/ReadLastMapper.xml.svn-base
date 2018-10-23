@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.read.ReadLastMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+		<result column="elec_meter_type" property="elecMeterType"
+			jdbcType="VARCHAR" />
+		<result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+		<result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+		<result column="item_name" property="itemName" jdbcType="VARCHAR" />
+		<result column="read_value" property="readValue" jdbcType="VARCHAR" />
+		<result column="is_push" property="isPush" jdbcType="TINYINT" />
+		<result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, org_id, app_id, meter_type, elec_meter_type,
+		meter_addr, item_code,
+		item_name,
+		read_value, is_push, read_time,
+		create_time, update_time
+	</sql>
+
+	<update id="updateByAddrAndItem" parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		update t_read_last
+		<set>
+			read_value = #{readValue,jdbcType=VARCHAR},
+			read_time = #{readTime,jdbcType=TIMESTAMP},
+			update_time = now()
+		</set>
+		where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		and item_code = #{itemCode,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByAddrAndItem" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		select
+		<include refid="Base_Column_List" />
+		from t_read_last
+		where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		and item_code = #{itemCode,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="selectRealTimeTrace" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_read_last l
+		WHERE l.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		and l.read_time in (SELECT MAX(read_time) FROM t_read_last WHERE meter_addr = #{meterAddr,jdbcType=VARCHAR})
+	</select>
+	
+	<select id="selectReadLastByPage" resultType="cn.com.tw.paas.monit.entity.business.read.ReadHistorySimple"
+		parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+			meter_addr meterAddr,item_code itemCode, item_name itemName,
+			read_value readValue, read_time readTime
+		from
+		t_read_last
+		<where>
+			org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			and app_id = #{paramObj.appId,jdbcType=VARCHAR}
+			<if test="paramObj.meterType != null and paramObj.meterType != ''">
+				and meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.meterAddr != null and paramObj.meterAddr != ''">
+				and meter_addr = #{paramObj.meterAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.itemCode != null and paramObj.itemCode != ''">
+				and item_code = #{paramObj.itemCode,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.startTimeStr != null and paramObj.endTimeStr != null" >
+				and (read_time BETWEEN #{paramObj.startTimeStr,jdbcType=TIMESTAMP} AND #{paramObj.endTimeStr,jdbcType=TIMESTAMP}) 
+			</if>
+		</where>
+		ORDER BY meter_addr ,read_time DESC
+	</select>
+
+	<select id="selectLast" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		SELECT
+		meter_addr,meter_type,
+		item_code,item_name,
+		read_value,read_time
+		FROM
+		t_read_last
+		WHERE 1=1
+		<if test="meterAddr != null and meterAddr != ''">
+			and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		</if>
+		<if test="meterType != null and meterType != ''">
+			and meter_type = #{meterType,jdbcType=VARCHAR}
+		</if>
+		<if test="itemCode != null and itemCode != ''">
+			and item_code = #{itemCode,jdbcType=VARCHAR}
+		</if>
+		ORDER BY
+		meter_addr,item_code DESC
+	</select>
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_read_last
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="replace" parameterType="cn.com.tw.paas.monit.entity.db.read.ReadLast">
+		replace into t_read_last (id,
+		org_id, app_id,
+		meter_type, elec_meter_type, meter_addr,
+		item_code,
+		item_name, read_value,
+		is_push, read_time, create_time,
+		update_time)
+		values (uuid_short(), #{orgId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{meterType,jdbcType=VARCHAR},
+		#{elecMeterType,jdbcType=VARCHAR},
+		#{meterAddr,jdbcType=VARCHAR},
+		#{itemCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR},
+		#{readValue,jdbcType=VARCHAR},
+		#{isPush,jdbcType=TINYINT},
+		#{readTime,jdbcType=TIMESTAMP}, now(),
+		now())
+	</insert>
+	
+	<select id="selectByMeterAddr" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		 t_read_last
+		WHERE
+			meter_addr=#{meterAddr,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

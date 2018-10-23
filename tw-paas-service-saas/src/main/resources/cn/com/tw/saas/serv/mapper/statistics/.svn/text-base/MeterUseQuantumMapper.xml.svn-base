@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.statistics.MeterUseQuantumMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="meter_categ" property="meterCateg" jdbcType="VARCHAR" />
+    <result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+    <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+    <result column="meter_alias" property="meterAlias" jdbcType="VARCHAR" />
+    <result column="freeze_td" property="freezeTd" jdbcType="VARCHAR" />
+    <result column="value_type" property="valueType" jdbcType="VARCHAR" />
+    <result column="read_value" property="readValue" jdbcType="DECIMAL" />
+    <result column="pre_read_value" property="preReadValue" jdbcType="DECIMAL" />
+    <result column="use_value" property="useValue" jdbcType="DECIMAL" />
+    <result column="pre_use_value" property="preUseValue" jdbcType="DECIMAL" />
+    <result column="multiple" property="multiple" jdbcType="DECIMAL" />
+    <result column="control_type" property="controlType" jdbcType="VARCHAR" />
+    <result column="price_type" property="priceType" jdbcType="VARCHAR" />
+    <result column="price_id" property="priceId" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="use_money" property="useMoney" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+    <result column="loop_type" property="loopType" jdbcType="INTEGER" />
+    
+    
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, room_id, room_number, room_name, meter_categ, meter_type, meter_addr, 
+    meter_alias, freeze_td, value_type, read_value, pre_read_value, use_value, pre_use_value, 
+    multiple, control_type, price_type, price_id, customer_no, customer_name, use_money, 
+    create_time, update_time, read_time,loop_type,
+    ,region_full_name,room_use,total_use_value,z_use_value,vice_use_value
+  </sql>
+  
+  <resultMap id="quantumMap" type="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="meter_categ" property="meterCateg" jdbcType="VARCHAR" />
+    <result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+    <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+    <result column="meter_alias" property="meterAlias" jdbcType="VARCHAR" />
+    <result column="freeze_td" property="freezeTd" jdbcType="VARCHAR" />
+    <result column="value_type" property="valueType" jdbcType="VARCHAR" />
+    <result column="read_value" property="readValue" jdbcType="DECIMAL" />
+    <result column="pre_read_value" property="preReadValue" jdbcType="DECIMAL" />
+    <result column="use_value" property="useValue" jdbcType="DECIMAL" />
+    <result column="pre_use_value" property="preUseValue" jdbcType="DECIMAL" />
+    <result column="multiple" property="multiple" jdbcType="DECIMAL" />
+    <result column="control_type" property="controlType" jdbcType="VARCHAR" />
+    <result column="price_type" property="priceType" jdbcType="VARCHAR" />
+    <result column="price_id" property="priceId" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="use_money" property="useMoney" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+    <result column="loop_type" property="loopType" jdbcType="INTEGER" />
+    <result column="start_freezeTd" property="startFreezeTd" jdbcType="VARCHAR" />
+    <result column="end_freezeTd" property="endFreezeTd" jdbcType="VARCHAR" />
+    
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" /> 
+    
+     <result column="money_now" property="moneyNow" jdbcType="DECIMAL" />
+     
+     <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+     
+     <result column="customer_realname" property="customerRealName" jdbcType="VARCHAR" />
+     
+     <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+    <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    
+    <result column="total_use_value" property="totalUseValue" jdbcType="DECIMAL" />
+    <result column="z_use_value" property="zUseValue" jdbcType="DECIMAL" />
+    <result column="vice_use_value" property="viceUseValue" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="selectDayLineDate1" resultMap="quantumMap" parameterType="java.lang.String">
+  		SELECT
+  			a.freeze_td ,
+			a.use_value AS totalUseValue,
+			z.use_value AS zUseValue,
+			v.use_value AS viceUseValue
+		FROM
+			t_statistics_meter_use_quantum a
+		INNER JOIN (
+			SELECT
+				b.region_full_name,
+				b.room_id,
+				b.region_id,
+				b.room_use
+			FROM
+				t_saas_room b
+		) c ON a.room_id = c.room_id
+		AND a.loop_type = '0'
+		left join(
+			select
+			 d.use_value  ,
+			 d.loop_type,
+			 d.meter_addr
+		    from
+		    t_statistics_meter_use_quantum d 
+		    where
+		    d.loop_type = '1'
+		)z ON z.meter_addr = a.meter_addr
+		LEFT JOIN (
+			SELECT
+				e.use_value,
+				e.meter_addr,
+				e.loop_type
+			FROM
+				t_statistics_meter_use_day e
+			WHERE
+				e.loop_type = '2'
+		) v ON v.meter_addr = a.meter_addr
+		LEFT JOIN (
+			SELECT
+				m.meter_addr,
+				m.price_id,
+				p.price1
+			FROM
+				t_saas_meter m
+			LEFT JOIN (
+				SELECT
+					n.price1,
+					n.price_id
+				FROM
+					t_saas_rule_energy_price n
+			) p ON p.price_id = m.price_id
+		) rule ON rule.meter_addr = a.meter_addr
+		WHERE
+			1 = 1
+		AND a.value_type = 'totalActiveE'
+		        and a.meter_addr = #{1}
+		        and a.freeze_td like CONCAT(#{0},'%')
+	GROUP BY
+		a.freeze_td,
+		a.room_id
+	ORDER BY
+	   a.freeze_td
+  </select>
+  
+  
+  <select id="selectDayLineDate"  resultMap="quantumMap" parameterType="java.lang.String">
+  		SELECT
+  			a.freeze_td ,
+			a.use_value AS totalUseValue
+		FROM
+			t_statistics_meter_use_quantum a
+		INNER JOIN (
+			SELECT
+				b.region_full_name,
+				b.room_id,
+				b.region_id,
+				b.room_use
+			FROM
+				t_saas_room b
+		) c ON a.room_id = c.room_id
+		AND a.loop_type = '0'
+		LEFT JOIN (
+			SELECT
+				m.meter_addr,
+				m.price_id,
+				p.price1
+			FROM
+				t_saas_meter m
+			LEFT JOIN (
+				SELECT
+					n.price1,
+					n.price_id
+				FROM
+					t_saas_rule_energy_price n
+			) p ON p.price_id = m.price_id
+		) rule ON rule.meter_addr = a.meter_addr
+		WHERE
+			1 = 1
+		AND a.value_type = 'totalActiveE'
+		        and a.meter_addr = #{1}
+		        and a.freeze_td like CONCAT(#{0},'%')
+	GROUP BY
+		a.loop_type,
+		a.room_id
+  </select>
+  
+  
+  
+  <select id="selectByDate1" resultMap="quantumMap"  parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum">
+	select
+  	    b.region_id, 
+		a.room_id,
+  	   a.room_number as room_number,
+  	   SUBSTR(a.freeze_td,9,2) as freeze_td,
+  	   SUM(a.use_value) as use_value
+  	from
+  		t_statistics_meter_use_quantum a
+  	left join
+  	    t_saas_room b
+  	 on
+  	    a.room_id=b.room_id
+  	where
+  		left(a.freeze_td,10) = #{freezeTd,jdbcType=VARCHAR}
+		and a.meter_categ = #{meterCateg,jdbcType=VARCHAR}
+		and a.value_type = #{valueType,jdbcType=VARCHAR}
+		and a.org_id = #{orgId,jdbcType=VARCHAR}
+		and b.region_id=#{regionId,jdbcType=VARCHAR}
+		and a.loop_type='0'   
+  	GROUP BY a.meter_addr
+	order by a.room_number  ASC
+  </select>
+  
+  
+  <select id="selectHoursStatics" resultMap="quantumMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+  	SELECT
+	a.id,
+	a.org_id,
+	a.room_id,
+	a.room_name,
+	a.room_number,
+	a.meter_categ,
+	a.meter_type,
+	a.meter_addr,
+	a.meter_alias,
+	a.freeze_td,
+	a.value_type,
+	a.multiple,
+	a.control_type,
+	a.price_type,
+	a.customer_no,
+	a.customer_name,
+	a.use_money,
+	a.create_time,
+	a.update_time,
+	a.read_time,
+	a.loop_type,
+	rule.price_id,
+	rule.price1 ,
+	SUM(a.use_value) AS use_value,
+	(rule.price1 * use_value) AS moneyNow,
+	MIN(a.pre_read_value) AS pre_read_value,
+	MAX(a.read_value) AS read_value
+FROM
+	t_statistics_meter_use_quantum a
+LEFT JOIN (
+	SELECT
+		m.meter_addr,
+		m.price_id,
+		p.price1
+	FROM
+		t_saas_meter m
+			LEFT JOIN t_saas_rule_energy_price p 
+					ON
+					 p.price_id = m.price_id
+		) rule 
+		ON 
+		rule.meter_addr = a.meter_addr
+        <where>
+        		1=1
+        		and
+        		a.loop_type="0"
+			  <if test="paramObj.orgId != null and paramObj.orgId !=''" >
+		        and a.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.roomId != null and paramObj.roomId !=''" >
+		        and a.room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+		      </if>
+		      <!-- <if test="paramObj.roomName != null and paramObj.roomName !=''" >
+		        and room_name = #{paramObj.roomName,jdbcType=VARCHAR}
+		      </if> -->
+		      <if test="paramObj.roomName != null and paramObj.roomName != ''" >
+	      		 and a.room_name like CONCAT('%', #{paramObj.roomName,jdbcType=VARCHAR},'%')
+	     		</if>
+		      <if test="paramObj.roomNumber != null and paramObj.roomNumber !=''" >
+		        and a.room_number = #{paramObj.roomNumber,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.meterCateg != null and paramObj.meterCateg !=''" >
+		        and a.meter_categ = #{paramObj.meterCateg,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.meterType != null and paramObj.meterType !=''" >
+		        and a.meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.meterAddr != null and paramObj.meterAddr !=''" >
+		        and a.meter_addr like CONCAT('%', #{paramObj.meterAddr,jdbcType=VARCHAR},'%')
+		      </if>
+		      <if test="paramObj.meterAlias != null and paramObj.meterAlias !=''" >
+		        and a.meter_alias = #{paramObj.meterAlias,jdbcType=VARCHAR}
+		      </if>
+		      <!-- <if test="paramObj.freezeTd != null and paramObj.freezeTd !=''" >
+		        and a.freeze_td = #{paramObj.freezeTd,jdbcType=VARCHAR}
+		      </if> -->
+		      <if test="paramObj.startFreezeTd != null and paramObj.startFreezeTd !=''" >
+		        and a.freeze_td &gt;= #{paramObj.startFreezeTd,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.endFreezeTd != null and paramObj.endFreezeTd !=''" >
+		        and a.freeze_td &lt;= #{paramObj.endFreezeTd,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.valueType != null and paramObj.valueType !=''" >
+		        and a.value_type = #{paramObj.valueType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.readValue != null and paramObj.readValue !=''" >
+		        and a.read_value = #{paramObj.readValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.preReadValue != null and paramObj.preReadValue !=''" >
+		        and a.pre_read_value = #{paramObj.preReadValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.useValue != null and paramObj.useValue !=''" >
+		        and a.use_value = #{paramObj.useValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.preUseValue != null and paramObj.preUseValue !=''" >
+		        and a.pre_use_value = #{paramObj.preUseValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.multiple != null and paramObj.multiple !=''" >
+		        and a.multiple = #{paramObj.multiple,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.controlType != null and paramObj.controlType !=''" >
+		        and a.control_type = #{paramObj.controlType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.priceType != null and paramObj.priceType !=''" >
+		        and a.price_type = #{paramObj.priceType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.priceId != null and paramObj.priceId !=''" >
+		        and rule.price_id = #{paramObj.priceId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerNo != null and paramObj.customerNo !=''" >
+		        and a.customer_no = #{paramObj.customerNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerName != null and paramObj.customerName !=''" >
+		        and a.customer_name = #{paramObj.customerName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerName != null and paramObj.customerName != ''" >
+	      		 and a.customer_name like CONCAT('%', #{paramObj.customerName,jdbcType=VARCHAR},'%')
+	     		</if>
+		      <if test="paramObj.useMoney != null and paramObj.useMoney !=''" >
+		        and a.use_money = #{paramObj.useMoney,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.createTime != null and paramObj.createTime !=''" >
+		        and a.create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="paramObj.updateTime != null and paramObj.updateTime !=''" >
+		        and a.update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		</where>
+		GROUP BY a.room_id 
+		<if test="paramObj.orderType == '1111'">
+			 order by use_value ASC
+		</if>
+		<if test="paramObj.orderType == '2222'">
+			order by use_value  DESC
+		</if>
+  </select>
+  
+  
+  <select id="hoursStaticsExport"  resultMap="quantumMap"  parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum">
+  		SELECT
+			a.id,
+			a.org_id,
+			a.room_id,
+			a.room_name,
+			a.room_number,
+			a.meter_categ,
+			a.meter_type,
+			a.meter_addr,
+			a.meter_alias,
+			a.freeze_td,
+			a.value_type,
+			a.multiple,
+			a.control_type,
+			a.price_type,
+			a.customer_no,
+			a.customer_name,
+			a.use_money,
+			a.create_time,
+			a.update_time,
+			a.read_time,
+			a.loop_type,
+			rule.price_id,
+			rule.price1 ,
+			SUM(a.use_value) AS use_value,
+			(rule.price1 * use_value) AS moneyNow,
+			MIN(a.pre_read_value) AS pre_read_value,
+			MAX(a.read_value) AS read_value
+		FROM
+			t_statistics_meter_use_quantum a
+		LEFT JOIN (
+			SELECT
+				m.meter_addr,
+				m.price_id,
+				p.price1
+			FROM
+				t_saas_meter m
+					LEFT JOIN t_saas_rule_energy_price p 
+							ON
+							 p.price_id = m.price_id
+				) rule 
+				ON 
+				rule.meter_addr = a.meter_addr
+        <where>
+        		1=1
+        		and
+        		a.loop_type="0"
+			  <if test="orgId != null and orgId !=''" >
+		        and a.org_id = #{orgId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="roomId != null and roomId !=''" >
+		        and a.room_id = #{roomId,jdbcType=VARCHAR}
+		      </if>
+		      <!-- <if test="roomName != null and roomName !=''" >
+		        and room_name = #{roomName,jdbcType=VARCHAR}
+		      </if> -->
+		      <if test="roomName != null and roomName != ''" >
+	      		 and a.room_name like CONCAT('%', #{roomName,jdbcType=VARCHAR},'%')
+	     		</if>
+		      <if test="roomNumber != null and roomNumber !=''" >
+		        and a.room_number = #{roomNumber,jdbcType=VARCHAR}
+		      </if>
+		      <if test="meterCateg != null and meterCateg !=''" >
+		        and a.meter_categ = #{meterCateg,jdbcType=VARCHAR}
+		      </if>
+		      <if test="meterType != null and meterType !=''" >
+		        and a.meter_type = #{meterType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="meterAddr != null and meterAddr !=''" >
+		        and a.meter_addr like CONCAT('%', #{meterAddr,jdbcType=VARCHAR},'%')
+		      </if>
+		      <if test="meterAlias != null and meterAlias !=''" >
+		        and a.meter_alias = #{meterAlias,jdbcType=VARCHAR}
+		      </if>
+		      <!-- <if test="freezeTd != null and freezeTd !=''" >
+		        and a.freeze_td = #{freezeTd,jdbcType=VARCHAR}
+		      </if> -->
+		      <if test="startFreezeTd != null and startFreezeTd !=''" >
+		        and a.freeze_td &gt;= #{startFreezeTd,jdbcType=VARCHAR}
+		      </if>
+		      <if test="endFreezeTd != null and endFreezeTd !=''" >
+		        and a.freeze_td &lt;= #{endFreezeTd,jdbcType=VARCHAR}
+		      </if>
+		      <if test="valueType != null and valueType !=''" >
+		        and a.value_type = #{valueType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="readValue != null and readValue !=''" >
+		        and a.read_value = #{readValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="preReadValue != null and preReadValue !=''" >
+		        and a.pre_read_value = #{preReadValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="useValue != null and useValue !=''" >
+		        and a.use_value = #{useValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="preUseValue != null and preUseValue !=''" >
+		        and a.pre_use_value = #{preUseValue,jdbcType=DECIMAL}
+		      </if>
+		      <if test="multiple != null and multiple !=''" >
+		        and a.multiple = #{multiple,jdbcType=DECIMAL}
+		      </if>
+		      <if test="controlType != null and controlType !=''" >
+		        and a.control_type = #{controlType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="priceType != null and priceType !=''" >
+		        and a.price_type = #{priceType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="priceId != null and priceId !=''" >
+		        and rule.price_id = #{priceId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerNo != null and customerNo !=''" >
+		        and a.customer_no = #{customerNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerName != null and customerName !=''" >
+		        and a.customer_name = #{customerName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerName != null and customerName != ''" >
+	      		 and a.customer_name like CONCAT('%', #{customerName,jdbcType=VARCHAR},'%')
+	     		</if>
+		      <if test="useMoney != null and useMoney !=''" >
+		        and a.use_money = #{useMoney,jdbcType=DECIMAL}
+		      </if>
+		      <if test="createTime != null and createTime !=''" >
+		        and a.create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateTime != null and updateTime !=''" >
+		        and a.update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		</where>
+		GROUP BY a.room_id 
+		<if test="orderType == '1111'">
+			 order by use_value ASC
+		</if>
+		<if test="orderType == '2222'">
+			order by use_value  DESC
+		</if>
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_statistics_meter_use_quantum
+   where 
+    	id = #{id,jdbcType=VARCHAR}
+     and 
+     roomName=#{room_name,jdbcType=VARCHAR}  
+     and
+     customerName=#{customer_name,jdbcType=VARCHAR}
+  </select>
+  <!-- 微信 日月年 开始 -->
+  <select id="selectConditionByDay" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+	    SELECT
+			DATE_FORMAT(STR_TO_DATE(freeze_td, '%Y%m%d %H'),'%H') time,
+			freeze_td,
+			sum(use_value) use_value
+		FROM
+			t_statistics_meter_use_quantum
+		WHERE
+			 value_type = #{valueType,jdbcType=VARCHAR}
+			 and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			and LEFT(freeze_Td,8) = #{freezeTd,jdbcType=VARCHAR}
+		group by LEFT(freeze_Td,10)
+		ORDER BY freeze_td asc
+  </select>
+  
+   <select id="selectConditionByMonth" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+	    SELECT
+			DATE_FORMAT(STR_TO_DATE(freeze_td, '%Y%m%d %H'),'%d') time,
+			freeze_td,
+			sum(use_value) use_value
+		FROM
+			t_statistics_meter_use_day
+		WHERE
+			 value_type = #{valueType,jdbcType=VARCHAR}
+			 and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			and LEFT(freeze_Td,6) = #{freezeTd,jdbcType=VARCHAR}
+			group by freeze_td
+		ORDER BY freeze_td asc
+  </select>
+  
+  <select id="selectConditionByYear" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+	    SELECT
+			DATE_FORMAT(STR_TO_DATE(freeze_td, '%Y%m%d %H'),'%Y') time,
+			freeze_td,
+			sum(use_value) use_value
+		FROM
+			t_statistics_meter_use_month
+		WHERE
+			 value_type = #{valueType,jdbcType=VARCHAR}
+			 and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			and LEFT(freeze_Td,4) = #{freezeTd,jdbcType=VARCHAR}
+			group by freeze_td
+		ORDER BY freeze_td asc
+  </select>
+  <!-- 微信 日月年 结束 -->
+  
+  <select id="meterUseQuantumJob" resultMap="BaseResultMap" parameterType="java.lang.String" >
+       SELECT
+		  l.meter_addr,
+		  l.read_time,
+		  l.read_value as read_value,
+		  l.item_code as value_type,
+		  l.org_id,
+		  l.loop_type,
+		  c.customer_no,
+		  c.customer_realname as customer_name,
+		  r.room_name,
+		  r.room_number,
+		  r.room_id AS room_id,
+		  m.energy_type AS meter_categ,
+		  m.meter_type AS meter_type,
+		  m.meter_name AS meter_alias,
+		  m.elec_pt * m.elec_ct AS multiple,
+		  m.price_mode_code as control_type,
+		  #{_parameter} as freeze_td,
+		  if(muq.pre_read_value is null,IFNULL(m.install_read,0),muq.read_value) AS pre_read_value,
+		  ((l.read_value - if(muq.pre_read_value is null,IFNULL(m.install_read,0),muq.read_value)) * (m.elec_pt * m.elec_ct)) AS use_value,
+		  muq.use_value AS pre_use_value
+		FROM
+			(SELECT * FROM t_read_last la WHERE (la.item_code = 'totalActiveE'
+				OR la.item_code = 'positiveActiveE'
+				OR la.item_code = 'reverseActiveE'
+				OR la.item_code = 'totalReactive1E'
+				OR la.item_code = 'totalReactive2E'
+				OR la.item_code = 'waterFlow') AND la.org_id is NOT NULL AND la.org_id != ''
+		       GROUP BY la.meter_addr,la.item_code,la.loop_type ) l
+		LEFT JOIN t_saas_meter m ON m.meter_addr = l.meter_addr
+		LEFT JOIN t_saas_customer_room cr ON cr.room_id = m.room_id
+		LEFT JOIN t_saas_customer c ON c.customer_id = cr.customer_id
+		LEFT JOIN t_saas_room r ON r.room_id = m.room_id 
+		LEFT JOIN (SELECT
+			q.meter_addr,
+			MAX(q.use_value) AS use_value,
+			q.value_type,
+			MAX(q.read_value) AS read_value,
+			q.pre_read_value,
+    		q.loop_type
+		FROM
+			t_statistics_meter_use_quantum q
+		WHERE
+			q.freeze_td IN (
+				SELECT
+					MAX(freeze_td) AS freeze_td
+				FROM
+					t_statistics_meter_use_quantum
+				WHERE
+					freeze_td &lt; #{_parameter}) 
+		GROUP BY
+			q.meter_addr,
+			q.value_type) AS muq ON muq.meter_addr = l.meter_addr AND muq.value_type = l.item_code and muq.loop_type = l.loop_type
+			GROUP BY l.meter_addr,l.item_code ,l.loop_type
+  </select>
+  
+  
+  
+  <delete id="deleteByFreezeTd" parameterType="java.lang.String" >
+    delete from t_statistics_meter_use_quantum
+    where freeze_td = #{_parameter}
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_statistics_meter_use_quantum
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    insert into t_statistics_meter_use_quantum (id, org_id, room_id, 
+      room_number, room_name, meter_categ, 
+      meter_type, meter_addr, meter_alias, 
+      freeze_td, value_type, read_value, 
+      pre_read_value, use_value, pre_use_value, 
+      multiple, control_type, price_type, 
+      price_id, customer_no, customer_name, 
+      use_money, create_time, update_time, read_time,loop_type
+      )
+    values (#{id,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+      #{roomNumber,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, #{meterCateg,jdbcType=VARCHAR}, 
+      #{meterType,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR}, #{meterAlias,jdbcType=VARCHAR}, 
+      #{freezeTd,jdbcType=VARCHAR}, #{valueType,jdbcType=VARCHAR}, #{readValue,jdbcType=DECIMAL}, 
+      #{preReadValue,jdbcType=DECIMAL}, #{useValue,jdbcType=DECIMAL}, #{preUseValue,jdbcType=DECIMAL}, 
+      #{multiple,jdbcType=DECIMAL}, #{controlType,jdbcType=VARCHAR}, #{priceType,jdbcType=VARCHAR}, 
+      #{priceId,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{useMoney,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      , #{readTime,jdbcType=TIMESTAMP},#{loopType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    insert into t_statistics_meter_use_quantum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomNumber != null" >
+        room_number,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="meterCateg != null" >
+        meter_categ,
+      </if>
+      <if test="meterType != null" >
+        meter_type,
+      </if>
+      <if test="meterAddr != null" >
+        meter_addr,
+      </if>
+      <if test="meterAlias != null" >
+        meter_alias,
+      </if>
+      <if test="freezeTd != null" >
+        freeze_td,
+      </if>
+      <if test="valueType != null" >
+        value_type,
+      </if>
+      <if test="readValue != null" >
+        read_value,
+      </if>
+      <if test="preReadValue != null" >
+        pre_read_value,
+      </if>
+      <if test="useValue != null" >
+        use_value,
+      </if>
+      <if test="preUseValue != null" >
+        pre_use_value,
+      </if>
+      <if test="multiple != null" >
+        multiple,
+      </if>
+      <if test="controlType != null" >
+        control_type,
+      </if>
+      <if test="priceType != null" >
+        price_type,
+      </if>
+      <if test="priceId != null" >
+        price_id,
+      </if>
+      <if test="customerNo != null" >
+        customer_no,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="useMoney != null" >
+        use_money,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="readTime != null" >
+        read_time,
+      </if>
+      <if test="loopType != null" >
+        loop_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meterCateg != null" >
+        #{meterCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="meterType != null" >
+        #{meterType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAddr != null" >
+        #{meterAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAlias != null" >
+        #{meterAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeTd != null" >
+        #{freezeTd,jdbcType=VARCHAR},
+      </if>
+      <if test="valueType != null" >
+        #{valueType,jdbcType=VARCHAR},
+      </if>
+      <if test="readValue != null" >
+        #{readValue,jdbcType=DECIMAL},
+      </if>
+      <if test="preReadValue != null" >
+        #{preReadValue,jdbcType=DECIMAL},
+      </if>
+      <if test="useValue != null" >
+        #{useValue,jdbcType=DECIMAL},
+      </if>
+      <if test="preUseValue != null" >
+        #{preUseValue,jdbcType=DECIMAL},
+      </if>
+      <if test="multiple != null" >
+        #{multiple,jdbcType=DECIMAL},
+      </if>
+      <if test="controlType != null" >
+        #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceId != null" >
+        #{priceId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="useMoney != null" >
+        #{useMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null" >
+        #{readTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loopType != null" >
+        #{loopType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    update t_statistics_meter_use_quantum
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        room_number = #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meterCateg != null" >
+        meter_categ = #{meterCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="meterType != null" >
+        meter_type = #{meterType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAddr != null" >
+        meter_addr = #{meterAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAlias != null" >
+        meter_alias = #{meterAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeTd != null" >
+        freeze_td = #{freezeTd,jdbcType=VARCHAR},
+      </if>
+      <if test="valueType != null" >
+        value_type = #{valueType,jdbcType=VARCHAR},
+      </if>
+      <if test="readValue != null" >
+        read_value = #{readValue,jdbcType=DECIMAL},
+      </if>
+      <if test="preReadValue != null" >
+        pre_read_value = #{preReadValue,jdbcType=DECIMAL},
+      </if>
+      <if test="useValue != null" >
+        use_value = #{useValue,jdbcType=DECIMAL},
+      </if>
+      <if test="preUseValue != null" >
+        pre_use_value = #{preUseValue,jdbcType=DECIMAL},
+      </if>
+      <if test="multiple != null" >
+        multiple = #{multiple,jdbcType=DECIMAL},
+      </if>
+      <if test="controlType != null" >
+        control_type = #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null" >
+        price_type = #{priceType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceId != null" >
+        price_id = #{priceId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        customer_no = #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="useMoney != null" >
+        use_money = #{useMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loopType != null" >
+        loop_type = #{loopType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.statistics.MeterUseQuantum" >
+    update t_statistics_meter_use_quantum
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      room_number = #{roomNumber,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      meter_categ = #{meterCateg,jdbcType=VARCHAR},
+      meter_type = #{meterType,jdbcType=VARCHAR},
+      meter_addr = #{meterAddr,jdbcType=VARCHAR},
+      meter_alias = #{meterAlias,jdbcType=VARCHAR},
+      freeze_td = #{freezeTd,jdbcType=VARCHAR},
+      value_type = #{valueType,jdbcType=VARCHAR},
+      read_value = #{readValue,jdbcType=DECIMAL},
+      pre_read_value = #{preReadValue,jdbcType=DECIMAL},
+      use_value = #{useValue,jdbcType=DECIMAL},
+      pre_use_value = #{preUseValue,jdbcType=DECIMAL},
+      multiple = #{multiple,jdbcType=DECIMAL},
+      control_type = #{controlType,jdbcType=VARCHAR},
+      price_type = #{priceType,jdbcType=VARCHAR},
+      price_id = #{priceId,jdbcType=VARCHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      use_money = #{useMoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      read_time = #{readTime,jdbcType=TIMESTAMP},
+      loop_type = #{loopType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

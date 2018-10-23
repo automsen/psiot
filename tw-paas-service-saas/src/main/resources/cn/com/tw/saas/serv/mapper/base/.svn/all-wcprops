@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/tw/!svn/ver/3860/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/base
+END
+InsDataItemMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/3860/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/base/InsDataItemMapper.xml
+END
+DataItemMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/base/DataItemMapper.xml
+END
+InsMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/resources/cn/com/tw/saas/serv/mapper/base/InsMapper.xml
+END

@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.org.OrgAccountRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="room_full_name" property="roomFullName" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="day_time" property="dayTime" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="order_type_code" property="orderTypeCode" jdbcType="VARCHAR" />
+    <result column="details" property="details" jdbcType="VARCHAR" />
+    
+    <result column="revenue_number" property="revenueNumber" jdbcType="INTEGER" />
+	<result column="min_money" property="minMoney" jdbcType="DECIMAL" />
+	<result column="day_money" property="dayMoney" jdbcType="DECIMAL" />
+	<result column="disburse_number" property="disburseNumber" jdbcType="INTEGER" />
+	<result column="disburse_money" property="disburseMoney" jdbcType="DECIMAL" />
+	<result column="b_number" property="bNumber" jdbcType="INTEGER" />
+	<result column="b_money" property="bMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, org_name, room_id, room_name, room_number, room_full_name, customer_id, 
+    customer_no, customer_phone, customer_realname, operator_id, operator_name, money, 
+    create_time, update_time, day_time, balance, order_type_code, details
+  </sql>
+  
+  <select id="selectByPage" resultMap="BaseResultMap"  parameterType="cn.com.tw.common.web.entity.page.Page" >
+		   		SELECT
+					oar.*, 
+					num.number AS revenue_number,
+					m.min_money,
+					num.day_money AS day_money,
+					disburse.number AS disburse_number,
+					disburse.day_money AS disburse_money,
+				    b.number AS b_number,
+				    b.day_money AS b_money
+				FROM
+					t_saas_org_account_record oar
+				LEFT JOIN (
+					SELECT
+						oar.day_time,
+						count(*) AS number,
+						SUM(oar.money) AS day_money
+					FROM
+						t_saas_org_account_record oar
+					WHERE
+						oar.order_type_code = '1'
+					AND oar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+					GROUP BY
+						oar.day_time
+				) num ON num.day_time = oar.day_time
+				LEFT JOIN (
+					SELECT
+						oar.day_time,
+						count(*) AS number,
+						SUM(oar.money) AS day_money
+					FROM
+						t_saas_org_account_record oar
+					WHERE
+						oar.order_type_code = '2'
+					AND oar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+					GROUP BY
+						oar.day_time
+				) disburse ON disburse.day_time = oar.day_time
+				LEFT JOIN (
+					SELECT
+						oar.day_time,
+						count(*) AS number,
+						SUM(oar.money) AS day_money
+					FROM
+						t_saas_org_account_record oar
+					WHERE
+						oar.order_type_code = '3'
+					AND oar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+					GROUP BY
+						oar.day_time
+				) b ON b.day_time = oar.day_time
+				LEFT JOIN (
+					SELECT
+						r.day_time,
+						(r.balance - r.money) AS min_money
+					FROM
+						t_saas_org_account_record r
+					WHERE
+						r.create_time IN (
+							SELECT
+								min(ar.create_time)
+							FROM
+								t_saas_org_account_record ar
+							where ar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+							GROUP BY
+								ar.day_time
+						)
+					AND r.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+				) m ON m.day_time = oar.day_time
+				WHERE
+					oar.create_time IN (
+						SELECT
+							MAX(ar.create_time)
+						FROM
+							t_saas_org_account_record ar
+						where ar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+						GROUP BY
+							ar.day_time,
+							ar.org_id
+					)
+				AND oar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+		      <if test="paramObj.orgName != null and paramObj.orgName !=''" >
+		        and oar.org_name = #{paramObj.orgName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.roomId != null and paramObj.roomId !=''" >
+		        and oar.room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.roomName != null and paramObj.roomName !=''" >
+		        and oar.room_name = #{paramObj.roomName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.roomNumber != null and paramObj.roomNumber != ''" >
+		        and oar.room_number = #{paramObj.roomNumber,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.roomFullName != null and paramObj.roomFullName !=''" >
+		        and oar.room_full_name = #{paramObj.roomFullName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerId != null and paramObj.customerId !=''" >
+		        and oar.customer_id = #{paramObj.customerId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerNo != null and paramObj.customerNo !=''" >
+		        and oar.customer_no = #{paramObj.customerNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerPhone != null and paramObj.customerPhone !=''" >
+		        and oar.customer_phone = #{paramObj.customerPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.customerRealname != null and paramObj.customerRealname !=''" >
+		        and oar.customer_realname = #{paramObj.customerRealname,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.operatorId != null and paramObj.operatorId !=''" >
+		        and oar.operator_id = #{paramObj.operatorId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.operatorName != null and paramObj.operatorName !=''" >
+		        and oar.operator_name = #{paramObj.operatorName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.money != null" >
+		        and oar.money = #{paramObj.money,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.createTime != null" >
+		        and oar.create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="paramObj.updateTime != null" >
+		        and oar.update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="paramObj.dayTime != null and paramObj.dayTime !=''" >
+		        and oar.day_time = #{paramObj.dayTime,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.balance != null" >
+		        and oar.balance = #{paramObj.balance,jdbcType=DECIMAL}
+		      </if>
+		      <if test="paramObj.orderTypeCode != null and paramObj.orderTypeCode !=''" >
+		        and oar.order_type_code = #{paramObj.orderTypeCode,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paramObj.details != null and paramObj.details !=''" >
+		        and oar.details = #{paramObj.details,jdbcType=VARCHAR}
+		      </if>
+		      <choose>
+		        <when test="paramObj.startTime != null and paramObj.startTime != '' and paramObj.endTime != null and paramObj.endTime !=''">
+		             and ( oar.day_time between #{paramObj.startTime,jdbcType=TIMESTAMP} and #{paramObj.endTime,jdbcType=TIMESTAMP})
+		        </when>
+		        <otherwise>
+		             and ( oar.day_time between date_format(now(),'%Y-%m-%d') and date_format(now(),'%Y-%m-%d'))
+		        </otherwise>
+		    </choose>
+    	GROUP BY oar.day_time
+		ORDER BY oar.day_time DESC
+    </select>
+    
+    
+    <!-- 导出查询 -->
+    <select id="orgAccountRecordExpert" resultMap="BaseResultMap"  parameterType="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+        SELECT
+			oar.*,
+		  	num.number as revenue_number,
+		  	m.min_money,
+  			num.day_money,
+        	disburse.number AS disburse_number,
+			disburse.day_money AS disburse_money
+		FROM
+			t_saas_org_account_record oar
+		LEFT JOIN (SELECT
+		  oar.day_time,
+		  count(*) AS number,
+		  SUM(oar.money) AS day_money
+		FROM
+			t_saas_org_account_record oar
+		WHERE oar.order_type_code = '1' and oar.org_id = #{orgId,jdbcType=VARCHAR}
+		GROUP BY oar.day_time) num ON num.day_time = oar.day_time
+		LEFT JOIN (SELECT
+			oar.day_time,
+			count(*) AS number,
+			SUM(oar.money) AS day_money
+		FROM
+			t_saas_org_account_record oar
+		WHERE oar.order_type_code = '2' and oar.org_id = #{orgId,jdbcType=VARCHAR}
+		GROUP BY
+			oar.day_time) disburse ON disburse.day_time = oar.day_time
+		LEFT JOIN (SELECT
+			r.day_time,
+			(r.balance - r.money) as min_money
+		  <!-- if((r.balance - r.money) != 0,(r.balance - r.money),r.balance) as min_money -->
+		FROM
+			t_saas_org_account_record r
+		WHERE r.create_time in (SELECT
+			min(ar.create_time)
+		FROM
+			t_saas_org_account_record ar
+		GROUP BY
+			ar.day_time) and r.org_id = #{orgId,jdbcType=VARCHAR}
+			) m on m.day_time = oar.day_time
+		WHERE
+			oar.create_time IN (
+				SELECT
+					MAX(ar.create_time)
+				FROM
+					t_saas_org_account_record ar
+				GROUP BY
+					ar.day_time,ar.org_id
+			) 
+			  <if test="orgId != null and orgId != ''" >
+		        and oar.org_id = #{orgId,jdbcType=VARCHAR}
+		      </if>
+		      <!-- <if test="orgName != null and orgName !=''" >
+		        and oar.org_name = #{orgName,jdbcType=VARCHAR}
+		      </if> -->
+		      <if test="roomId != null and roomId !=''" >
+		        and oar.room_id = #{roomId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="roomName != null and roomName !=''" >
+		        and oar.room_name = #{roomName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="roomNumber != null and roomNumber != ''" >
+		        and oar.room_number = #{roomNumber,jdbcType=VARCHAR}
+		      </if>
+		      <if test="roomFullName != null and roomFullName !=''" >
+		        and oar.room_full_name = #{roomFullName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerId != null and customerId !=''" >
+		        and oar.customer_id = #{customerId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerNo != null and customerNo !=''" >
+		        and oar.customer_no = #{customerNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerPhone != null and customerPhone !=''" >
+		        and oar.customer_phone = #{customerPhone,jdbcType=VARCHAR}
+		      </if>
+		      <if test="customerRealname != null and customerRealname !=''" >
+		        and oar.customer_realname = #{customerRealname,jdbcType=VARCHAR}
+		      </if>
+		      <if test="operatorId != null and operatorId !=''" >
+		        and oar.operator_id = #{operatorId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="operatorName != null and operatorName !=''" >
+		        and oar.operator_name = #{operatorName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="money != null" >
+		        and oar.money = #{money,jdbcType=DECIMAL}
+		      </if>
+		      <if test="createTime != null" >
+		        and oar.create_time = #{createTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="updateTime != null" >
+		        and oar.update_time = #{updateTime,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="dayTime != null and dayTime !=''" >
+		        and oar.day_time = #{dayTime,jdbcType=VARCHAR}
+		      </if>
+		      <if test="balance != null" >
+		        and oar.balance = #{balance,jdbcType=DECIMAL}
+		      </if>
+		      <if test="orderTypeCode != null and orderTypeCode !=''" >
+		        and oar.order_type_code = #{orderTypeCode,jdbcType=VARCHAR}
+		      </if>
+		      <if test="details != null and details !=''" >
+		        and oar.details = #{details,jdbcType=VARCHAR}
+		      </if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime !=''" >
+               and ( oar.day_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP})
+            </if>
+    	GROUP BY oar.day_time
+		ORDER BY oar.day_time DESC
+    </select>
+    
+    
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_org_account_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_org_account_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+    insert into t_saas_org_account_record (id, org_id, org_name, 
+      room_id, room_name, room_number, 
+      room_full_name, customer_id, customer_no, 
+      customer_phone, customer_realname, operator_id, 
+      operator_name, money, create_time, 
+      update_time, day_time, balance, 
+      order_type_code, details)
+    values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{roomId,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, 
+      #{roomFullName,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, 
+      #{customerPhone,jdbcType=VARCHAR}, #{customerRealname,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR}, 
+      #{operatorName,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, now(), now(), date_format(now(),'%Y-%m-%d'), #{balance,jdbcType=DECIMAL}, 
+      #{orderTypeCode,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+    insert into t_saas_org_account_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="roomNumber != null" >
+        room_number,
+      </if>
+      <if test="roomFullName != null" >
+        room_full_name,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerNo != null" >
+        customer_no,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="customerRealname != null" >
+        customer_realname,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="dayTime != null" >
+        day_time,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="orderTypeCode != null" >
+        order_type_code,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFullName != null" >
+        #{roomFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRealname != null" >
+        #{customerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayTime != null" >
+        #{dayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTypeCode != null" >
+        #{orderTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+    update t_saas_org_account_record
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        room_number = #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomFullName != null" >
+        room_full_name = #{roomFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        customer_no = #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRealname != null" >
+        customer_realname = #{customerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayTime != null" >
+        day_time = #{dayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTypeCode != null" >
+        order_type_code = #{orderTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.org.OrgAccountRecord" >
+    update t_saas_org_account_record
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      room_number = #{roomNumber,jdbcType=VARCHAR},
+      room_full_name = #{roomFullName,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      customer_realname = #{customerRealname,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      day_time = #{dayTime,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      order_type_code = #{orderTypeCode,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

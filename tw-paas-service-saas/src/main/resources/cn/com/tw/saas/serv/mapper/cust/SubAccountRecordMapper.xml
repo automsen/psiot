@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.cust.SubAccountRecordMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.cust.SubAccountRecord" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+        <result column="room_account_id" property="roomAccountId" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="room_full_name" property="roomFullName" jdbcType="VARCHAR" />
+        <result column="sub_account_id" property="subAccountId" jdbcType="VARCHAR" />
+        <result column="sub_account_type" property="subAccountType" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="price_mode_code" property="priceModeCode" jdbcType="VARCHAR" />
+        <result column="order_type_code" property="orderTypeCode" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="pay_mode_code" property="payModeCode" jdbcType="VARCHAR" />
+        <result column="money" property="money" jdbcType="DECIMAL" />
+        <result column="balance" property="balance" jdbcType="DECIMAL" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="details" property="details" jdbcType="VARCHAR" />
+        <result column="bill_template_id" property="billTemplateId" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+        <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+        <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+        <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+        <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+        <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+        <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+         <result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, org_id, org_name, room_account_id, room_id, room_name, room_number, room_full_name, 
+        sub_account_id, sub_account_type, energy_type, meter_addr, price_mode_code, order_type_code, 
+        order_id, pay_mode_code, money, balance, status, remark, details, bill_template_id, 
+        customer_id, customer_no, customer_phone, customer_realname, operator_id, operator_name, 
+        create_time, update_time, room_use, customer_type, region_id, region_no
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_cust_sub_account_record
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_cust_sub_account_record
+        where org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+            <if test="paramObj.orgName != null and paramObj.orgName !=''" >
+                and org_name = #{paramObj.orgName,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomAccountId != null and paramObj.roomAccountId !=''" >
+                and room_account_id = #{paramObj.roomAccountId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomId != null and paramObj.roomId !=''" >
+                and room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomName != null and paramObj.roomName !=''" >
+                and room_name = #{paramObj.roomName,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomNumber != null and paramObj.roomNumber !=''" >
+                and room_number = #{paramObj.roomNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomFullName != null and paramObj.roomFullName !=''" >
+                and room_full_name = #{paramObj.roomFullName,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.subAccountId != null and paramObj.subAccountId !=''" >
+                and sub_account_id = #{paramObj.subAccountId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.subAccountType != null and paramObj.subAccountType !=''" >
+                and sub_account_type = #{paramObj.subAccountType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.energyType != null and paramObj.energyType !=''" >
+                and energy_type = #{paramObj.energyType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.meterAddr != null and paramObj.meterAddr !=''" >
+                and meter_addr = #{paramObj.meterAddr,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.priceModeCode != null and paramObj.priceModeCode !=''" >
+                and price_mode_code = #{paramObj.priceModeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.orderTypeCode != null and paramObj.orderTypeCode !=''" >
+                and order_type_code = #{paramObj.orderTypeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.orderId != null and paramObj.orderId !=''" >
+                and order_id = #{paramObj.orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.payModeCode != null and paramObj.payModeCode !=''" >
+                and pay_mode_code = #{paramObj.payModeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.money != null and paramObj.money !=''" >
+                and money = #{paramObj.money,jdbcType=DECIMAL}
+            </if>
+            <if test="paramObj.balance != null and paramObj.balance !=''" >
+                and balance = #{paramObj.balance,jdbcType=DECIMAL}
+            </if>
+            <if test="paramObj.status != null and paramObj.status !=''" >
+                and status = #{paramObj.status,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.remark != null and paramObj.remark != ''" >
+                and remark = #{paramObj.remark,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.details != null and paramObj.details != ''" >
+                and details = #{paramObj.details,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.billTemplateId != null and paramObj.billTemplateId != ''" >
+                and bill_template_id = #{paramObj.billTemplateId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.customerId != null and paramObj.customerId !=''" >
+                and customer_id = #{paramObj.customerId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.customerNo != null and paramObj.customerNo != ''" >
+                and customer_no = #{paramObj.customerNo,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.customerPhone != null and paramObj.customerPhone != ''" >
+                and customer_phone = #{paramObj.customerPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.customerRealname != null and paramObj.customerRealname !=''" >
+                and customer_realname = #{paramObj.customerRealname,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.operatorId != null and paramObj.operatorId != ''" >
+                and operator_id = #{paramObj.operatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.operatorName != null and paramObj.operatorName != ''" >
+                and operator_name = #{paramObj.operatorName,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.createTime != null and paramObj.createTime != ''" >
+                and create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="paramObj.updateTime != null and paramObj.updateTime != ''" >
+                and update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="paramObj.roomUse != null and paramObj.roomUse != ''" >
+                and room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+            </if> 
+            <if test="paramObj.customerType != null and paramObj.customerType != ''" >
+               and customer_type = #{paramObj.customerType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.startTime != null and paramObj.startTime != '' and paramObj.endTime != null and paramObj.endTime !=''" >
+               and ( create_time between #{paramObj.startTime,jdbcType=TIMESTAMP} and #{paramObj.endTime,jdbcType=TIMESTAMP})
+            </if>
+		ORDER BY create_time DESC
+    </select>
+    
+    
+    
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.cust.SubAccountRecord" >
+        insert into t_saas_cust_sub_account_record (id, org_id, org_name, 
+            room_account_id, room_id, room_name, 
+            room_number, room_full_name, sub_account_id, 
+            sub_account_type, energy_type, meter_addr, 
+            price_mode_code, order_type_code, order_id, 
+            pay_mode_code, money, balance, 
+            status, remark, details, 
+            bill_template_id, customer_id, customer_no, 
+            customer_phone, customer_realname, operator_id, 
+            operator_name, create_time, update_time, room_use, customer_type, region_id, region_no
+            )
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+            #{roomAccountId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+            #{roomNumber,jdbcType=VARCHAR}, #{roomFullName,jdbcType=VARCHAR}, #{subAccountId,jdbcType=VARCHAR}, 
+            #{subAccountType,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR}, 
+            #{priceModeCode,jdbcType=VARCHAR}, #{orderTypeCode,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+            #{payModeCode,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, 
+            #{status,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
+            #{billTemplateId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, 
+            #{customerPhone,jdbcType=VARCHAR}, #{customerRealname,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR}, 
+            #{operatorName,jdbcType=VARCHAR}, now(3), now(3), #{roomUse,jdbcType=VARCHAR},
+            #{customerType,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{regionNo,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.cust.SubAccountRecord" >
+        update t_saas_cust_sub_account_record
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="orgName != null" >
+                org_name = #{orgName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomAccountId != null" >
+                room_account_id = #{roomAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null" >
+                room_name = #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null" >
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="roomFullName != null" >
+                room_full_name = #{roomFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountId != null" >
+                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountType != null" >
+                sub_account_type = #{subAccountType,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="meterAddr != null" >
+                meter_addr = #{meterAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="priceModeCode != null" >
+                price_mode_code = #{priceModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderTypeCode != null" >
+                order_type_code = #{orderTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderId != null" >
+                order_id = #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="payModeCode != null" >
+                pay_mode_code = #{payModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null" >
+                money = #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="details != null" >
+                details = #{details,jdbcType=VARCHAR},
+            </if>
+            <if test="billTemplateId != null" >
+                bill_template_id = #{billTemplateId,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null" >
+                customer_id = #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNo != null" >
+                customer_no = #{customerNo,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPhone != null" >
+                customer_phone = #{customerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="customerRealname != null" >
+                customer_realname = #{customerRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorId != null" >
+                operator_id = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorName != null" >
+                operator_name = #{operatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roomUse != null" >
+                room_use = #{roomUse,jdbcType=VARCHAR},
+            </if>
+            <if test="customerType != null" >
+                customer_type = #{customerType,jdbcType=VARCHAR},
+            </if>
+            <if test="regionId != null" >
+                region_id = #{regionId,jdbcType=VARCHAR},
+            </if>
+            <if test="regionNo != null" >
+                region_no = #{regionNo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_cust_sub_account_record
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

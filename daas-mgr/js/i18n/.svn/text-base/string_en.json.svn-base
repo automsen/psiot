@@ -1,0 +1,137 @@
+{
+	"main":"main",
+	"loginTitle": "TimeWave Energy IOT Terminal Connected & Management Platform",
+	"userName": "user name",
+	"password": "password",
+	"validateCode": "validateCode",
+	"loginbtn": "login",
+	"loginOutBtn": "login out",
+	"createTime": "create time",
+	"mainTitle": "paas-platform-web"
+	
+    ,"editor":"Editor"
+	,"delete":"Delete"
+	,"add":"Add"
+	,"save":"Save"
+	,"reset":"Reset"
+
+	,"isLoginOut": "login out?",
+	"isTrue": "yes",
+	"isFalse": "no",
+	"elec": "elec",
+	"water": "water",
+	"gas": "gas",
+	"hot": "hot",
+	"Organization": "Organization：",
+	"ConnectedQty": "Connected Qty.：",
+	"ConnectedTime": "Connected time：",
+	"meterName": "Meter's name：",
+	"meterNumber": "Meter's number：",
+	"meterType": "Type：",
+	"connectType": "Method：",
+	"elecType": "Elec Type：",
+	"vtRatio": "VT Ratio：",
+	"ctRatio": "CT Ratio：",
+	"onOffControl": "On-off control：",
+	"onOffState": "On-off state：",
+	"meterPrepayment": "Meter's prepayment：",
+	"surplusAmount": "Surplus amount：",
+	"combinedActivePowerEnergy": "Combined active power energy(KW·h)",
+	"positiveActivePowerEnergy": "Positive active power energy(KW·h) ",
+	"reverseActivePowerEnergy": "Reverse active power energy(KW·h) ",
+	"tip": "tip：",
+	"peak": "peak：",
+	"flat": "flat：",
+	"valley": "valley：",
+	"lastRead": "Reading time",
+	"aphase": "A phase：",
+	"bphase": "B phase：",
+	"cphase": "C phase：",
+	"total": "Total",
+	"activePower": "Active Power（kW）",
+	"reactivePower": "Reactive Power（kVar）",
+	"apparentPower": "Apparent Power（kVA）",
+	"powerFactor": "Power Factor",
+	"dataItem": "Data Item",
+	"voltage": "Voltage（V）",
+	"current": "Current（A）",
+	"waterNum": "Current value(m³)",
+	"interfaceName": "interfaceName:",
+	"visitorIP": "Visitor IP:",
+	"startTime": "Start Time:",
+	"stopTime": "Stop Time:",
+	"search": "Search",
+	"ceartTime": "Creation Time",
+	"orgName": "Organization Names",
+	"requiredParameter": "Required Parameter",
+	"returnParameters": "Return Parameters",
+	"stat": "Status",
+	"pushState": "Push State:",
+	"applicationName": "Application Name",
+	"pushURL": "Push URL",
+	"dataInformation": "Data Information",
+	"dataType": "Data Type",
+	"numberOfPush": "Number Of Push",
+	"atTheRightTime": "At The Right Time"
+
+		,
+	"instrumentType": "Instrument Type:",
+	"numberOfInstrument": "Number Of Instrument:",
+
+	"reading": "Reading"
+	,"refresh":"refresh"
+	,"readingTime": "Reading Time"
+	,"accreditedInstitution":"Accredited Institution"
+	,"accreditedNumber":"Accredited Number"
+	,"accreditedName":"Accredited Name"
+	,"theContact":"The Contact"
+	,"contactPhone":"Contact Phone"
+	,"emailAddress":"Email Address"
+	,"address":"Address"
+	,"operation":"Operation"
+	,"applicationSettings":"Application Settings"
+	,"applicationName":"Application Name"
+	,"createTime":"Create Time"
+	,"look":"Look"
+	,"serviceExpirationTime":"Service Expiration Time"
+	,"applicationLogo":"Application Logo"
+	,"theKey":"The Key"
+	,"organizationManagement":"Organization Management"
+	,"apiLog":"API The Log"
+	,"dataQuery":"Data Query"
+	,"pushLog":"Push The Log"
+	,"realtimeData":"Real Time Data"
+	,"theHistoricalData":"The Historical Data"
+	
+	,"Organization":"Organization"
+	,"MeterName":"Meter's Name"
+	,"ElectricMeterDateExport":"Elec Data Export"
+	,"WaterMeterDateExport":"Water Data Export"
+	,"CombinedActivePowerEnergy":"Combined Active Power Energy"
+	,"PositiveActivePowerEnergy":"Positive Active Power Energy"
+	,"ReverseActivePowerEnergy":"Reverse Active Power Energy"
+	,"tip":"Tip"
+	,"peak":"Peak"
+	,"level":"Level"
+	,"valley":"Valley"
+	,"LastReadingTime":"Last Reading Time"
+	,"Aphase":"A Phase"
+	,"Bphase":"B Phase"
+	,"Cphase":"C Phase"
+	,"total":"Total"
+	,"ActivePower":"Active Power"
+	,"ReactivePower":"Reactive Power"
+	,"ApparentPower":"Apparent Power"
+	,"PF":"Power Factor"
+	,"DataItem":"Data Item"
+	,"Vol":"Vol"
+	,"Curr":"Curr"
+	,"VisitingIP":"Visiting IP"
+	,"Application":"Application"
+	,"TerminalNumber":"Terminal Number"	
+	,"TerminalType":"Terminal Type"
+	,"DataInfo":"Data Info"
+	,"Type":"Type"
+	,"RetransmissionNumber":"Retransmission Number"
+	,"PushTime":"Push Time"
+}

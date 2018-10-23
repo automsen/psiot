@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/base
+END
+InsDataItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/base/InsDataItem.java
+END
+DataItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/base/DataItem.java
+END
+Ins.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/tw/!svn/ver/517/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/base/Ins.java
+END

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.rule.EnergyPriceMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.rule.EnergyPrice" >
+        <id column="price_id" property="priceId" jdbcType="VARCHAR" />
+        <result column="price_no" property="priceNo" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="price_name" property="priceName" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="price_type" property="priceType" jdbcType="VARCHAR" />
+        <result column="price1" property="price1" jdbcType="DECIMAL" />
+        <result column="price2" property="price2" jdbcType="DECIMAL" />
+        <result column="price3" property="price3" jdbcType="DECIMAL" />
+        <result column="price4" property="price4" jdbcType="DECIMAL" />
+        <result column="step_num" property="stepNum" jdbcType="TINYINT" />
+        <result column="step1_price" property="step1Price" jdbcType="DECIMAL" />
+        <result column="step1_value" property="step1Value" jdbcType="DECIMAL" />
+        <result column="step2_price" property="step2Price" jdbcType="DECIMAL" />
+        <result column="step2_value" property="step2Value" jdbcType="DECIMAL" />
+        <result column="step3_price" property="step3Price" jdbcType="DECIMAL" />
+        <result column="step3_value" property="step3Value" jdbcType="DECIMAL" />
+        <result column="step4_price" property="step4Price" jdbcType="DECIMAL" />
+        <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+        <result column="is_history" property="isHistory" jdbcType="TINYINT" />
+        <result column="org_user_id" property="orgUserId" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        price_id, price_no, org_id, price_name, energy_type, price_type, price1, price2, 
+        price3, price4, step_num, step1_price, step1_value, step2_price, step2_value, step3_price, 
+        step3_value, step4_price, is_usable, is_history, org_user_id, create_time, update_time, is_default
+    </sql>
+  
+  <select id="selectByBean" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyPrice" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_price
+        <where>
+            <!-- is_usable = 1 -->
+			<if test="priceType != null and priceType != ''">
+				and price_type = #{priceType,jdbcType=VARCHAR}
+			</if>
+			<if test="priceName != null and priceName != ''">
+				and price_name like CONCAT('%', #{priceName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="energyType != null and energyType != ''">
+				and energy_type = #{energyType,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="isDefault != null and isDefault != ''">
+				and is_default = #{isDefault,jdbcType=TINYINT}
+			</if>
+		</where>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_price
+        <where>
+			<if test="paramObj.energyType != null and paramObj.energyType != ''">
+				and energy_type = #{paramObj.energyType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.priceName != null and paramObj.priceName != ''">
+				and price_name like CONCAT('%', #{paramObj.priceName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.priceType != null and paramObj.priceType != ''">
+				and price_type = #{paramObj.priceType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+		</where>
+  </select>
+  
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_price
+        where price_id = #{priceId,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectIsDefaultPrice" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_price
+        where org_id = #{0} and is_default = 1 and energy_type = #{1}
+    </select>
+    
+    <select id="selectByPriceName" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyPrice" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_energy_price
+        <where>
+           1=1
+			<if test="priceName != null and priceName != ''">
+				and price_name = #{priceName,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyPrice" >
+        insert into t_saas_rule_energy_price (price_id, price_no, org_id, 
+            price_name, energy_type, price_type, 
+            price1, price2, price3, 
+            price4, step_num, step1_price, 
+            step1_value, step2_price, step2_value, 
+            step3_price, step3_value, step4_price, 
+            is_usable, is_history, org_user_id, 
+            create_time, update_time, is_default)
+        values (uuid_short(), #{priceNo,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, 
+            #{priceName,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{priceType,jdbcType=VARCHAR}, 
+            #{price1,jdbcType=DECIMAL}, #{price2,jdbcType=DECIMAL}, #{price3,jdbcType=DECIMAL}, 
+            #{price4,jdbcType=DECIMAL}, #{stepNum,jdbcType=TINYINT}, #{step1Price,jdbcType=DECIMAL}, 
+            #{step1Value,jdbcType=DECIMAL}, #{step2Price,jdbcType=DECIMAL}, #{step2Value,jdbcType=DECIMAL}, 
+            #{step3Price,jdbcType=DECIMAL}, #{step3Value,jdbcType=DECIMAL}, #{step4Price,jdbcType=DECIMAL}, 
+            #{isUsable,jdbcType=TINYINT}, #{isHistory,jdbcType=TINYINT}, #{orgUserId,jdbcType=VARCHAR}, 
+            now(), now(), #{isDefault,jdbcType=TINYINT})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.EnergyPrice" >
+        update t_saas_rule_energy_price
+        <set >
+            <if test="priceNo != null" >
+                price_no = #{priceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="priceName != null" >
+                price_name = #{priceName,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="priceType != null" >
+                price_type = #{priceType,jdbcType=VARCHAR},
+            </if>
+            <if test="price1 != null" >
+                price1 = #{price1,jdbcType=DECIMAL},
+            </if>
+            <if test="price2 != null" >
+                price2 = #{price2,jdbcType=DECIMAL},
+            </if>
+            <if test="price3 != null" >
+                price3 = #{price3,jdbcType=DECIMAL},
+            </if>
+            <if test="price4 != null" >
+                price4 = #{price4,jdbcType=DECIMAL},
+            </if>
+            <if test="stepNum != null" >
+                step_num = #{stepNum,jdbcType=TINYINT},
+            </if>
+            <if test="step1Price != null" >
+                step1_price = #{step1Price,jdbcType=DECIMAL},
+            </if>
+            <if test="step1Value != null" >
+                step1_value = #{step1Value,jdbcType=DECIMAL},
+            </if>
+            <if test="step2Price != null" >
+                step2_price = #{step2Price,jdbcType=DECIMAL},
+            </if>
+            <if test="step2Value != null" >
+                step2_value = #{step2Value,jdbcType=DECIMAL},
+            </if>
+            <if test="step3Price != null" >
+                step3_price = #{step3Price,jdbcType=DECIMAL},
+            </if>
+            <if test="step3Value != null" >
+                step3_value = #{step3Value,jdbcType=DECIMAL},
+            </if>
+            <if test="step4Price != null" >
+                step4_price = #{step4Price,jdbcType=DECIMAL},
+            </if>
+            <if test="isUsable != null" >
+                is_usable = #{isUsable,jdbcType=TINYINT},
+            </if>
+            <if test="isHistory != null" >
+                is_history = #{isHistory,jdbcType=TINYINT},
+            </if>
+            <if test="orgUserId != null" >
+                org_user_id = #{orgUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDefault != null" >
+                is_default = #{isDefault,jdbcType=TINYINT},
+            </if>
+        </set>
+        where price_id = #{priceId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_rule_energy_price
+        where price_id = #{priceId,jdbcType=VARCHAR}
+    </delete>
+  
+</mapper>

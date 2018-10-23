@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.rule.SurchargeMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+    <id column="surcharge_id" property="surchargeId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="org_user_id" property="orgUserId" jdbcType="VARCHAR" />
+    <result column="surcharge_name" property="surchargeName" jdbcType="VARCHAR" />
+    <result column="surcharge_type" property="surchargeType" jdbcType="VARCHAR" />
+    <result column="surcharge_model" property="surchargeModel" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    surcharge_id, org_id, app_id, org_user_id, surcharge_name, surcharge_type, surcharge_model, 
+    unit_price, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_rule_surcharge
+    where surcharge_id = #{surchargeId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectSurchargeAll" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_surcharge
+        <where>
+            <if test="surchargeModel != null and surchargeModel != ''">
+				and surcharge_model = #{surchargeModel,jdbcType=VARCHAR}
+			</if>
+			<if test="surchargeName != null and surchargeName != ''">
+				and surcharge_name like CONCAT('%', #{surchargeName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="surchargeType != null and surchargeType != ''">
+				and surcharge_type = #{surchargeType,jdbcType=VARCHAR}
+			</if>
+		</where>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_rule_surcharge
+        <where>
+			<if test="paramObj.surchargeModel != null and paramObj.surchargeModel != ''">
+				and surcharge_model = #{paramObj.surchargeModel,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.surchargeName != null and paramObj.surchargeName != ''">
+				and surcharge_name like CONCAT('%', #{paramObj.surchargeName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.surchargeType != null and paramObj.surchargeType != ''">
+				and surcharge_type = #{paramObj.surchargeType,jdbcType=VARCHAR}
+			</if>
+		</where>
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_rule_surcharge
+    where surcharge_id = #{surchargeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+    insert into t_saas_rule_surcharge (surcharge_id, org_id, app_id, 
+      org_user_id, surcharge_name, surcharge_type, 
+      surcharge_model, unit_price, create_time, 
+      update_time)
+    values (#{surchargeId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{orgUserId,jdbcType=VARCHAR}, #{surchargeName,jdbcType=VARCHAR}, #{surchargeType,jdbcType=VARCHAR}, 
+      #{surchargeModel,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+    insert into t_saas_rule_surcharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="surchargeId != null" >
+        surcharge_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="orgUserId != null" >
+        org_user_id,
+      </if>
+      <if test="surchargeName != null" >
+        surcharge_name,
+      </if>
+      <if test="surchargeType != null" >
+        surcharge_type,
+      </if>
+      <if test="surchargeModel != null" >
+        surcharge_model,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="surchargeId != null" >
+        #{surchargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUserId != null" >
+        #{orgUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeName != null" >
+        #{surchargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeType != null" >
+        #{surchargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeModel != null" >
+        #{surchargeModel,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+    update t_saas_rule_surcharge
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUserId != null" >
+        org_user_id = #{orgUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeName != null" >
+        surcharge_name = #{surchargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeType != null" >
+        surcharge_type = #{surchargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeModel != null" >
+        surcharge_model = #{surchargeModel,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where surcharge_id = #{surchargeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.db.rule.Surcharge" >
+    update t_saas_rule_surcharge
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      org_user_id = #{orgUserId,jdbcType=VARCHAR},
+      surcharge_name = #{surchargeName,jdbcType=VARCHAR},
+      surcharge_type = #{surchargeType,jdbcType=VARCHAR},
+      surcharge_model = #{surchargeModel,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where surcharge_id = #{surchargeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

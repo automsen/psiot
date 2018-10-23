@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.seria.SeriaMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.seria.Seria" >
+    <id column="seria_key" property="seriaKey" jdbcType="VARCHAR" />
+    <result column="seria_value" property="seriaValue" jdbcType="BIGINT" />
+    <result column="max_value" property="maxValue" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seria_key, seria_value, max_value, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_seria
+    where seria_key = #{seriaKey,jdbcType=VARCHAR}
+  </select>
+  <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_seria
+    where seria_key = #{seriaKey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.seria.Seria" >
+    insert into t_seria (seria_key, seria_value, max_value, 
+      update_time)
+    values (#{seriaKey,jdbcType=VARCHAR}, #{seriaValue,jdbcType=BIGINT}, #{maxValue,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.seria.Seria" >
+    insert into t_seria
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seriaKey != null" >
+        seria_key,
+      </if>
+      <if test="seriaValue != null" >
+        seria_value,
+      </if>
+      <if test="maxValue != null" >
+        max_value,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seriaKey != null" >
+        #{seriaKey,jdbcType=VARCHAR},
+      </if>
+      <if test="seriaValue != null" >
+        #{seriaValue,jdbcType=BIGINT},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert> -->
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.seria.Seria" >
+    update t_seria
+    <set >
+      <if test="seriaValue != null" >
+        seria_value = #{seriaValue,jdbcType=BIGINT},
+      </if>
+      <if test="maxValue != null" >
+        max_value = #{maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seria_key = #{seriaKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.seria.Seria" >
+    update t_seria
+    set seria_value = #{seriaValue,jdbcType=BIGINT},
+      max_value = #{maxValue,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where seria_key = #{seriaKey,jdbcType=VARCHAR}
+  </update>
+</mapper>

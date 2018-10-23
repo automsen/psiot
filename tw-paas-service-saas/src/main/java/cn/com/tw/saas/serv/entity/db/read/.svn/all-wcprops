@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/read
+END
+ReadLast.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/tw/!svn/ver/2304/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/read/ReadLast.java
+END
+ReadManual.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/tw/!svn/ver/775/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/read/ReadManual.java
+END
+ReadRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/tw/!svn/ver/3025/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/read/ReadRecord.java
+END
+VReadLastElec.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/entity/db/read/VReadLastElec.java
+END

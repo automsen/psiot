@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>单位添加</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../../css/main.css"/>
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css"/>
+	<script src="../../../js/layui/layui.js" charset="utf-8"></script>
+  	<link rel="stylesheet" href="../../../css/index.css" media="all" />
+</head>
+<body>
+	<div style="width:500px;height:100%;margin: 0 auto; padding-top:10px">   
+		<form class="layui-form">
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位类型</label>
+				<div class="layui-input-block">
+					<select name="companyType" lay-verify="required" lay-filter="aihao" class="layui-select T-select" T-options="url:'dict/selectDictType/unti_type',value:'dictCode',name:'dictName',isShowSel:'false'">
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位名称</label>
+					<div class="layui-input-block">
+						<!-- <textarea name="reqKey" lay-verify="required" class="layui-textarea"></textarea> -->
+						<input type="text" lay-verify="required" name="companyName" class="layui-input"/>
+					</div>
+			</div>
+  
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位地址</label>
+				<div class="layui-input-block">
+					<input type="text" lay-verify="required" name="companyAddr" class="layui-input"/>
+				</div>
+			</div>
+  
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位电话</label>
+				<div class="layui-input-block">
+					<input type="text" lay-verify="required" name="companyTel" class="layui-input"/>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位电话2</label>
+				<div class="layui-input-block">
+					<input type="text" name="companyTel1" class="layui-input"/>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">单位备注</label>
+				<div class="layui-input-block">
+					<input type="text" name="companyRemarks" class="layui-input"/>
+				</div>
+			</div>
+  
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit="" lay-filter="tijiao" id="subBtn">提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script src="./unit_add.js" charset="utf-8"></script>
+</body>
+</html>

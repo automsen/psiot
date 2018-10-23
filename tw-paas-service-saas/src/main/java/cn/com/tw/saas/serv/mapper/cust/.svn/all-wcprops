@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/tw/!svn/ver/4278/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust
+END
+OrderRechargeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/4278/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/OrderRechargeMapper.java
+END
+CustomerRoomMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/3852/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/CustomerRoomMapper.java
+END
+CustomerMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/CustomerMapper.java
+END
+DeductOrderMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/3578/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/DeductOrderMapper.java
+END
+SubAccountRecordMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/tw/!svn/ver/1793/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/SubAccountRecordMapper.java
+END
+SubAccountMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/4031/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/SubAccountMapper.java
+END
+ThirdOrderMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/1462/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/ThirdOrderMapper.java
+END
+RoomAccountRecordMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/3967/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/RoomAccountRecordMapper.java
+END
+RoomAccountMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/1395/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/mapper/cust/RoomAccountMapper.java
+END

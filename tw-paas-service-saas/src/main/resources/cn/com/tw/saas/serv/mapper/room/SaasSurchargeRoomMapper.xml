@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.room.SaasSurchargeRoomMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.room.SaasSurchargeRoom" >
+    <id column="surcharge_romm_id" property="surchargeRommId" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="surcharge_id" property="surchargeId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    surcharge_romm_id, room_id, surcharge_id, app_id, org_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_surcharge_room
+    where surcharge_romm_id = #{surchargeRommId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_surcharge_room
+    where surcharge_romm_id = #{surchargeRommId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.room.SaasSurchargeRoom" >
+    insert into t_saas_surcharge_room (surcharge_romm_id, room_id, surcharge_id, 
+      app_id, org_id, create_time
+      )
+    values (#{surchargeRommId,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{surchargeId,jdbcType=VARCHAR}, 
+      #{appId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.room.SaasSurchargeRoom" >
+    insert into t_saas_surcharge_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="surchargeRommId != null" >
+        surcharge_romm_id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="surchargeId != null" >
+        surcharge_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="surchargeRommId != null" >
+        #{surchargeRommId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeId != null" >
+        #{surchargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.room.SaasSurchargeRoom" >
+    update t_saas_surcharge_room
+    <set >
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="surchargeId != null" >
+        surcharge_id = #{surchargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where surcharge_romm_id = #{surchargeRommId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.room.SaasSurchargeRoom" >
+    update t_saas_surcharge_room
+    set room_id = #{roomId,jdbcType=VARCHAR},
+      surcharge_id = #{surchargeId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where surcharge_romm_id = #{surchargeRommId,jdbcType=VARCHAR}
+  </update>
+</mapper>

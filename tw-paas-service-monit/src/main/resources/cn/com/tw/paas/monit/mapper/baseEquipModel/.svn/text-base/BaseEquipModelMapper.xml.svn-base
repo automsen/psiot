@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.baseEquipModel.BaseEquipModelMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    <id column="model_id" property="modelId" jdbcType="VARCHAR" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="factory" property="factory" jdbcType="VARCHAR" />
+    <result column="equip_categ_code" property="equipCateg" jdbcType="VARCHAR" />
+    <result column="equip_type_code" property="equipType" jdbcType="VARCHAR" />
+    <result column="elec_meter_type_code" property="elecMeterTypeCode" jdbcType="VARCHAR" />
+    <result column="protocol_type_code" property="protocolType" jdbcType="VARCHAR" />
+    <result column="baud_rate" property="baudRate" jdbcType="VARCHAR" />
+    <result column="is_direct" property="isDirect" jdbcType="TIMESTAMP" />
+    <result column="net_type_code" property="netType" jdbcType="VARCHAR" />
+    <result column="is_initiative_push" property="isInitiativePush" jdbcType="TINYINT" />
+    <result column="is_remote_control" property="isRemoteControl" jdbcType="TINYINT" />
+    <result column="is_timearea" property="isTimearea" jdbcType="TINYINT" />
+    <result column="is_cost_control" property="isCostControl" jdbcType="TINYINT" />
+    <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="have_section" property="haveSection" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    model_id, model_name, full_name, product_name, factory, equip_categ_code, equip_type_code, elec_meter_type_code,
+    protocol_type_code, baud_rate, is_direct, net_type_code, is_initiative_push, is_remote_control, is_timearea, 
+    is_cost_control, is_usable, create_time, update_time, have_section
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_equip_model
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByModelName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_equip_model
+    where model_name = #{modelName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEquipNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+		m.model_id,
+		m.model_name,
+		m.full_name,
+		m.product_name,
+		m.factory,
+		m.equip_categ_code,
+		m.equip_type_code,
+		m.elec_meter_type_code,
+		m.protocol_type_code,
+		m.baud_rate,
+		m.is_direct,
+		m.net_type_code,
+		m.is_initiative_push,
+		m.is_remote_control,
+		m.is_timearea,
+		m.is_cost_control,
+		m.is_usable,
+		m.create_time,
+		m.update_time
+	FROM
+		t_base_equip_model m
+	LEFT JOIN t_org_terminal_equip e ON e.model_id = m.model_id
+	WHERE e.equip_number = #{equipNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectBaseEquipModelAll" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_equip_model
+   	<where>
+		<if test="modelId != null and modelId != ''">
+			and model_id = #{modelId,jdbcType=VARCHAR}
+		</if>
+		<if test="equipType != null and equipType != ''">
+			and equip_type_code = #{equipType,jdbcType=VARCHAR}
+		</if>
+		<if test="equipCateg != null and equipCateg != ''">
+			and equip_categ_code = #{equipCateg,jdbcType=VARCHAR}
+		</if>
+		<if test="modelName != null and modelName != ''">
+			and model_name = #{modelName,jdbcType=VARCHAR}
+		</if>
+		<if test="fullName != null and fullName != ''">
+			and full_name = #{fullName,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </select>
+  
+   <select id="selectBaseEquipModelPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_base_equip_model m
+        <where>
+			<if test="paramObj.modelName != null and paramObj.modelName != ''">
+				and m.model_name = #{paramObj.modelName,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.equipCateg != null and paramObj.equipCateg != ''">
+				and m.equip_categ_code = #{paramObj.equipCateg,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.equipType != null and paramObj.equipType != ''">
+				and m.equip_type_code = #{paramObj.equipType,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_base_equip_model
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    insert into t_base_equip_model (model_id, model_name, full_name, 
+      product_name, factory, equip_categ_code, 
+      equip_type_code, elec_meter_type_code, protocol_type_code, baud_rate, is_direct,
+      net_type_code, is_initiative_push, is_remote_control, 
+      is_timearea, is_cost_control, is_usable, 
+      create_time, update_time, have_section)
+    values (#{modelId,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, #{equipCateg,jdbcType=VARCHAR}, 
+      #{equipType,jdbcType=VARCHAR}, #{elecMeterTypeCode,jdbcType=VARCHAR}, #{protocolType,jdbcType=VARCHAR}, #{baudRate,jdbcType=VARCHAR}, 
+      #{isDirect,jdbcType=VARCHAR}, #{netType,jdbcType=VARCHAR}, #{isInitiativePush,jdbcType=TINYINT}, #{isRemoteControl,jdbcType=TINYINT}, 
+      #{isTimearea,jdbcType=TINYINT}, #{isCostControl,jdbcType=TINYINT}, #{isUsable,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{haveSection,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    insert into t_base_equip_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="modelName != null" >
+        model_name,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="factory != null" >
+        factory,
+      </if>
+      <if test="equipCateg != null" >
+        equip_categ_code,
+      </if>
+      <if test="equipType != null" >
+        equip_type_code,
+      </if>
+      <if test="elecMeterTypeCode != null" >
+        elec_meter_type_code,
+      </if>
+      <if test="protocolType != null" >
+        protocol_type_code,
+      </if>
+      <if test="baudRate != null" >
+        baud_rate,
+      </if>
+      <if test="isDirect != null" >
+        is_direct,
+      </if>
+      <if test="netType != null" >
+        net_type_code,
+      </if>
+      <if test="isInitiativePush != null" >
+        is_initiative_push,
+      </if>
+      <if test="isRemoteControl != null" >
+        is_remote_control,
+      </if>
+      <if test="isTimearea != null" >
+        is_timearea,
+      </if>
+      <if test="isCostControl != null" >
+        is_cost_control,
+      </if>
+      <if test="isUsable != null" >
+        is_usable,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="haveSection != null">
+      	have_section,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCateg != null" >
+        #{equipCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecMeterTypeCode != null" >
+        #{elecMeterTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="protocolType != null" >
+        #{protocolType,jdbcType=VARCHAR},
+      </if>
+      <if test="baudRate != null" >
+        #{baudRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isDirect != null" >
+        #{isDirect,jdbcType=VARCHAR},
+      </if>
+      <if test="netType != null" >
+        #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="isInitiativePush != null" >
+        #{isInitiativePush,jdbcType=TINYINT},
+      </if>
+      <if test="isRemoteControl != null" >
+        #{isRemoteControl,jdbcType=TINYINT},
+      </if>
+      <if test="isTimearea != null" >
+        #{isTimearea,jdbcType=TINYINT},
+      </if>
+      <if test="isCostControl != null" >
+        #{isCostControl,jdbcType=TINYINT},
+      </if>
+      <if test="isUsable != null" >
+        #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="haveSection != null">
+      	#{haveSection,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    update t_base_equip_model
+    <set >
+      <if test="modelName != null" >
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null" >
+        factory = #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCateg != null" >
+        equip_categ_code = #{equipCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        equip_type_code = #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecMeterTypeCode != null" >
+       elec_meter_type_code = #{elecMeterTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="protocolType != null" >
+        protocol_type_code = #{protocolType,jdbcType=VARCHAR},
+      </if>
+      <if test="baudRate != null" >
+        baud_rate = #{baudRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isDirect != null" >
+        is_direct = #{isDirect,jdbcType=VARCHAR},
+      </if>
+      <if test="netType != null" >
+        net_type_code = #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="isInitiativePush != null" >
+        is_initiative_push = #{isInitiativePush,jdbcType=TINYINT},
+      </if>
+      <if test="isRemoteControl != null" >
+        is_remote_control = #{isRemoteControl,jdbcType=TINYINT},
+      </if>
+      <if test="isTimearea != null" >
+        is_timearea = #{isTimearea,jdbcType=TINYINT},
+      </if>
+      <if test="isCostControl != null" >
+        is_cost_control = #{isCostControl,jdbcType=TINYINT},
+      </if>
+      <if test="isUsable != null" >
+        is_usable = #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="haveSection != null">
+      	have_section = #{haveSection,jdbcType=TINYINT},
+      </if>
+    </set>
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.baseEquipModel.BaseEquipModel" >
+    update t_base_equip_model
+    set model_name = #{modelName,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      factory = #{factory,jdbcType=VARCHAR},
+      equip_categ_code = #{equipCateg,jdbcType=VARCHAR},
+      equip_type_code = #{equipType,jdbcType=VARCHAR},
+      elec_meter_type_code = #{elecMeterTypeCode,jdbcType=VARCHAR},
+      protocol_type_code = #{protocolType,jdbcType=VARCHAR},
+      baud_rate = #{baudRate,jdbcType=VARCHAR},
+      is_direct = #{isDirect,jdbcType=VARCHAR},
+      net_type_code = #{netType,jdbcType=VARCHAR},
+      is_initiative_push = #{isInitiativePush,jdbcType=TINYINT},
+      is_remote_control = #{isRemoteControl,jdbcType=TINYINT},
+      is_timearea = #{isTimearea,jdbcType=TINYINT},
+      is_cost_control = #{isCostControl,jdbcType=TINYINT},
+      is_usable = #{isUsable,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      have_section = #{haveSection,jdbcType=TINYINT}
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

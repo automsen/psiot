@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.org.TerminalEquipParamDtuMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.org.TerminalEquipParamDtu">
+		<id column="equip_number" property="equipNumber" jdbcType="VARCHAR" />
+		<result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+		<result column="children_num" property="childrenNum" jdbcType="INTEGER" />
+		<result column="install_site" property="installSite" jdbcType="VARCHAR" />
+		<result column="install_time" property="installTime" jdbcType="TIMESTAMP" />
+		<result column="working_mode" property="workingMode" jdbcType="VARCHAR" />
+		<result column="function_digit" property="functionDigit" jdbcType="VARCHAR" />
+		<result column="rf_baud_rate" property="rfBaudRate" jdbcType="VARCHAR" />
+		<result column="beattim" property="beattim" jdbcType="TINYINT" />
+		<result column="reporting_interval" property="reportingInterval" jdbcType="INTEGER" />
+		<result column="send_status" property="sendStatus" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		equip_number, equip_name, org_id, app_id, coordinate, children_num, install_site,
+		install_time, working_mode, function_digit, rf_baud_rate, beattim,
+		reporting_interval, send_status, 
+		create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_org_terminal_equip_param_dtu
+		where equip_number = #{equipNumber,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_org_terminal_equip_param_dtu
+		where equip_number = #{equipNumber,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipParamDtu">
+		insert into t_org_terminal_equip_param_dtu (equip_number, equip_name,
+		org_id,
+		app_id, coordinate, children_num,
+		install_site, install_time, working_mode,
+		function_digit, rf_baud_rate, beattim, send_status,
+		reporting_interval, create_time, update_time
+		)
+		values (#{equipNumber,jdbcType=VARCHAR}, #{equipName,jdbcType=VARCHAR},
+		#{orgId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR}, #{coordinate,jdbcType=VARCHAR}, #{childrenNum,jdbcType=INTEGER},
+		#{installSite,jdbcType=VARCHAR}, #{installTime,jdbcType=TIMESTAMP},
+		#{workingMode,jdbcType=VARCHAR},
+		#{functionDigit,jdbcType=VARCHAR}, #{rfBaudRate,jdbcType=VARCHAR}, #{beattim,jdbcType=TINYINT},
+		#{sendStatus,jdbcType=TINYINT}, #{reportingInterval,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipParamDtu">
+		insert into t_org_terminal_equip_param_dtu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="equipNumber != null">
+				equip_number,
+			</if>
+			<if test="equipName != null">
+				equip_name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="coordinate != null">
+				coordinate,
+			</if>
+			<if test="childrenNum != null">
+				children_num,
+			</if>
+			<if test="installSite != null">
+				install_site,
+			</if>
+			<if test="installTime != null">
+				install_time,
+			</if>
+			<if test="workingMode != null">
+				working_mode,
+			</if>
+			<if test="functionDigit != null">
+				function_digit,
+			</if>
+			<if test="rfBaudRate != null">
+				rf_baud_rate,
+			</if>
+			<if test="beattim != null">
+				beattim,
+			</if>
+			<if test="sendStatus != null">
+				send_status,
+			</if>
+			<if test="reportingInterval != null">
+				reporting_interval,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="equipNumber != null">
+				#{equipNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="equipName != null">
+				#{equipName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="coordinate != null">
+				#{coordinate,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenNum != null">
+				#{childrenNum,jdbcType=INTEGER},
+			</if>
+			<if test="installSite != null">
+				#{installSite,jdbcType=VARCHAR},
+			</if>
+			<if test="installTime != null">
+				#{installTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="workingMode != null">
+				#{workingMode,jdbcType=VARCHAR},
+			</if>
+			<if test="functionDigit != null">
+				#{functionDigit,jdbcType=VARCHAR},
+			</if>
+			<if test="rfBaudRate != null">
+				#{rfBaudRate,jdbcType=VARCHAR},
+			</if>
+			<if test="beattim != null">
+				#{beattim,jdbcType=TINYINT},
+			</if>
+			<if test="sendStatus != null">
+				#{sendStatus,jdbcType=TINYINT},
+			</if>
+			<if test="reportingInterval != null">
+				#{reportingInterval,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipParamDtu">
+		update t_org_terminal_equip_param_dtu
+		<set>
+			<if test="equipName != null">
+				equip_name = #{equipName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="coordinate != null">
+				coordinate = #{coordinate,jdbcType=VARCHAR},
+			</if>
+			<if test="childrenNum != null">
+				children_num = #{childrenNum,jdbcType=INTEGER},
+			</if>
+			<if test="installSite != null">
+				install_site = #{installSite,jdbcType=VARCHAR},
+			</if>
+			<if test="installTime != null">
+				install_time = #{installTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="workingMode != null">
+				working_mode = #{workingMode,jdbcType=VARCHAR},
+			</if>
+			<if test="functionDigit != null">
+				function_digit = #{functionDigit,jdbcType=VARCHAR},
+			</if>
+			<if test="rfBaudRate != null">
+				rf_baud_rate = #{rfBaudRate,jdbcType=VARCHAR},
+			</if>
+			<if test="beattim != null">
+				beattim = #{beattim,jdbcType=TINYINT},
+			</if>
+			<if test="sendStatus != null">
+				send_status = #{sendStatus,jdbcType=TINYINT}
+			</if>
+			<if test="reportingInterval != null">
+				reporting_interval = #{reportingInterval,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where equip_number = #{equipNumber,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.org.TerminalEquipParamDtu">
+		update t_org_terminal_equip_param_dtu
+		set equip_name = #{equipName,jdbcType=VARCHAR},
+		org_id = #{orgId,jdbcType=VARCHAR},
+		app_id = #{appId,jdbcType=VARCHAR},
+		coordinate = #{coordinate,jdbcType=VARCHAR},
+		children_num = #{childrenNum,jdbcType=INTEGER},
+		install_site = #{installSite,jdbcType=VARCHAR},
+		install_time = #{installTime,jdbcType=TIMESTAMP},
+		working_mode = #{workingMode,jdbcType=VARCHAR},
+		function_digit = #{functionDigit,jdbcType=VARCHAR},
+		rf_baud_rate = #{rfBaudRate,jdbcType=VARCHAR},
+		beattim = #{beattim,jdbcType=TINYINT},
+		send_status = #{sendStatus,jdbcType=TINYINT},
+		reporting_interval = #{reportingInterval,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where equip_number = #{equipNumber,jdbcType=VARCHAR}
+	</update>
+</mapper>

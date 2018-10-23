@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.room.SaasRegionMapper">
+	<resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+		<result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+		<result column="region_name" property="regionName" jdbcType="VARCHAR" />
+		<result column="region_number" property="regionNumber" jdbcType="VARCHAR" />
+		<result column="p_region_no" property="pRegionNo" jdbcType="VARCHAR" />
+		<result column="square" property="square" jdbcType="VARCHAR" />
+		<result column="is_top" property="isTop" jdbcType="TINYINT" />
+		<result column="tier" property="tier" jdbcType="TINYINT" />
+		<result column="is_leaf" property="isLeaf" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, org_id, region_no, region_full_name, region_name, region_number, p_region_no,
+		square, is_top,
+		tier, is_leaf, create_time, update_time, is_delete
+	</sql>
+
+	<select id="selectByMap" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		where 1=1
+		<if test="regionName != null and regionName != ''">
+			and region_name like CONCAT('%', #{regionName}, '%')
+		</if>
+		<if test="isDelete != null and isDelete != ''">
+			and is_delete =#{isDelete,jdbcType=TINYINT}
+		</if>
+		<if test="isTop != null and isTop!=''">
+			and is_top = #{isTop,jdbcType=TINYINT}
+		</if>
+		<if test="orgId != null and orgId !=''">
+			and org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="selectSaasRegion" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		where 1=1
+		<if test="regionName != null and regionName != ''">
+			and region_name like CONCAT('%', #{regionName,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="isDelete != null and isDelete != ''">
+			and is_delete =#{isDelete,jdbcType=TINYINT}
+		</if>
+		<if test="isTop != null and isTop!=''">
+			and is_top = #{isTop,jdbcType=TINYINT}
+		</if>
+		<if test="isLeaf != null and isLeaf != ''">
+			and is_leaf = #{isLeaf,jdbcType=TINYINT}
+		</if>
+		<if test="regionNo != null and regionNo != ''">
+			and region_no = #{regionNo,jdbcType=VARCHAR}
+		</if>
+		<if test="pRegionNo != null and pRegionNo != ''">
+			and p_region_no = #{pRegionNo,jdbcType=VARCHAR}
+		</if>
+		<if test="tier != null and tier != ''">
+			and tier = #{tier,jdbcType=INTEGER}
+		</if>
+		<if test="orgId != null and orgId !=''">
+			and org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY tier ASC
+	</select>
+	
+	<select id="selectSubRegion" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		where 1=1
+		<if test="pRegionNo != null and pRegionNo != ''">
+			and p_region_no = like CONCAT(#{pRegionNo,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="orgId != null and orgId !=''">
+			and org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="selectMaxregionNo" resultType="java.lang.String"
+		parameterType="map">
+		SELECT
+		max(region_no)
+		FROM
+		t_saas_region
+		where
+		1=1
+		<if test="regionNo != null">
+			and region_no like CONCAT(#{regionNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="stepLen != null">
+			and LENGTH(region_no) = LENGTH(#{regionNo,jdbcType=VARCHAR})+
+			#{stepLen,jdbcType=INTEGER}
+		</if>
+		<if test="orgId != null">
+			and org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="selectByPage" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.common.web.entity.page.Page">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		where 1=1
+		<if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+			and p_region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		<where>
+			<if test="orgId != null">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="regionNo != null">
+				and region_no = #{regionNo,jdbcType=VARCHAR}
+			</if>
+			<if test="regionFullName != null">
+				and region_full_name = #{regionFullName,jdbcType=VARCHAR}
+			</if>
+			<if test="regionName != null">
+				and region_name = #{regionName,jdbcType=VARCHAR}
+			</if>
+			<if test="pRegionNo != null">
+				and p_region_no = #{pRegionNo,jdbcType=VARCHAR}
+			</if>
+			<if test="square != null">
+				and square = #{square,jdbcType=VARCHAR}
+			</if>
+			<if test="isTop != null">
+				and is_top = #{isTop,jdbcType=TINYINT}
+			</if>
+			<if test="tier != null">
+				and tier = #{tier,jdbcType=TINYINT}
+			</if>
+			<if test="isLeaf != null">
+				and is_leaf = #{isLeaf,jdbcType=TINYINT}
+			</if>
+			<if test="isDelete != null">
+				and is_delete = #{isDelete,jdbcType=TINYINT}
+			</if>
+			<if test="regionNumber != null">
+				and region_number = #{regionNumber,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_region
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insert" parameterType="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		insert into t_saas_region (id, org_id, region_no,
+		region_full_name, region_name, region_number, p_region_no,
+		square, is_top, tier,
+		is_leaf, create_time, update_time,
+		is_delete)
+		values (uuid_short(), #{orgId,jdbcType=VARCHAR},
+		#{regionNo,jdbcType=VARCHAR},
+		#{regionFullName,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, #{regionNumber,jdbcType=VARCHAR}, #{pRegionNo,jdbcType=VARCHAR},
+		#{square,jdbcType=VARCHAR}, #{isTop,jdbcType=TINYINT},
+		#{tier,jdbcType=TINYINT},
+		#{isLeaf,jdbcType=TINYINT}, now(), now(),
+		#{isDelete,jdbcType=TINYINT})
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.room.SaasRegion">
+		update t_saas_region
+		<set>
+			<if test="orgId != null">
+				org_id = #{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="regionNo != null">
+				region_no = #{regionNo,jdbcType=VARCHAR},
+			</if>
+			<if test="regionFullName != null">
+				region_full_name = #{regionFullName,jdbcType=VARCHAR},
+			</if>
+			<if test="regionName != null">
+				region_name = #{regionName,jdbcType=VARCHAR},
+			</if>
+			<if test="regionNumber != null">
+				region_number = #{regionNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="pRegionNo != null">
+				p_region_no = #{pRegionNo,jdbcType=VARCHAR},
+			</if>
+			<if test="square != null">
+				square = #{square,jdbcType=VARCHAR},
+			</if>
+			<if test="isTop != null">
+				is_top = #{isTop,jdbcType=TINYINT},
+			</if>
+			<if test="tier != null">
+				tier = #{tier,jdbcType=TINYINT},
+			</if>
+			<if test="isLeaf != null">
+				is_leaf = #{isLeaf,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_saas_region
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+</mapper>

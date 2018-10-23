@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.terminal.SaasNetMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.terminal.SaasNet" >
+    <id column="net_id" property="netId" jdbcType="VARCHAR" />
+    <result column="net_number" property="netNumber" jdbcType="VARCHAR" />
+    <result column="net_install" property="netInstall" jdbcType="VARCHAR" />
+    <result column="net_ip" property="netIp" jdbcType="VARCHAR" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="net_pro" property="netPro" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="net_type" property="netType" jdbcType="VARCHAR" />
+    <result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="net_details" property="netDetails" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="gather_hz" property="gatherHz" jdbcType="VARCHAR" />
+    
+    <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    net_id, net_number, net_install, net_ip, net_pro, region_no, net_details, create_time, 
+    update_time,model_name,net_type,org_id,gather_hz,region_id
+  </sql>
+  <select id="selectByRegionId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_net
+    where region_id = #{regionId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+    select 
+	    n.net_id,
+		n.net_number,
+		n.net_install,
+		n.net_ip,
+		n.net_pro,
+		n.region_no,
+		n.net_details,
+		n.create_time,
+		n.update_time,
+		n.model_name,
+		n.net_type,
+		n.org_id,
+		n.gather_hz,
+		n.region_id,
+		r.region_full_name,
+		r.region_name
+	FROM
+		t_saas_net n
+	LEFT JOIN t_saas_region r ON r.id = n.region_id
+    <where>
+			<if test="paramObj.netNumber != null and paramObj.netNumber != ''">
+				and n.net_number like CONCAT('%', #{paramObj.netNumber,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.netIp != null and paramObj.netIp != ''">
+				and n.net_ip like CONCAT('%', #{paramObj.netIp,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.modelName != null and paramObj.modelName != ''">
+				and n.model_name like CONCAT('%', #{paramObj.modelName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.regionNo != null and paramObj.regionNo != ''">
+				and n.region_no = #{paramObj.regionNo,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.regionId != null and paramObj.regionId != ''">
+				and n.region_id = #{paramObj.regionId,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and n.org_id like CONCAT('%', #{paramObj.orgId,jdbcType=VARCHAR},'%')
+			</if>
+	</where>
+    </select>
+    
+    
+     <select id="selectSaasNet" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasNet">
+   		select 
+    <include refid="Base_Column_List" />
+       from t_saas_net
+	    <where>
+				<if test="netNumber != null and netNumber != ''">
+					and net_number like CONCAT('%', #{netNumber,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="netIp != null and netIp != ''">
+					and net_ip like CONCAT('%', #{netIp,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="modelName != null and modelName != ''">
+					and model_name like CONCAT('%', #{modelName,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="regionNo != null and regionNo != ''">
+					and region_no = #{regionNo,jdbcType=VARCHAR}
+				</if>
+		</where>
+    </select>
+    
+    <select id="selectByNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_net
+    where net_number =  #{netNumber,jdbcType=VARCHAR}
+    </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_net
+    where net_id = #{netId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_net
+    where net_id = #{netId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasNet" >
+    insert into t_saas_net (net_id, net_number, net_install, 
+      net_ip, net_pro, region_no, 
+      net_details, create_time, update_time,model_name,net_type,org_id,gather_hz,region_id
+      )
+    values (#{netId,jdbcType=VARCHAR}, #{netNumber,jdbcType=VARCHAR}, #{netInstall,jdbcType=VARCHAR}, 
+      #{netIp,jdbcType=VARCHAR}, #{netPro,jdbcType=VARCHAR}, #{regionNo,jdbcType=VARCHAR}, 
+      #{netDetails,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{modelName,jdbcType=VARCHAR},#{netType,jdbcType=VARCHAR}
+      ,#{orgId,jdbcType=VARCHAR},#{gatherHz,jdbcType=VARCHAR},#{regionId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasNet" >
+    insert into t_saas_net
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="netId != null" >
+        net_id,
+      </if>
+      <if test="netNumber != null" >
+        net_number,
+      </if>
+      <if test="netInstall != null" >
+        net_install,
+      </if>
+      <if test="netIp != null" >
+        net_ip,
+      </if>
+      <if test="netPro != null" >
+        net_pro,
+      </if>
+      <if test="regionNo != null" >
+        region_no,
+      </if>
+      <if test="netDetails != null" >
+        net_details,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+       <if test="modelName != null" >
+        model_name,
+      </if>
+      <if test="netType != null" >
+       net_type,
+      </if>
+      <if test="orgId != null" >
+       org_id,
+      </if>
+      <if test="gatherHz != null" >
+       gather_hz,
+      </if>
+      <if test="regionId != null" >
+       region_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="netId != null" >
+        #{netId,jdbcType=VARCHAR},
+      </if>
+      <if test="netNumber != null" >
+        #{netNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="netInstall != null" >
+        #{netInstall,jdbcType=VARCHAR},
+      </if>
+      <if test="netIp != null" >
+        #{netIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netPro != null" >
+        #{netPro,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNo != null" >
+        #{regionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="netDetails != null" >
+        #{netDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+       <if test="netType != null" >
+       #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="gatherHz != null" >
+       #{gatherHz,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+       #{regionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasNet" >
+    update t_saas_net
+    <set >
+      <if test="netNumber != null" >
+        net_number = #{netNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="netInstall != null" >
+        net_install = #{netInstall,jdbcType=VARCHAR},
+      </if>
+      <if test="netIp != null" >
+        net_ip = #{netIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netPro != null" >
+        net_pro = #{netPro,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNo != null" >
+        region_no = #{regionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="netDetails != null" >
+        net_details = #{netDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modelName != null" >
+       model_name= #{modelName,jdbcType=VARCHAR},
+      </if>
+       <if test="netType != null" >
+       net_type= #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id=#{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="gatherHz != null" >
+       gather_hz = #{gatherHz,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+       region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where net_id = #{netId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasNet" >
+    update t_saas_net
+    set net_number = #{netNumber,jdbcType=VARCHAR},
+      net_install = #{netInstall,jdbcType=VARCHAR},
+      net_ip = #{netIp,jdbcType=VARCHAR},
+      net_pro = #{netPro,jdbcType=VARCHAR},
+      region_no = #{regionNo,jdbcType=VARCHAR},
+      net_details = #{netDetails,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      model_name= #{modelName,jdbcType=VARCHAR},
+      net_type= #{netType,jdbcType=VARCHAR},
+      org_id=#{orgId,jdbcType=VARCHAR},
+      gather_hz = #{gatherHz,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR}
+    where net_id = #{netId,jdbcType=VARCHAR}
+  </update>
+</mapper>

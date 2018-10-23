@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.terminal.MeterMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        <id column="meter_id" property="meterId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+        <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+        <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+        <result column="soft_versoin" property="softVersoin" jdbcType="VARCHAR" />
+        <result column="gather_hz" property="gatherHz" jdbcType="INTEGER" />
+        <result column="is_remote_control" property="isRemoteControl" jdbcType="TINYINT" />
+        <result column="is_cost_control" property="isCostControl" jdbcType="TINYINT" />
+        <result column="is_direct" property="isDirect" jdbcType="TINYINT" />
+        <result column="net_type_code" property="netTypeCode" jdbcType="VARCHAR" />
+        <result column="net_number" property="netNumber" jdbcType="VARCHAR" />
+        <result column="meter_spec" property="meterSpec" jdbcType="VARCHAR" />
+        <result column="install_read" property="installRead" jdbcType="DECIMAL" />
+        <result column="p_meter_addr" property="pMeterAddr" jdbcType="VARCHAR" />
+        <result column="meter_name" property="meterName" jdbcType="VARCHAR" />
+        <result column="meter_install_addr" property="meterInstallAddr" jdbcType="VARCHAR" />
+        <result column="meter_details" property="meterDetails" jdbcType="VARCHAR" />
+        <result column="elec_pt" property="elecPt" jdbcType="INTEGER" />
+        <result column="elec_ct" property="elecCt" jdbcType="INTEGER" />
+        <result column="baud_rate" property="baudRate" jdbcType="VARCHAR" />
+        <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+        <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+        <result column="sub_account_status" property="subAccountStatus" jdbcType="TINYINT" />
+        <result column="sub_account_id" property="subAccountId" jdbcType="VARCHAR" />
+        <result column="balance" property="balance" jdbcType="DECIMAL" />
+        <result column="price_mode_code" property="priceModeCode" jdbcType="VARCHAR" />
+        <result column="price_id" property="priceId" jdbcType="VARCHAR" />
+        <result column="price_status" property="priceStatus" jdbcType="TINYINT" />
+        <result column="alarm_id" property="alarmId" jdbcType="VARCHAR" />
+        <result column="alarm_status" property="alarmStatus" jdbcType="TINYINT" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="start_read" property="startRead" jdbcType="DECIMAL" />
+        <result column="balance_update_time" property="balanceUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="balance_update_read" property="balanceUpdateRead" jdbcType="DECIMAL" />
+        <result column="balance_update_no" property="balanceUpdateNo" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <result column="is_elec_load" property="isElecLoad" jdbcType="TINYINT" />
+        <result column="is_elec_power_max_limit" property="isElecPowerMaxLimit" jdbcType="TINYINT" />
+        <result column="is_elec_on_time" property="isElecOnTime" jdbcType="TINYINT" />
+        <result column="current_time_limit_id" property="currentTimeLimitId" jdbcType="VARCHAR" />
+        <result column="power_ladder_limit_id" property="powerLadderLimitId" jdbcType="VARCHAR" />
+        <result column="power_fluctuation_limit_id" property="powerFluctuationLimitId" jdbcType="VARCHAR" />
+        <result column="power_change_limit_id" property="powerChangeLimitId" jdbcType="VARCHAR" />
+        <result column="power_max_limit_id" property="powerMaxLimitId" jdbcType="VARCHAR" />
+        
+        
+        <result column="read_value" property="readValue" jdbcType="DECIMAL" />
+		<result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+		<result column="room_name" property="roomName" jdbcType="VARCHAR" />
+		<result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+		<result column="communication_type" property="communicationType" jdbcType="VARCHAR" />
+		<result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+		<result column="full_name" property="fullName" jdbcType="VARCHAR" />
+		<result column="number" property="number" jdbcType="VARCHAR" />
+		<result column="price1" property="price1" jdbcType="DECIMAL" />
+		
+		<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+		<result column="region_number" property="regionNumber" jdbcType="VARCHAR" />
+		<result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+		<result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+		<result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+		<result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+		<result column="region_id" property="regionId" jdbcType="VARCHAR" />
+		
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        meter_id, org_id, meter_addr, meter_type, energy_type, model_name, soft_versoin, 
+        gather_hz, is_remote_control, is_cost_control, is_direct, net_type_code, net_number, 
+        meter_spec, install_read, p_meter_addr, meter_name, meter_install_addr, meter_details, 
+        elec_pt, elec_ct, baud_rate, room_id, account_id, sub_account_status, sub_account_id, 
+        balance, price_mode_code, price_id, price_status, alarm_id, alarm_status, start_time, 
+        start_read, balance_update_time, balance_update_read, balance_update_no, create_time, 
+        update_time,is_elec_load,is_elec_power_max_limit,is_elec_on_time,current_time_limit_id,power_ladder_limit_id,
+        power_fluctuation_limit_id,power_change_limit_id,power_max_limit_id
+    </sql>
+    
+        <!-- 更新余额专用 -->
+	<update id="updateForBalance" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        update t_saas_meter
+        <set >
+            balance = balance + #{balance,jdbcType=DECIMAL},
+            <if test="subAccountStatus != null" >
+                sub_account_status = #{subAccountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="balanceUpdateTime != null" >
+                balance_update_time = #{balanceUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="balanceUpdateRead != null" >
+                balance_update_read = #{balanceUpdateRead,jdbcType=DECIMAL},
+            </if>
+            <if test="balanceUpdateNo != null" >
+                balance_update_no = #{balanceUpdateNo,jdbcType=INTEGER},
+            </if>
+                update_time = now()
+        </set>
+        where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select 
+    		a.meter_addr 
+    	from  t_saas_meter a
+    	where a.room_id = #{roomId,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectAllInfoByRoomId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select 
+    		<include refid="Base_Column_List" />
+    	from  t_saas_meter a
+    	where a.room_id = #{roomId,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectPriceByRoomId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	SELECT
+		  	m.*,
+			p.price1
+		FROM
+			t_saas_meter m
+		LEFT JOIN t_saas_rule_energy_price p ON p.price_id = m.price_id
+		WHERE m.room_id = #{roomId,jdbcType=VARCHAR}
+    </select>
+    
+    
+    <select id="selectHbByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page">
+		SELECT
+			m.gather_hz,
+			m.meter_addr,
+			m.meter_type,
+			m.energy_type,
+			r.full_name,
+			r.room_name,
+			r.room_number,
+			r.customer_realname
+		FROM
+			t_saas_meter m
+		LEFT JOIN (
+			SELECT
+				r.room_id,
+				r.region_full_name AS full_name,
+				r.room_name,
+				r.room_number,
+				GROUP_CONCAT(c.customer_realname) AS customer_realname,
+		    cr.`status`
+			FROM
+				t_saas_room r
+			LEFT JOIN t_saas_customer_room cr ON cr.room_id = r.room_id
+			LEFT JOIN t_saas_customer c ON c.customer_id = cr.customer_id
+			where r.org_id = #{paramObj.orgId,jdbcType=VARCHAR}  AND cr.`status` = '1'
+			GROUP BY
+				r.room_id
+		) r ON r.room_id = m.room_id 
+		<where>
+		        m.org_id = #{paramObj.orgId,jdbcType=VARCHAR} AND m.energy_type = '110000'
+			<if test="paramObj.customerRealname != null and paramObj.customerRealname != ''">
+				and r.customer_realname like CONCAT('%',#{paramObj.customerRealname,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.roomNumber != null and paramObj.roomNumber != ''">
+				and r.room_number like CONCAT('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+			</if>
+		</where>
+		GROUP BY meter_addr
+	</select>
+    
+    <select id="selectCommunicationTest" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		m.*,
+		CONCAT(sr.region_full_name,'-',r.room_name) AS full_name
+		FROM
+		t_saas_meter m
+		LEFT JOIN t_saas_room r ON r.room_id = m.room_id
+		LEFT JOIN t_saas_region sr ON sr.id = r.region_id
+		where meter_addr like CONCAT('%',#{meterAddr}, '%')
+		LIMIT 0,#{page,jdbcType=INTEGER}
+	</select>
+    
+    
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_meter
+        <where>
+            <if test="paramObj.orgId != null and paramObj.orgId != ''" >
+                and org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.meterAddr != null and paramObj.meterAddr != ''" >
+                and meter_addr like CONCAT('%',#{paramObj.meterAddr,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="paramObj.meterType != null and paramObj.meterType != ''" >
+                and meter_type = #{paramObj.meterType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.energyType != null and paramObj.energyType != ''" >
+                and energy_type = #{paramObj.energyType,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.isRemoteControl != null" >
+                and is_remote_control = #{paramObj.isRemoteControl,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.isCostControl != null" >
+                and is_cost_control = #{paramObj.isCostControl,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.isDirect != null" >
+                and is_direct = #{paramObj.isDirect,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.netTypeCode != null and paramObj.netTypeCode != ''" >
+                and net_type_code = #{paramObj.netTypeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.netNumber != null and paramObj.netNumber != ''" >
+                and net_number = #{paramObj.netNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.pMeterAddr != null and paramObj.pMeterAddr != ''" >
+                and p_meter_addr = #{paramObj.pMeterAddr,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.meterName != null and paramObj.meterName != ''" >
+                and meter_name = #{paramObj.meterName,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.roomId != null and paramObj.roomId != ''" >
+                and room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.accountId != null and paramObj.accountId != ''" >
+                and account_id = #{paramObj.accountId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.subAccountStatus != null" >
+                and sub_account_status = #{paramObj.subAccountStatus,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.subAccountId != null and paramObj.subAccountId != ''" >
+                and sub_account_id = #{paramObj.subAccountId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.priceModeCode != null and paramObj.priceModeCode != ''" >
+                and price_mode_code = #{paramObj.priceModeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.priceId != null and paramObj.priceId != ''" >
+                and price_id = #{paramObj.priceId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.priceStatus != null" >
+                and price_status = #{paramObj.priceStatus,jdbcType=TINYINT}
+            </if>
+            <if test="paramObj.alarmId != null and paramObj.alarmId != ''" >
+                and alarm_id = #{paramObj.alarmId,jdbcType=VARCHAR}
+            </if>
+            <if test="paramObj.alarmStatus != null" >
+                and alarm_status = #{paramObj.alarmStatus,jdbcType=TINYINT}
+            </if>        
+        </where>
+    </select>
+    
+    <select id="selectSaasMeter" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			t_saas_meter m
+		<where>
+			<if test="meterId != null and meterId != ''">
+				and m.meter_id = #{meterId,jdbcType=VARCHAR}
+			</if>
+			<if test="meterAddr != null and meterAddr != ''">
+				and m.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+			</if>
+			<if test="roomId != null and roomId != ''">
+				and m.room_id = #{roomId,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and m.org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="equipNumber != null and equipNumber != ''">
+				and m.meter_addr like CONCAT('%',#{equipNumber,jdbcType=VARCHAR},'%')
+				and (m.room_id is null OR m.room_id = '')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByCustomer" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        SELECT 
+        <include refid="Base_Column_List" />
+		FROM t_saas_meter 
+		WHERE room_id IN (
+			SELECT room_id 
+			FROM t_saas_customer_room
+        <where>
+        	status = 1
+            <if test="orgId != null" >
+                and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="customerId != null" >
+                and customer_id = #{customerId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        )
+    </select>
+    
+    <resultMap id="WechatExtendMap" type="cn.com.tw.saas.serv.entity.terminal.MeterExtend" extends="BaseResultMap">
+        <result column="roomBalance" property="roomBalance" jdbcType="DECIMAL" />
+        <result column="readValue" property="readValue" jdbcType="DECIMAL" />
+        <result column="activeP" property="activeP" jdbcType="DECIMAL" />
+        <result column="isOff" property="isOff" jdbcType="DECIMAL" />
+    </resultMap>
+    <select id="selectByCustomerForWechat" resultMap="WechatExtendMap" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        SELECT 
+        <include refid="Base_Column_List" />,
+(select balance from t_saas_room WHERE room_id=m.room_id) roomBalance,
+(SELECT read_value from t_read_last where (item_code='totalActiveE' or item_code='waterFlow') and meter_addr=m.meter_addr) readValue,
+(SELECT read_value from t_read_last where item_code='activeP' and meter_addr=m.meter_addr) activeP,
+(SELECT read_value from t_read_last where item_code='isOff' and meter_addr=m.meter_addr) isOff
+		FROM t_saas_meter m
+		WHERE room_id IN (
+			SELECT room_id 
+			FROM t_saas_customer_room
+        <where>
+        	status = 1
+            <if test="orgId != null" >
+                and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="customerId != null" >
+                and customer_id = #{customerId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        )
+    </select>
+    
+        <select id="selectByAddrForWechat" resultMap="WechatExtendMap" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        SELECT 
+        <include refid="Base_Column_List" />,
+(select balance from t_saas_room WHERE room_id=m.room_id) roomBalance,
+(SELECT read_value from t_read_last where (item_code='totalActiveE' or item_code='waterFlow') and meter_addr=m.meter_addr) readValue,
+(SELECT read_value from t_read_last where item_code='activeP' and meter_addr=m.meter_addr) activeP,
+(SELECT read_value from t_read_last where item_code='isOff' and meter_addr=m.meter_addr) isOff
+		FROM t_saas_meter m
+        <where>
+            <if test="orgId != null" >
+                and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="meterAddr != null" >
+                and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    
+    <!-- paas终端用到 -->
+    <select id="selectInfoByMeterAddr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    	SELECT
+				m.meter_id,
+				m.org_id,
+				m.meter_addr,
+				m.meter_type,
+				m.energy_type,
+				m.model_name,
+				m.soft_versoin,
+				m.gather_hz,
+				m.is_remote_control,
+				m.is_cost_control,
+				m.is_direct,
+				m.net_type_code,
+				m.net_number,
+				m.meter_spec,
+				m.install_read,
+				m.p_meter_addr,
+				m.meter_name,
+				m.meter_install_addr,
+				m.meter_details,
+				m.elec_pt,
+				m.elec_ct,
+				m.baud_rate,
+				m.room_id,
+				m.account_id,
+				m.sub_account_status,
+				m.sub_account_id,
+				m.balance,
+				m.price_mode_code,
+				m.price_id,
+				m.price_status,
+				m.alarm_id,
+				m.alarm_status,
+				m.start_time,
+				m.start_read,
+				m.balance_update_time,
+				m.balance_update_read,
+				m.balance_update_no,
+				m.create_time,
+				m.update_time,
+				m.is_elec_load,
+				m.is_elec_power_max_limit,
+				m.is_elec_on_time,
+				m.current_time_limit_id,
+				m.power_ladder_limit_id,
+				m.power_fluctuation_limit_id,
+				m.power_change_limit_id,
+				m.power_max_limit_id,
+			    o.org_name,
+			    r.region_full_name as full_name,
+			    r.room_name,
+			    r.region_number,
+			    r.room_number,
+			    r.room_use,
+				t.customer_realname,
+			    t.customer_mobile1,
+			    t.customer_no,
+		        t.customer_id,
+		        t.customer_type,
+		        r.region_id
+			FROM
+				t_saas_meter m
+			LEFT JOIN t_saas_org o ON o.org_id = m.org_id
+			LEFT JOIN t_saas_room r ON r.room_id = m.room_id
+			LEFT JOIN (SELECT
+				scr.customer_id,
+				scr.room_account_id,
+			    c.customer_realname,
+			    c.customer_mobile1,
+			    c.customer_no,
+        		c.customer_type
+			FROM
+				t_saas_customer_room scr
+			LEFT JOIN t_saas_customer c ON c.customer_id = scr.customer_id
+			WHERE scr.`status` = '1'
+			) t ON t.room_account_id = m.account_id
+			where m.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_meter
+        <where>
+            <if test="orgId != null" >
+                and org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="meterAddr != null" >
+                and meter_addr = #{meterAddr,jdbcType=VARCHAR}
+            </if>
+            <if test="meterType != null" >
+                and meter_type = #{meterType,jdbcType=VARCHAR}
+            </if>
+            <if test="energyType != null" >
+                and energy_type = #{energyType,jdbcType=VARCHAR}
+            </if>
+            <if test="isRemoteControl != null" >
+                and is_remote_control = #{isRemoteControl,jdbcType=TINYINT}
+            </if>
+            <if test="isCostControl != null" >
+                and is_cost_control = #{isCostControl,jdbcType=TINYINT}
+            </if>
+            <if test="isDirect != null" >
+                and is_direct = #{isDirect,jdbcType=TINYINT}
+            </if>
+            <if test="netTypeCode != null" >
+                and net_type_code = #{netTypeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="netNumber != null" >
+                and net_number = #{netNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="pMeterAddr != null" >
+                and p_meter_addr = #{pMeterAddr,jdbcType=VARCHAR}
+            </if>
+            <if test="meterName != null" >
+                and meter_name = #{meterName,jdbcType=VARCHAR}
+            </if>
+            <if test="roomId != null" >
+                and room_id = #{roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="accountId != null" >
+                and account_id = #{accountId,jdbcType=VARCHAR}
+            </if>
+            <if test="subAccountStatus != null" >
+                and sub_account_status = #{subAccountStatus,jdbcType=TINYINT}
+            </if>
+            <if test="subAccountId != null" >
+                and sub_account_id = #{subAccountId,jdbcType=VARCHAR}
+            </if>
+            <if test="priceModeCode != null" >
+                and price_mode_code = #{priceModeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="priceId != null" >
+                and price_id = #{priceId,jdbcType=VARCHAR}
+            </if>
+            <if test="priceStatus != null" >
+                and price_status = #{priceStatus,jdbcType=TINYINT}
+            </if>
+            <if test="alarmId != null" >
+                and alarm_id = #{alarmId,jdbcType=VARCHAR}
+            </if>
+            <if test="alarmStatus != null" >
+                and alarm_status = #{alarmStatus,jdbcType=TINYINT}
+            </if>        
+        </where>
+    </select>
+    
+    <select id="selectByLikeEntity" resultMap="BaseResultMap"
+		parameterType="cn.com.tw.saas.serv.entity.terminal.SaasMeter">
+		select
+		<include refid="Base_Column_List" />
+		from t_saas_meter
+		<where>
+			<if test="meterId != null and meterId != ''">
+				and meter_id = #{meterId,jdbcType=VARCHAR}
+			</if>
+			<if test="meterAddr != null and meterAddr != ''">
+				and meter_addr like CONCAT('%',#{meterAddr}, '%')
+			</if>
+			<if test="meterName != null and meterName != ''">
+				and meter_name like CONCAT('%',#{meterName}, '%')
+			</if>			
+			<if test="meterType != null and meterType != ''">
+				and meter_type=#{meterType,jdbcType=VARCHAR}
+			</if>
+			<if test="energyType != null and energyType != ''">
+				and energy_type= #{energyType,jdbcType=VARCHAR}
+			</if>
+			<if test="modelName != null and modelName != ''">
+				and model_name like CONCAT('%',#{modelName}, '%')
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+			<if test="roomId != null and roomId != ''">
+				and room_id = #{roomId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+    
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_meter
+        where meter_id = #{meterId,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectTerminalNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+			COUNT(m.energy_type) AS number,
+		  	m.energy_type
+		FROM
+			t_saas_meter m
+		WHERE m.org_id LIKE CONCAT(#{userId,jdbcType=VARCHAR},'%')
+		GROUP BY m.energy_type
+    </select>
+    
+    <select id="selectTerminalNetType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+			COUNT(m.energy_type) AS number,
+		  	m.energy_type,
+      		m.net_type_code
+		FROM
+			t_saas_meter m
+		WHERE m.org_id LIKE CONCAT(#{userId,jdbcType=VARCHAR},'%')
+		GROUP BY m.net_type_code
+    </select>
+    
+    
+    <select id="selectByMeterAddr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_meter
+        where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectRoomMeterByMeterAddr" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_meter
+        WHERE org_id = #{orgId,jdbcType=VARCHAR} AND meter_addr = #{meterAddr,jdbcType=VARCHAR} 
+        and energy_type = #{energyType,jdbcType=VARCHAR} 
+    </select>
+
+   
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        insert into t_saas_meter (meter_id, org_id, meter_addr, 
+            meter_type, energy_type, model_name, 
+            soft_versoin, gather_hz, is_remote_control, 
+            is_cost_control, is_direct, net_type_code, 
+            net_number, meter_spec, install_read, 
+            p_meter_addr, meter_name, meter_install_addr, 
+            meter_details, elec_pt, elec_ct, 
+            baud_rate, room_id, account_id, 
+            sub_account_status, sub_account_id, balance, 
+            price_mode_code, price_id, price_status, 
+            alarm_id, alarm_status, start_time, 
+            start_read, balance_update_time, balance_update_read, 
+            balance_update_no, create_time, update_time,is_elec_load,is_elec_power_max_limit,is_elec_on_time,current_time_limit_id,power_ladder_limit_id,
+        power_fluctuation_limit_id,power_change_limit_id,power_max_limit_id
+            )
+        values (#{meterAddr,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{meterAddr,jdbcType=VARCHAR}, 
+            #{meterType,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, 
+            #{softVersoin,jdbcType=VARCHAR}, #{gatherHz,jdbcType=INTEGER}, #{isRemoteControl,jdbcType=TINYINT}, 
+            #{isCostControl,jdbcType=TINYINT}, #{isDirect,jdbcType=TINYINT}, #{netTypeCode,jdbcType=VARCHAR}, 
+            #{netNumber,jdbcType=VARCHAR}, #{meterSpec,jdbcType=VARCHAR}, #{installRead,jdbcType=DECIMAL}, 
+            #{pMeterAddr,jdbcType=VARCHAR}, #{meterName,jdbcType=VARCHAR}, #{meterInstallAddr,jdbcType=VARCHAR}, 
+            #{meterDetails,jdbcType=VARCHAR}, #{elecPt,jdbcType=INTEGER}, #{elecCt,jdbcType=INTEGER}, 
+            #{baudRate,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+            #{subAccountStatus,jdbcType=TINYINT}, #{subAccountId,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, 
+            #{priceModeCode,jdbcType=VARCHAR}, #{priceId,jdbcType=VARCHAR}, #{priceStatus,jdbcType=TINYINT}, 
+            #{alarmId,jdbcType=VARCHAR}, #{alarmStatus,jdbcType=TINYINT}, #{startTime,jdbcType=TIMESTAMP}, 
+            #{startRead,jdbcType=DECIMAL}, #{balanceUpdateTime,jdbcType=TIMESTAMP}, #{balanceUpdateRead,jdbcType=DECIMAL}, 
+            #{balanceUpdateNo,jdbcType=INTEGER}, now(), now(), #{isElecLoad,jdbcType=TINYINT}, #{isElecPowerMaxLimit,jdbcType=TINYINT}, #{isElecOnTime,jdbcType=TINYINT},
+            #{currentTimeLimitId,jdbcType=VARCHAR},#{powerLadderLimitId,jdbcType=VARCHAR},#{powerFluctuationLimitId,jdbcType=VARCHAR},#{powerChangeLimitId,jdbcType=VARCHAR},#{powerMaxLimitId,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter" >
+        update t_saas_meter
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="meterAddr != null" >
+                meter_addr = #{meterAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="meterType != null" >
+                meter_type = #{meterType,jdbcType=VARCHAR},
+            </if>
+            <if test="energyType != null" >
+                energy_type = #{energyType,jdbcType=VARCHAR},
+            </if>
+            <if test="modelName != null" >
+                model_name = #{modelName,jdbcType=VARCHAR},
+            </if>
+            <if test="softVersoin != null" >
+                soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+            </if>
+            <if test="gatherHz != null" >
+                gather_hz = #{gatherHz,jdbcType=INTEGER},
+            </if>
+            <if test="isRemoteControl != null" >
+                is_remote_control = #{isRemoteControl,jdbcType=TINYINT},
+            </if>
+            <if test="isCostControl != null" >
+                is_cost_control = #{isCostControl,jdbcType=TINYINT},
+            </if>
+            <if test="isDirect != null" >
+                is_direct = #{isDirect,jdbcType=TINYINT},
+            </if>
+            <if test="netTypeCode != null" >
+                net_type_code = #{netTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="netNumber != null" >
+                net_number = #{netNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="meterSpec != null" >
+                meter_spec = #{meterSpec,jdbcType=VARCHAR},
+            </if>
+            <if test="installRead != null" >
+                install_read = #{installRead,jdbcType=DECIMAL},
+            </if>
+            <if test="pMeterAddr != null" >
+                p_meter_addr = #{pMeterAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="meterName != null" >
+                meter_name = #{meterName,jdbcType=VARCHAR},
+            </if>
+            <if test="meterInstallAddr != null" >
+                meter_install_addr = #{meterInstallAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="meterDetails != null" >
+                meter_details = #{meterDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="elecPt != null" >
+                elec_pt = #{elecPt,jdbcType=INTEGER},
+            </if>
+            <if test="elecCt != null" >
+                elec_ct = #{elecCt,jdbcType=INTEGER},
+            </if>
+            <if test="baudRate != null" >
+                baud_rate = #{baudRate,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null" >
+                room_id = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="accountId != null" >
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountStatus != null" >
+                sub_account_status = #{subAccountStatus,jdbcType=TINYINT},
+            </if>
+            <if test="subAccountId != null" >
+                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null" >
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="priceModeCode != null" >
+                price_mode_code = #{priceModeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="priceId != null" >
+                price_id = #{priceId,jdbcType=VARCHAR},
+            </if>
+            <if test="priceStatus != null" >
+                price_status = #{priceStatus,jdbcType=TINYINT},
+            </if>
+            <if test="alarmId != null" >
+                alarm_id = #{alarmId,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmStatus != null" >
+                alarm_status = #{alarmStatus,jdbcType=TINYINT},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startRead != null" >
+                start_read = #{startRead,jdbcType=DECIMAL},
+            </if>
+            <if test="balanceUpdateTime != null" >
+                balance_update_time = #{balanceUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="balanceUpdateRead != null" >
+                balance_update_read = #{balanceUpdateRead,jdbcType=DECIMAL},
+            </if>
+            <if test="balanceUpdateNo != null" >
+                balance_update_no = #{balanceUpdateNo,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isElecLoad != null" >
+                is_elec_load = #{isElecLoad,jdbcType=TINYINT},
+            </if>
+            <if test="isElecPowerMaxLimit != null" >
+                is_elec_power_max_limit = #{isElecPowerMaxLimit,jdbcType=TINYINT},
+            </if>
+            <if test="isElecOnTime != null" >
+                is_elec_on_time = #{isElecOnTime,jdbcType=TINYINT},
+            </if>
+            <if test="currentTimeLimitId != null" >
+            	current_time_limit_id = #{currentTimeLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerLadderLimitId != null" >
+                power_ladder_limit_id = #{powerLadderLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerFluctuationLimitId != null" >
+                power_fluctuation_limit_id = #{powerFluctuationLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerChangeLimitId != null" >
+                power_change_limit_id = #{powerChangeLimitId,jdbcType=VARCHAR},
+            </if>
+            <if test="powerMaxLimitId != null" >
+                power_max_limit_id = #{powerMaxLimitId,jdbcType=VARCHAR},
+            </if>
+                update_time = now()
+        </set>
+        where meter_id = #{meterId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_meter
+        where meter_id = #{meterId,jdbcType=VARCHAR}
+    </delete>
+    
+    <update id="updateByMeterAddr" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasMeter">
+		update t_saas_meter
+		<set>
+			<if test="meterInstallAddr != null">
+				meter_install_addr = #{meterInstallAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="pMeterAddr != null">
+				p_meter_addr = #{pMeterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="meterName != null">
+				meter_name = #{meterName,jdbcType=VARCHAR},
+			</if>
+			<if test="meterDetails != null">
+				meter_details = #{meterDetails,jdbcType=VARCHAR},
+			</if>
+			<if test="roomId != null">
+				room_id = #{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startRead != null">
+				start_read = #{startRead,jdbcType=DECIMAL},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="netTypeCode != null">
+				net_type_code = #{netTypeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="netNumber != null">
+				net_number = #{netNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="elecPt != null">
+				elec_pt = #{elecPt,jdbcType=VARCHAR},
+			</if>
+			<if test="elecCt != null">
+				elec_ct = #{elecCt,jdbcType=VARCHAR},
+			</if>
+			<if test="meterType != null">
+				meter_type=#{meterType,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				org_id=#{orgId,jdbcType=VARCHAR},
+			</if>
+			<if test="softVersoin != null">
+				soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+			</if>
+			<if test="modelName != null">
+				model_name= #{modelName,jdbcType=VARCHAR},
+			</if>
+			<if test="baudRate != null">
+				baud_rate= #{baudRate,jdbcType=VARCHAR},
+			</if>
+			<if test="energyType != null">
+				energy_type= #{energyType,jdbcType=VARCHAR},
+			</if>
+			<if test="meterSpec != null">
+				meter_spec=#{meterSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="isDirect != null">
+				is_direct=#{isDirect,jdbcType=TINYINT},
+			</if>
+			<if test="isRemoteControl != null">
+				is_remote_control = #{isRemoteControl,jdbcType=TINYINT},
+			</if>
+			<if test="isCostControl != null">
+				is_cost_control = #{isCostControl,jdbcType=TINYINT},
+			</if>
+			<if test="gatherHz != null">
+				gather_hz = #{gatherHz,jdbcType=TINYINT},
+			</if>
+		</set>
+		where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<update id="clearingUpdate" parameterType="cn.com.tw.saas.serv.entity.terminal.SaasMeter">
+		 update t_saas_meter set
+                account_id = #{accountId,jdbcType=VARCHAR},
+                sub_account_status = #{subAccountStatus,jdbcType=TINYINT},
+                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+                balance = #{balance,jdbcType=DECIMAL},
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+                start_read = #{startRead,jdbcType=DECIMAL},
+                balance_update_time = #{balanceUpdateTime,jdbcType=TIMESTAMP},
+                balance_update_read = #{balanceUpdateRead,jdbcType=DECIMAL},
+                balance_update_no = #{balanceUpdateNo,jdbcType=INTEGER},
+                update_time = now()
+		where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 房态修改时  修改绑定的计价预警规则 -->
+	<update id="updateToAlarmOrPrice" parameterType="cn.com.tw.saas.serv.entity.terminal.Meter">
+		 update t_saas_meter set
+		 		<if test="alarmId != null">
+					alarm_id = #{alarmId,jdbcType=VARCHAR},
+				</if>
+                <if test="priceId != null">
+					price_id = #{priceId,jdbcType=VARCHAR},
+				</if>
+				<if test="roomId != null" >
+	                room_id = #{roomId,jdbcType=VARCHAR},
+	            </if>
+	            <if test="subAccountId != null" >
+	                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+	            </if>
+	            <if test="subAccountStatus != null" >
+	                sub_account_status = #{subAccountStatus,jdbcType=TINYINT},
+	            </if>
+                update_time = now()
+		where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

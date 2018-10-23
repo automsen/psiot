@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/impl
+END
+MeterServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/tw/!svn/ver/4695/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/impl/MeterServiceImpl.java
+END
+SaasNetServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/tw/!svn/ver/1590/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/impl/SaasNetServiceImpl.java
+END
+MeterHisServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/tw/!svn/ver/3877/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/impl/MeterHisServiceImpl.java
+END
+SaasMeterServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/tw/!svn/ver/4078/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/terminal/impl/SaasMeterServiceImpl.java
+END

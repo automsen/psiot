@@ -1,0 +1,49 @@
+spring.application.name=service-data
+eureka.client.serviceUrl.defaultZone: http://localhost:2000/eureka/
+eureka.instance.prefer-ip-address=true
+
+#freemarker config
+logging.level.cn.com=DEBUG
+#config of server
+server.port: 8084
+server.context-path: /
+server.session.timeout:1800
+#log config
+logging.file=logs/queue.log  
+logging.level=debug  
+
+#kafka config
+spring.kafka.bootstrap-servers=192.168.20.103:9092
+spring.kafka.consumer.group-id=defautgroup
+spring.kafka.consumer.auto-offset-reset=earliest
+
+#通信中间件采集数据上报mq队列名称
+mq.queue.meter.data=dev.queue.meter.data
+#通信中间件监听设备网络状态mq队列名称
+mq.queue.net.status=dev.queue.device.monit
+#数据推送队列
+mq.queue.push.data=dev.queue.push.data
+
+hadoop.hbase.zookeeper.property.clientPort=2181
+hadoop.hbase.zookeeper.quorum=192.168.20.102
+hadoop.hbase.master=192.168.20.102:16010
+#snowf 序号生成规则定义
+#spring.snowf.workerId=0
+#spring.snowf.dataId=0
+
+http.proxy.hostname=
+http.proxy.port=0
+
+#################redis config#################
+#\u6BCF\u6B21\u626B\u63CF\u7684\u6E38\u6807\u95F4\u9694\uFF0C\u52A0\u5927\u53EF\u4EE5\u52A0\u5FEB\u626B\u63CF\u901F\u5EA6\u548C\u589E\u52A0CPU\u8D1F\u62C5
+service.redisscan.count = 1000
+#\u626B\u63CF\u95F4\u9694\u65F6\u95F4 \u5355\u4F4D\u79D2
+service.redisscan.sleep=10
+
+spring.redis.database=0
+spring.redis.host=192.168.20.111
+#spring.redis.host=127.0.0.1
+spring.redis.password=
+spring.redis.port=6379
+# redis timeout
+spring.redis.timeout=3000

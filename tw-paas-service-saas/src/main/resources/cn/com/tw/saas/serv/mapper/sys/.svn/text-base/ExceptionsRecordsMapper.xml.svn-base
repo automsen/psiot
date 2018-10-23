@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.sys.ExceptionsRecordsMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.sys.ExceptionsRecords" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="notify_bus_type" property="notifyBusType" jdbcType="VARCHAR" />
+    <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+    <result column="energy_type" property="energyType" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="region_no" property="regionNo" jdbcType="VARCHAR" />
+    <result column="region_number" property="regionNumber" jdbcType="VARCHAR" />
+    <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+    <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+    <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, notify_bus_type, meter_addr, energy_type, room_id, region_id, region_no, 
+    region_number, region_full_name, room_use, room_number, room_name, account_id, customer_id, 
+    customer_no, customer_type, customer_realname, customer_mobile1, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_exceptions_records
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_exceptions_records
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.sys.ExceptionsRecords" >
+    insert into t_saas_exceptions_records (id, org_id, notify_bus_type, 
+      meter_addr, energy_type, room_id, 
+      region_id, region_no, region_number, 
+      region_full_name, room_use, room_number, 
+      room_name, account_id, customer_id, 
+      customer_no, customer_type, customer_realname, 
+      customer_mobile1, create_time, update_time
+      )
+    values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{notifyBusType,jdbcType=VARCHAR}, 
+      #{meterAddr,jdbcType=VARCHAR}, #{energyType,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, 
+      #{regionId,jdbcType=VARCHAR}, #{regionNo,jdbcType=VARCHAR}, #{regionNumber,jdbcType=VARCHAR}, 
+      #{regionFullName,jdbcType=VARCHAR}, #{roomUse,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, 
+      #{roomName,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{customerNo,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, #{customerRealname,jdbcType=VARCHAR}, 
+      #{customerMobile1,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.sys.ExceptionsRecords" >
+    insert into t_saas_exceptions_records
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="notifyBusType != null" >
+        notify_bus_type,
+      </if>
+      <if test="meterAddr != null" >
+        meter_addr,
+      </if>
+      <if test="energyType != null" >
+        energy_type,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="regionNo != null" >
+        region_no,
+      </if>
+      <if test="regionNumber != null" >
+        region_number,
+      </if>
+      <if test="regionFullName != null" >
+        region_full_name,
+      </if>
+      <if test="roomUse != null" >
+        room_use,
+      </if>
+      <if test="roomNumber != null" >
+        room_number,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerNo != null" >
+        customer_no,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="customerRealname != null" >
+        customer_realname,
+      </if>
+      <if test="customerMobile1 != null" >
+        customer_mobile1,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusType != null" >
+        #{notifyBusType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAddr != null" >
+        #{meterAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType != null" >
+        #{energyType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNo != null" >
+        #{regionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNumber != null" >
+        #{regionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="regionFullName != null" >
+        #{regionFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        #{roomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRealname != null" >
+        #{customerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile1 != null" >
+        #{customerMobile1,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.sys.ExceptionsRecords" >
+    update t_saas_exceptions_records
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyBusType != null" >
+        notify_bus_type = #{notifyBusType,jdbcType=VARCHAR},
+      </if>
+      <if test="meterAddr != null" >
+        meter_addr = #{meterAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="energyType != null" >
+        energy_type = #{energyType,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNo != null" >
+        region_no = #{regionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="regionNumber != null" >
+        region_number = #{regionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="regionFullName != null" >
+        region_full_name = #{regionFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        room_use = #{roomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        room_number = #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNo != null" >
+        customer_no = #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerRealname != null" >
+        customer_realname = #{customerRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="customerMobile1 != null" >
+        customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.sys.ExceptionsRecords" >
+    update t_saas_exceptions_records
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      notify_type = #{notifyType,jdbcType=TINYINT},
+      meter_addr = #{meterAddr,jdbcType=VARCHAR},
+      energy_type = #{energyType,jdbcType=VARCHAR},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      region_no = #{regionNo,jdbcType=VARCHAR},
+      region_number = #{regionNumber,jdbcType=VARCHAR},
+      region_full_name = #{regionFullName,jdbcType=VARCHAR},
+      room_use = #{roomUse,jdbcType=VARCHAR},
+      room_number = #{roomNumber,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_no = #{customerNo,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      customer_realname = #{customerRealname,jdbcType=VARCHAR},
+      customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

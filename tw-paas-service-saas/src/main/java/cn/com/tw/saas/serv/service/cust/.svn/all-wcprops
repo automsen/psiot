@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/tw/!svn/ver/4278/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust
+END
+CustomerRoomService.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/CustomerRoomService.java
+END
+CustomerService.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/tw/!svn/ver/3788/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/CustomerService.java
+END
+SubAccountRecordService.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/tw/!svn/ver/657/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/SubAccountRecordService.java
+END
+SubAccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/4031/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/SubAccountService.java
+END
+RoomAccountRecordService.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/tw/!svn/ver/4278/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/RoomAccountRecordService.java
+END
+ChargeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/tw/!svn/ver/4166/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/ChargeService.java
+END
+RoomAccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/tw/!svn/ver/1863/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/cust/RoomAccountService.java
+END

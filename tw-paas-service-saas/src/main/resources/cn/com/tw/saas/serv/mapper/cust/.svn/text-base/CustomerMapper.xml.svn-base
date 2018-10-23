@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.cust.CustomerMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        <id column="customer_id" property="customerId" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+        <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+        <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+        <result column="customer_password" property="customerPassword" jdbcType="VARCHAR" />
+        <result column="customer_sex" property="customerSex" jdbcType="TINYINT" />
+        <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+        <result column="customer_status" property="customerStatus" jdbcType="TINYINT" />
+        <result column="customer_email" property="customerEmail" jdbcType="VARCHAR" />
+        <result column="customer_qq" property="customerQq" jdbcType="VARCHAR" />
+        <result column="open_id" property="openId" jdbcType="VARCHAR" />
+        <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        customer_id, org_id, customer_no, customer_type, customer_realname, customer_password, 
+        customer_sex, customer_mobile1, customer_status, customer_email, customer_qq, open_id, 
+        operator_id, operator_name, create_time, update_time
+    </sql>
+    
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+		select
+			<include refid="Base_Column_List" />
+		from t_saas_customer
+        <where>
+        	1=1
+			<if test="paramObj.customerMobile1 != null and paramObj.customerMobile1 != ''">
+				and customer_mobile1 like CONCAT('%', #{paramObj.customerMobile1,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.customerRealname != null and paramObj.customerRealname != ''">
+				and customer_realname like CONCAT('%', #{paramObj.customerRealname,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.customerNo != null and paramObj.customerNo != ''">
+				and customer_no like CONCAT ('%', #{paramObj.customerNo,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.customerSex != null and paramObj.customerSex != ''">
+				and  customer_sex = #{paramObj.customerSex,jdbcType=TINYINT}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and  org_id = #{paramObj.orgId,jdbcType=TINYINT}
+			</if>
+			<if test="paramObj.customerMobile1 != null and paramObj.customerMobile1 != ''">
+				and customer_mobile1 like CONCAT ('%', #{paramObj.customerMobile1,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.customerType != null and paramObj.customerType != ''">
+				and customer_type =  #{paramObj.customerType,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY create_time DESC
+	</select>
+	
+	<!-- 需要改 -->
+	<select id="selectCustomerAccountBalance" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+		SELECT
+			*
+		FROM
+			t_saas_sub_account ssa
+		LEFT JOIN
+			(SELECT * FROM t_saas_room_account WHERE org_id = "") sra
+		ON
+			ssa.room_account_id = sra.room_account_id
+		LEFT JOIN
+			(SELECT * FROM t_saas_custome_room_account WHERE `status` = "0" AND org_id = "") scra
+		ON
+			scra.room_account_id = sra.room_account_id
+		LEFT JOIN
+			(SELECT * FROM  t_saas_customer WHERE org_id = "") sc
+		ON
+			sc.customer_id = scra.customer_id
+		WHERE
+			ssa.org_id = ""
+	</select>
+	
+	<select id="selectByCustRoomParam" parameterType="cn.com.tw.saas.serv.entity.business.cust.CustRoomParam" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+		   t_saas_customer
+		where
+			org_id = #{orgId,jdbcType=VARCHAR}
+		and customer_id in 
+			(select customer_id from t_saas_customer_room 
+			 where room_id =#{roomId,jdbcType=VARCHAR} and status = 1)
+	</select>
+
+	<select id="selectByCustomerMobile1" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer"   resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from
+		    t_saas_customer
+	    where
+				customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR}
+	    
+	</select>
+
+
+
+
+	<select id="selectByLikeEntity" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+		   t_saas_customer
+		<where>
+	     <if test="orgId != null and orgId != ''" >
+	       and org_id = #{orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerNo != null and customerNo != ''" >
+	       and customer_no = #{customerNo,jdbcType=VARCHAR}
+	     </if>
+		<if test="customerMobile1 != null and customerMobile1 != ''">
+			and customer_mobile1 like CONCAT('%', #{customerMobile1,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="customerRealname != null and customerRealname != ''">
+			and customer_realname like CONCAT('%', #{customerRealname,jdbcType=VARCHAR},'%')
+		</if>
+	   </where>
+	</select>
+	
+	
+	<select id="selectByPhone" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+		   t_saas_customer
+		<where>
+			customer_status != 2
+	     <if test="orgId != null and orgId != ''" >
+	       and org_id = #{orgId,jdbcType=VARCHAR}
+	     </if>
+		<if test="customerMobile1 != null and customerMobile1 != ''">
+			and customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR}
+		</if>
+	   </where>
+	</select>
+	
+	<select id="selectByEntity" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+		   t_saas_customer
+		where
+			1=1
+		 <if test="customerId != null" >
+	       and customer_id = #{customerId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="orgId != null" >
+	       and org_id = #{orgId,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerNo != null" >
+	       and customer_no = #{customerNo,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerRealname != null" >
+	       and customer_realname = #{customerRealname,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerSex != null" >
+	       and customer_sex = #{customerSex,jdbcType=TINYINT}
+	     </if>
+	     <if test="customerMobile1 != null" >
+	       and customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerStatus != null" >
+	       and customer_status = #{customerStatus,jdbcType=TINYINT}
+	     </if>
+	     <if test="customerEmail != null" >
+	       and customer_email = #{customerEmail,jdbcType=VARCHAR}
+	     </if>
+	     <if test="customerQq != null" >
+	       and customer_qq = #{customerQq,jdbcType=VARCHAR}
+	     </if>
+	</select>
+	
+	
+	<select id="selectRepeatCustomer" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+		   t_saas_customer
+		where
+			1=1
+	       and org_id = #{orgId,jdbcType=VARCHAR}
+	       and customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR}
+	       and customer_status != '2'
+	</select>
+	
+	
+	<select id="selectByRoom" parameterType="cn.com.tw.saas.serv.entity.db.cust.CustomerRoom" resultMap="BaseResultMap" >
+		SELECT
+			 c.customer_id, c.org_id, c.customer_no, c.customer_type, c.customer_realname, c.customer_password, c.customer_sex, 
+        c.customer_mobile1, c.customer_status, c.customer_email, c.customer_qq, c.operator_id, c.operator_name
+		FROM
+			t_saas_customer c
+		LEFT JOIN 
+			t_saas_customer_room cr 
+		ON c.customer_id = cr.customer_id
+        <where>
+            <if test="orgId != null" >
+                and cr.org_id = #{orgId,jdbcType=VARCHAR}
+            </if>
+            <if test="roomAccountId != null" >
+                and cr.room_account_id = #{roomAccountId,jdbcType=VARCHAR}
+            </if>
+            <if test="customerId != null" >
+                and cr.customer_id = #{customerId,jdbcType=VARCHAR}
+            </if>
+            <if test="roomId != null" >
+                and cr.room_id = #{roomId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null" >
+                and cr.status = #{status,jdbcType=TINYINT}
+            </if>
+        </where>
+	</select>
+	
+	<select id="countByEntity" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" resultType="java.lang.Integer" >
+		SELECT
+			count(*)
+		FROM
+		   t_saas_customer
+		where
+			org_id = #{orgId,jdbcType=VARCHAR}
+			and 
+			(customer_no = #{customerNo,jdbcType=VARCHAR}
+			or customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR})
+	</select>
+  
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_saas_customer
+        where customer_id = #{customerId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        insert into t_saas_customer (customer_id, org_id, customer_no, 
+            customer_type, customer_realname, customer_password, 
+            customer_sex, customer_mobile1, customer_status, 
+            customer_email, customer_qq, open_id, 
+            operator_id, operator_name, create_time, 
+            update_time)
+        values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, 
+            #{customerType,jdbcType=VARCHAR}, #{customerRealname,jdbcType=VARCHAR}, #{customerPassword,jdbcType=VARCHAR}, 
+            #{customerSex,jdbcType=TINYINT}, #{customerMobile1,jdbcType=VARCHAR}, #{customerStatus,jdbcType=TINYINT}, 
+            #{customerEmail,jdbcType=VARCHAR}, #{customerQq,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+            #{operatorId,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, now(), 
+            now())
+    </insert>
+    
+    <insert id="shopInsert" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        insert into t_saas_customer (customer_id, org_id, customer_no, 
+            customer_type, customer_realname, customer_password, 
+            customer_sex, customer_mobile1, customer_status, 
+            customer_email, customer_qq, open_id, 
+            operator_id, operator_name, create_time, 
+            update_time)
+        values (#{customerId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{customerNo,jdbcType=VARCHAR}, 
+            #{customerType,jdbcType=VARCHAR}, #{customerRealname,jdbcType=VARCHAR}, #{customerPassword,jdbcType=VARCHAR}, 
+            #{customerSex,jdbcType=TINYINT}, #{customerMobile1,jdbcType=VARCHAR}, #{customerStatus,jdbcType=TINYINT}, 
+            #{customerEmail,jdbcType=VARCHAR}, #{customerQq,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+            #{operatorId,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, now(), 
+            now())
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.db.cust.Customer" >
+        update t_saas_customer
+        <set >
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="customerNo != null" >
+                customer_no = #{customerNo,jdbcType=VARCHAR},
+            </if>
+            <if test="customerType != null" >
+                customer_type = #{customerType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerRealname != null" >
+                customer_realname = #{customerRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPassword != null" >
+                customer_password = #{customerPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="customerSex != null" >
+                customer_sex = #{customerSex,jdbcType=TINYINT},
+            </if>
+            <if test="customerMobile1 != null" >
+                customer_mobile1 = #{customerMobile1,jdbcType=VARCHAR},
+            </if>
+            <if test="customerStatus != null" >
+                customer_status = #{customerStatus,jdbcType=TINYINT},
+            </if>
+            <if test="customerEmail != null" >
+                customer_email = #{customerEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="customerQq != null" >
+                customer_qq = #{customerQq,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null" >
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorId != null" >
+                operator_id = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorName != null" >
+                operator_name = #{operatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where customer_id = #{customerId,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from t_saas_customer
+        where customer_id = #{customerId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>型号注册</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/> 
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../../../js/layui/css/layui.css"/>
+	<link rel="stylesheet" href="../../../css/main.css"/>
+	<link rel="stylesheet" href="../../../css/font-awesome.min.css"/>
+	<script src="../../../js/layui/layui.js" charset="utf-8"></script>
+  	<link rel="stylesheet" href="../../../css/index.css" media="all" />
+</head>
+<body>
+	<div style="width:500px;height:100%;margin: 0 auto; padding-top:10px">   
+		<form class="layui-form">
+		
+			<div class="layui-form-item">
+				<label class="layui-form-label">型号名称</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="required" name="modelName" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">扩展名称</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="required" name="fullName" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">产品名称</label>
+					<div class="layui-input-block">
+						<input type="text" lay-verify="required" name="productName" placeholder="必填" class="layui-input"/>
+					</div>
+			</div>
+			
+			<div class="layui-form-item">
+			    <label class="layui-form-label">设备分类</label>
+			    <div class="layui-input-inline" style="width: 180px;">
+				    <select name="equipCateg" id="equipCateg" class="layui-select T-select" lay-filter="equipCateg" T-options="url:'dict/all?dictType=equip_categ',value:'dictCode',name:'dictName',isShowSel:'false'">
+					</select>
+			    </div>
+			    <div class="layui-input-inline" style="margin-right: 0; width: 180px;">
+			        <select name="equipType" id="equipType" lay-filter="equipType">
+				         <option value="" selected>-- 请选择 --</option>
+					</select>
+			    </div>
+			</div>			
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">通信方式</label>
+				<div class="layui-input-block">
+				    <select name="netType" class="layui-select" >
+				    	<option>--请选择--</option>
+				    	<option value="">RS485转LoRaWan</option>
+				    	<option value="0903">RS485转GPRS</option>
+				    	<option value="0901">RS485转以太网</option>
+				    	<option value="0910">WiFi直连</option>
+				    	<option value="0908">GPRS直连</option>
+				    	<option value="0907">以太网直连</option>
+				    	<option value="0905">LoRaWan</option>
+				    	<option value="0906">NB-IoT</option>	
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">生产厂家</label>
+					<div class="layui-input-block">
+						<select name="productName" class="layui-select T-select" lay-filter="manufacturer" T-options="url:'dict/all?dictType=manufacturer',value:'dictCode',name:'dictName',isShowSel:'false'">
+							<option>--请选择--</option>
+						</select>
+					</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">协议类型</label>
+				<div class="layui-input-block">
+				    <select name="protocolType" id="protocolType" class="layui-select T-select" lay-filter="protocolType" T-options="url:'dict/all?dictType=protocol_type',value:'dictCode',name:'dictName',isShowSel:'false'">
+					</select>
+				</div>
+			</div>
+			
+			<!--<div class="layui-form-item">
+				<label class="layui-form-label">通信速率</label>
+				<div class="layui-input-block">
+				    <select name="baudRate" id="baudRate" class="layui-select" >
+				    	<option value="">--请选择--</option>
+				    	<option value="1200">1200</option>
+				    	<option value="2400">2400</option>
+				    	<option value="9600">9600</option>
+				    	<option value="19200">19200</option>
+				    	<option value="38400">38400</option>
+				    	<option value="57600">57600</option>
+				    	<option value="115200">115200</option>
+					</select>
+				</div>
+			</div>-->
+			
+			<!--<div class="layui-form-item">
+				<label class="layui-form-label">可通断控制</label>
+				<div class="layui-input-block">
+				    <select name="isRemoteControl" class="layui-select" >
+				    	<option value="1" atafld="datafld">是</option>
+				    	<option value="0">否</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">仪表计费</label>
+				<div class="layui-input-block">
+				    <select name="isCostControl" class="layui-select" >
+				    	<option value="1" atafld="datafld">是</option>
+				    	<option value="0">否</option>
+					</select>
+				</div>
+			</div>-->
+			
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit="" lay-filter="tijiao" id="subBtn">保存</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script src="./model_add.js" charset="utf-8"></script>
+	
+	<script id="elecTempl" type="text/x-jquery-tmpl">	
+	</script>
+	
+	<script>
+		layui.use(['form', 'layedit', 'laydate'], function(){
+			var form = layui.form
+			,layer = layui.layer
+			,layedit = layui.layedit
+			,laydate = layui.laydate;
+			  
+			//日期
+			laydate.render({
+			    elem: '#date'
+			});
+			laydate.render({
+				elem: '#date1'
+			});
+		 
+		});
+	</script>
+
+</body>
+</html>

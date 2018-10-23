@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.orgEquipment.OrgEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    <id column="equip_id" property="equipId" jdbcType="VARCHAR" />
+    <result column="comm_addr" property="commAddr" jdbcType="VARCHAR" />
+    <result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="equip_categ" property="equipCateg" jdbcType="VARCHAR" />
+    <result column="equip_type" property="equipType" jdbcType="VARCHAR" />
+    <result column="model_id" property="modelId" jdbcType="VARCHAR" />
+    <result column="soft_versoin" property="softVersoin" jdbcType="VARCHAR" />
+    <result column="comm_pwd" property="commPwd" jdbcType="VARCHAR" />
+    <result column="net_type" property="netType" jdbcType="VARCHAR" />
+    <result column="net_equip_addr" property="netEquipAddr" jdbcType="VARCHAR" />
+    <result column="chird_equip_type" property="chirdEquipType" jdbcType="VARCHAR" />
+    <result column="elec_meter_type" property="elecMeterType" jdbcType="VARCHAR" />
+    <result column="voltage_rating" property="voltageRating" jdbcType="DECIMAL" />
+    <result column="current_rating" property="currentRating" jdbcType="DECIMAL" />
+    <result column="power_rating" property="powerRating" jdbcType="DECIMAL" />
+    <result column="current_max" property="currentMax" jdbcType="DECIMAL" />
+    <result column="power_max" property="powerMax" jdbcType="DECIMAL" />
+    <result column="voltage_ratio" property="voltageRatio" jdbcType="DECIMAL" />
+    <result column="current_ratio" property="currentRatio" jdbcType="DECIMAL" />
+    <result column="control_status" property="controlStatus" jdbcType="VARCHAR" />
+    <result column="is_usable" property="isUsable" jdbcType="TINYINT" />
+    <result column="is_history" property="isHistory" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="joinResultMap" type="cn.com.tw.paas.monit.entity.business.orgEquipment.OrgEquipmentExpand" extends="BaseResultMap" >
+    <result column="totalOrgEquipment" property="totalOrgEquipment" jdbcType="VARCHAR"/>
+    <result column="model_id" property="modelId" jdbcType="VARCHAR" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="factory" property="factory" jdbcType="VARCHAR" />
+    <result column="model_equip_categ" property="modelEquipCateg" jdbcType="VARCHAR" />
+    <result column="model_equip_type" property="modelEquipType" jdbcType="VARCHAR" />
+    <result column="protocol_type" property="protocolType" jdbcType="VARCHAR" />
+    <result column="baud_rate" property="baudRate" jdbcType="VARCHAR" />
+    <result column="model_net_type" property="modelNetType" jdbcType="VARCHAR" />
+    <result column="is_initiative_push" property="isInitiativePush" jdbcType="TINYINT" />
+    <result column="is_remote_control" property="isRemoteControl" jdbcType="TINYINT" />
+    <result column="is_timearea" property="isTimearea" jdbcType="TINYINT" />
+    <result column="is_cost_control" property="isCostControl" jdbcType="TINYINT" />
+    <result column="model_is_usable" property="modelIsUsable" jdbcType="TINYINT" />
+    <result column="model_create_time" property="modelCreateTime" jdbcType="TIMESTAMP" />
+    <result column="model_update_time" property="modelUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="equipCategName" property="equipCategName" jdbcType="VARCHAR" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="netName" property="netName" jdbcType="VARCHAR" />
+    <result column="online_time" property="onlineTime" jdbcType="TIMESTAMP" />
+    <result column="offline_time" property="offlineTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    equip_id, comm_addr, equip_name, org_id, app_id, equip_categ, equip_type, model_id, soft_versoin, 
+    comm_pwd, net_type, net_equip_addr, chird_equip_type, elec_meter_type, voltage_rating, current_rating, 
+    power_rating, current_max, power_max, voltage_ratio, current_ratio, control_status, 
+    is_usable, is_history, create_time, update_time
+  </sql>
+  
+  <select id="selectDeviceByAppKey" resultMap="BaseResultMap" parameterType = "cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment">
+  	 select 
+    <include refid="Base_Column_List" />
+    from t_org_equipment
+   	where
+		comm_addr = #{commAddr,jdbcType=VARCHAR}
+	and app_id    = #{appId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectForApi" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equipment
+   	where
+	org_id = #{orgId,jdbcType=VARCHAR}
+	and app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equipment
+   	where
+	equip_id = #{equipId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEquipId" resultMap="joinResultMap" parameterType="java.lang.String" >
+    SELECT
+		e.equip_id,
+		e.comm_addr,
+		e.equip_name,
+		e.org_id,
+		e.app_id,
+		e.equip_categ,
+		e.equip_type,
+		e.model_id,
+		e.soft_versoin,
+		e.comm_pwd,
+		e.net_type,
+		e.net_equip_addr,
+		e.chird_equip_type,
+		e.elec_meter_type,
+		e.voltage_rating,
+		e.current_rating,
+		e.power_rating,
+		e.current_max,
+		e.power_max,
+		e.voltage_ratio,
+		e.current_ratio,
+		e.control_status,
+		e.is_usable,
+		e.is_history,
+		e.create_time,
+		e.update_time,
+		m.model_name,
+		m.full_name,
+		m.product_name,
+		m.factory,
+		m.equip_categ AS model_equip_categ,
+		m.equip_type AS model_equip_type,
+		m.protocol_type,
+		m.baud_rate,
+		m.net_type AS model_net_type,
+		m.is_initiative_push,
+		m.is_remote_control,
+		m.is_timearea,
+		m.is_cost_control,
+		m.is_usable AS model_is_usable,
+		m.create_time AS model_create_time,
+		m.update_time AS model_update_time
+	FROM
+		t_org_equipment e
+	LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+   	where
+	e.equip_id = #{equipId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCommAddr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equipment
+   	where
+	comm_addr = #{commAddr,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByNetEquipAddr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_org_equipment
+   	where
+	net_equip_addr = #{netEquipAddr,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectOrgEquipmentAll" resultMap="joinResultMap" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    SELECT
+		e.equip_id,
+		e.comm_addr,
+		e.equip_name,
+		e.org_id,
+		e.app_id,
+		e.equip_categ,
+		e.equip_type,
+		e.model_id,
+		e.soft_versoin,
+		e.comm_pwd,
+		e.net_type,
+		e.net_equip_addr,
+		e.chird_equip_type,
+		e.elec_meter_type,
+		e.voltage_rating,
+		e.current_rating,
+		e.power_rating,
+		e.current_max,
+		e.power_max,
+		e.voltage_ratio,
+		e.current_ratio,
+		e.control_status,
+		e.is_usable,
+		e.is_history,
+		e.create_time,
+		e.update_time,
+		m.model_name,
+		m.full_name,
+		m.product_name,
+		m.factory,
+		m.equip_categ AS model_equip_categ,
+		m.equip_type AS model_equip_type,
+		m.protocol_type,
+		m.baud_rate,
+		m.net_type AS model_net_type,
+		m.is_initiative_push,
+		m.is_remote_control,
+		m.is_timearea,
+		m.is_cost_control,
+		m.is_usable AS model_is_usable,
+		m.create_time AS model_create_time,
+		m.update_time AS model_update_time
+	FROM
+		t_org_equipment e
+	LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+   	<where>
+		<if test="equipId != null and equipId != ''">
+			AND e.equip_id = #{equipId,jdbcType=VARCHAR}
+		</if>
+		<if test="equipName != null and equipName != ''">
+			AND e.equip_name like CONCAT('%', #{equipName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="equipType != null and equipType != ''">
+			AND e.equip_type = #{equipType,jdbcType=VARCHAR}
+		</if>
+		<if test="elecMeterType != null and elecMeterType != ''">
+			AND e.elec_meter_type = #{elecMeterType,jdbcType=VARCHAR}
+		</if>
+		<if test="equipCateg != null and equipCateg != ''">
+			AND e.equip_categ = #{equipCateg,jdbcType=VARCHAR}
+		</if>
+		<if test="commAddr != null and commAddr != ''">
+			AND e.comm_addr like CONCAT('%', #{commAddr,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="orgId != null and orgId != ''">
+			AND e.org_id = #{orgId,jdbcType=VARCHAR}
+		</if>
+		<if test="netEquipAddr != null and netEquipAddr != ''">
+			AND e.net_equip_addr = #{netEquipAddr,jdbcType=VARCHAR}
+		</if>
+		<if test="netType != null and netType != ''">
+			AND e.net_type = #{netType,jdbcType=VARCHAR}
+		</if>
+		<if test="appId != null and appId != ''">
+			AND e.app_id = #{appId,jdbcType=VARCHAR}
+		</if>
+		<if test="chirdEquipType != null and chirdEquipType != ''">
+			AND e.chird_equip_type = #{chirdEquipType,jdbcType=VARCHAR}
+		</if>
+	</where>
+	ORDER BY e.create_time DESC
+  </select>
+  
+  
+  <select id="selectOrgEquipmentById" resultMap="joinResultMap" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    SELECT
+		e.equip_id,
+		e.comm_addr,
+		e.equip_name,
+		e.org_id,
+		e.app_id,
+		e.equip_categ,
+		e.equip_type,
+		e.model_id,
+		e.soft_versoin,
+		e.comm_pwd,
+		e.net_type,
+		e.net_equip_addr,
+		e.chird_equip_type,
+		e.elec_meter_type,
+		e.voltage_rating,
+		e.current_rating,
+		e.power_rating,
+		e.current_max,
+		e.power_max,
+		e.voltage_ratio,
+		e.current_ratio,
+		e.control_status,
+		e.is_usable,
+		e.is_history,
+		e.create_time,
+		e.update_time,
+		m.model_name,
+		m.full_name,
+		m.product_name,
+		m.factory,
+		m.equip_categ AS model_equip_categ,
+		m.equip_type AS model_equip_type,
+		m.protocol_type,
+		m.baud_rate,
+		m.net_type AS model_net_type,
+		m.is_initiative_push,
+		m.is_remote_control,
+		m.is_timearea,
+		m.is_cost_control,
+		m.is_usable AS model_is_usable,
+		m.create_time AS model_create_time,
+		m.update_time AS model_update_time
+	FROM
+		t_org_equipment e
+	LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+   	<where>
+		<if test="equipId != null and equipId != ''">
+			AND e.equip_id = #{equipId,jdbcType=VARCHAR}
+		</if>
+		<if test="commAddr != null and commAddr != ''">
+			AND e.comm_addr = #{commAddr,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </select>
+  
+  <select id="selectOrgEquipmentPage" resultMap="joinResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+		       SELECT
+					e.equip_id,
+					e.comm_addr,
+					e.equip_name,
+					e.org_id,
+					e.app_id,
+					e.equip_categ,
+					e.equip_type,
+					e.model_id,
+					e.soft_versoin,
+					e.comm_pwd,
+					e.net_type,
+					e.net_equip_addr,
+					e.chird_equip_type,
+					e.elec_meter_type,
+					e.voltage_rating,
+					e.current_rating,
+					e.power_rating,
+					e.current_max,
+					e.power_max,
+					e.voltage_ratio,
+					e.current_ratio,
+					e.control_status,
+					e.is_usable,
+					e.is_history,
+					e.create_time,
+					e.update_time,
+					d.dict_name AS equipCategName,
+					sd.dict_name AS typeName,
+					tsd.dict_name AS netName,
+					m.model_name,
+					m.full_name,
+					m.product_name,
+					m.factory,
+					m.equip_categ AS model_equip_categ,
+					m.equip_type AS model_equip_type,
+					m.protocol_type,
+					m.baud_rate,
+					m.net_type AS model_net_type,
+					m.is_initiative_push,
+					m.is_remote_control,
+					m.is_timearea,
+					m.is_cost_control,
+					m.is_usable AS model_is_usable,
+					m.create_time AS model_create_time,
+					m.update_time AS model_update_time,
+					s.offline_time,
+          			s.online_time
+			FROM
+				t_org_equipment e
+			LEFT JOIN t_sys_dict d ON d.dict_code = e.equip_categ
+			LEFT JOIN t_sys_dict sd ON sd.dict_code = e.equip_type
+			LEFT JOIN t_sys_dict tsd ON tsd.dict_code = e.net_type
+			LEFT JOIN t_base_equip_model m ON m.model_id = e.model_id
+			LEFT JOIN t_org_equip_net_status s ON s.comm_addr = e.comm_addr
+        <where>
+			<if test="paramObj.equipName != null and paramObj.equipName != ''">
+				and e.equip_name like CONCAT('%', #{paramObj.equipName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.commAddr != null and paramObj.commAddr != ''">
+				and e.comm_addr like CONCAT('%', #{paramObj.commAddr,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="paramObj.equipCateg != null and paramObj.equipCateg != ''">
+				and e.equip_categ = #{paramObj.equipCateg,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.equipType != null and paramObj.equipType != ''">
+				and e.equip_type = #{paramObj.equipType,jdbcType=VARCHAR}
+			</if>
+			<if test="paramObj.orgId != null and paramObj.orgId != ''">
+				and e.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+			</if>
+		</where>
+    </select>
+  
+  
+  <select id="selceTotalDevice" resultMap="joinResultMap" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+	    SELECT
+			e.equip_type,
+			COUNT(*) AS totalOrgEquipment,
+			e.org_id,
+			o.org_name
+		FROM
+			t_org_equipment e
+		LEFT JOIN t_org o ON o.org_id = e.org_id
+		<where>
+			<if test="equipType != null and equipType != ''">
+				AND e.equip_type = #{equipType,jdbcType=VARCHAR}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				AND e.org_id = #{orgId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		GROUP BY e.equip_type
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_org_equipment
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    insert into t_org_equipment (equip_id, comm_addr, equip_name, 
+      org_id, app_id, equip_categ, equip_type, 
+      model_id, soft_versoin, comm_pwd, 
+      net_type, net_equip_addr, chird_equip_type, elec_meter_type, 
+      voltage_rating, current_rating, power_rating, 
+      current_max, power_max, voltage_ratio, 
+      current_ratio, control_status, is_usable, 
+      is_history, create_time, update_time
+      )
+    values (#{equipId,jdbcType=VARCHAR}, #{commAddr,jdbcType=VARCHAR}, #{equipName,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{equipCateg,jdbcType=VARCHAR}, #{equipType,jdbcType=VARCHAR}, 
+      #{modelId,jdbcType=VARCHAR}, #{softVersoin,jdbcType=VARCHAR}, #{commPwd,jdbcType=VARCHAR}, 
+      #{netType,jdbcType=VARCHAR}, #{netEquipAddr,jdbcType=VARCHAR}, #{chirdEquipType,jdbcType=VARCHAR}, #{elecMeterType,jdbcType=VARCHAR}, 
+      #{voltageRating,jdbcType=DECIMAL}, #{currentRating,jdbcType=DECIMAL}, #{powerRating,jdbcType=DECIMAL}, 
+      #{currentMax,jdbcType=DECIMAL}, #{powerMax,jdbcType=DECIMAL}, #{voltageRatio,jdbcType=DECIMAL}, 
+      #{currentRatio,jdbcType=DECIMAL}, #{controlStatus,jdbcType=VARCHAR}, #{isUsable,jdbcType=TINYINT}, 
+      #{isHistory,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    insert into t_org_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        equip_id,
+      </if>
+      <if test="commAddr != null" >
+        comm_addr,
+      </if>
+      <if test="equipName != null" >
+        equip_name,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="equipCateg != null" >
+        equip_categ,
+      </if>
+      <if test="equipType != null" >
+        equip_type,
+      </if>
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="softVersoin != null" >
+        soft_versoin,
+      </if>
+      <if test="commPwd != null" >
+        comm_pwd,
+      </if>
+      <if test="netType != null" >
+        net_type,
+      </if>
+      <if test="netEquipAddr != null" >
+        net_equip_addr,
+      </if>
+      <if test="chirdEquipType != null" >
+        chird_equip_type,
+      </if>
+      <if test="elecMeterType != null" >
+        elec_meter_type,
+      </if>
+      <if test="voltageRating != null" >
+        voltage_rating,
+      </if>
+      <if test="currentRating != null" >
+        current_rating,
+      </if>
+      <if test="powerRating != null" >
+        power_rating,
+      </if>
+      <if test="currentMax != null" >
+        current_max,
+      </if>
+      <if test="powerMax != null" >
+        power_max,
+      </if>
+      <if test="voltageRatio != null" >
+        voltage_ratio,
+      </if>
+      <if test="currentRatio != null" >
+        current_ratio,
+      </if>
+      <if test="controlStatus != null" >
+        control_status,
+      </if>
+      <if test="isUsable != null" >
+        is_usable,
+      </if>
+      <if test="isHistory != null" >
+        is_history,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        #{equipId,jdbcType=VARCHAR},
+      </if>
+      <if test="commAddr != null" >
+        #{commAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCateg != null" >
+        #{equipCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersoin != null" >
+        #{softVersoin,jdbcType=VARCHAR},
+      </if>
+      <if test="commPwd != null" >
+        #{commPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="netType != null" >
+        #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="netEquipAddr != null" >
+        #{netEquipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="chirdEquipType != null" >
+        #{chirdEquipType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecMeterType != null" >
+        #{elecMeterType,jdbcType=VARCHAR},
+      </if>
+      <if test="voltageRating != null" >
+        #{voltageRating,jdbcType=DECIMAL},
+      </if>
+      <if test="currentRating != null" >
+        #{currentRating,jdbcType=DECIMAL},
+      </if>
+      <if test="powerRating != null" >
+        #{powerRating,jdbcType=DECIMAL},
+      </if>
+      <if test="currentMax != null" >
+        #{currentMax,jdbcType=DECIMAL},
+      </if>
+      <if test="powerMax != null" >
+        #{powerMax,jdbcType=DECIMAL},
+      </if>
+      <if test="voltageRatio != null" >
+        #{voltageRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="currentRatio != null" >
+        #{currentRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="controlStatus != null" >
+        #{controlStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="isHistory != null" >
+        #{isHistory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    update t_org_equipment
+    <set >
+      <if test="commAddr != null" >
+        comm_addr = #{commAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipCateg != null" >
+        equip_categ = #{equipCateg,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        equip_type = #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        model_id = #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersoin != null" >
+        soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+      </if>
+      <if test="commPwd != null" >
+        comm_pwd = #{commPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="netType != null" >
+        net_type = #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="netEquipAddr != null" >
+        net_equip_addr = #{netEquipAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="chirdEquipType != null" >
+        chird_equip_type = #{chirdEquipType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecMeterType != null" >
+        elec_meter_type = #{elecMeterType,jdbcType=VARCHAR},
+      </if>
+      <if test="voltageRating != null" >
+        voltage_rating = #{voltageRating,jdbcType=DECIMAL},
+      </if>
+      <if test="currentRating != null" >
+        current_rating = #{currentRating,jdbcType=DECIMAL},
+      </if>
+      <if test="powerRating != null" >
+        power_rating = #{powerRating,jdbcType=DECIMAL},
+      </if>
+      <if test="currentMax != null" >
+        current_max = #{currentMax,jdbcType=DECIMAL},
+      </if>
+      <if test="powerMax != null" >
+        power_max = #{powerMax,jdbcType=DECIMAL},
+      </if>
+      <if test="voltageRatio != null" >
+        voltage_ratio = #{voltageRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="currentRatio != null" >
+        current_ratio = #{currentRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="controlStatus != null" >
+        control_status = #{controlStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null" >
+        is_usable = #{isUsable,jdbcType=TINYINT},
+      </if>
+      <if test="isHistory != null" >
+        is_history = #{isHistory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.paas.monit.entity.db.orgEquipment.OrgEquipment" >
+    update t_org_equipment
+    set comm_addr = #{commAddr,jdbcType=VARCHAR},
+      equip_name = #{equipName,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      equip_categ = #{equipCateg,jdbcType=VARCHAR},
+      equip_type = #{equipType,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=VARCHAR},
+      soft_versoin = #{softVersoin,jdbcType=VARCHAR},
+      comm_pwd = #{commPwd,jdbcType=VARCHAR},
+      net_type = #{netType,jdbcType=VARCHAR},
+      net_equip_addr = #{netEquipAddr,jdbcType=VARCHAR},
+      chird_equip_type = #{chirdEquipType,jdbcType=VARCHAR},
+      elec_meter_type = #{elecMeterType,jdbcType=VARCHAR},
+      voltage_rating = #{voltageRating,jdbcType=DECIMAL},
+      current_rating = #{currentRating,jdbcType=DECIMAL},
+      power_rating = #{powerRating,jdbcType=DECIMAL},
+      current_max = #{currentMax,jdbcType=DECIMAL},
+      power_max = #{powerMax,jdbcType=DECIMAL},
+      voltage_ratio = #{voltageRatio,jdbcType=DECIMAL},
+      current_ratio = #{currentRatio,jdbcType=DECIMAL},
+      control_status = #{controlStatus,jdbcType=VARCHAR},
+      is_usable = #{isUsable,jdbcType=TINYINT},
+      is_history = #{isHistory,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.audit.AuditRoomMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="submit_id" property="submitId" jdbcType="VARCHAR" />
+    <result column="submit_name" property="submitName" jdbcType="VARCHAR" />
+    <result column="audit_id" property="auditId" jdbcType="VARCHAR" />
+    <result column="audit_name" property="auditName" jdbcType="VARCHAR" />
+    <result column="room_balance" property="roomBalance" jdbcType="DECIMAL" />
+    <result column="elec_allowance_type" property="elecAllowanceType" jdbcType="VARCHAR" />
+    <result column="elec_allowance_rule_id" property="elecAllowanceRuleId" jdbcType="VARCHAR" />
+    <result column="elec_allowance" property="elecAllowance" jdbcType="DECIMAL" />
+    <result column="water_allowance_type" property="waterAllowanceType" jdbcType="VARCHAR" />
+    <result column="water_allowance_rule_id" property="waterAllowanceRuleId" jdbcType="VARCHAR" />
+    <result column="water_allowance" property="waterAllowance" jdbcType="DECIMAL" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="audit_type" property="auditType" jdbcType="TINYINT" />
+    <result column="audit_status" property="auditStatus" jdbcType="TINYINT" />
+    <result column="audit_opinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="audit_version" property="auditVersion" jdbcType="VARCHAR" />
+    <result column="room_id" property="roomId" jdbcType="VARCHAR" />
+    <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+    <result column="region_full_name" property="regionFullName" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="rental_id" property="rentalId" jdbcType="VARCHAR" />
+    <result column="property_id" property="propertyId" jdbcType="VARCHAR" />
+    <result column="room_use" property="roomUse" jdbcType="VARCHAR" />
+    
+    <result column="customer_info" property="customerInfo" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_mobile1" property="customerMobile1" jdbcType="VARCHAR" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_realname" property="customerRealname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, org_id, submit_id, submit_name, audit_id, audit_name, room_balance, elec_allowance_type, 
+    elec_allowance_rule_id, elec_allowance, water_allowance_type, water_allowance_rule_id, 
+    water_allowance, start_time, end_time, audit_type, audit_status, audit_opinion, audit_version, 
+    room_id, room_number, region_full_name, room_name, create_time, update_time, account_id,rental_id,property_id,room_use
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_audit_room
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_saas_audit_room
+    where 1=1
+	  <if test="orgId != null and orgId !=''" >
+        and org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="submitId != null and submitId !=''" >
+        and submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="submitName != null and submitName !=''" >
+        and submit_name = #{submitName,jdbcType=VARCHAR}
+      </if> 
+      <if test="auditId != null and auditId !=''" >
+        and audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditName != null and auditName !=''" >
+        and audit_name = #{auditName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomBalance != null and roomBalance !=''" >
+        and room_balance = #{roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="elecAllowanceType != null and elecAllowanceType !=''" >
+        and elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowanceRuleId != null and elecAllowanceRuleId !=''" >
+        and elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowance != null and elecAllowance !=''" >
+        and elec_allowance = #{elecAllowance,jdbcType=DECIMAL}
+      </if>
+      <if test="waterAllowanceType != null and waterAllowanceType !=''" >
+        and water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowanceRuleId != null and waterAllowanceRuleId !=''" >
+        and water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowance != null and waterAllowance !=''" >
+        and water_allowance = #{waterAllowance,jdbcType=DECIMAL}
+      </if>
+      <if test="startTime != null and startTime !=''" >
+        and start_time = #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null and endTime !=''" >
+        and end_time = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="auditType != null" >
+        and audit_type = #{auditType,jdbcType=TINYINT}
+      </if>
+      <if test="auditStatus != null" >
+        and audit_status = #{auditStatus,jdbcType=TINYINT}
+      </if>
+      <if test="auditOpinion != null and auditOpinion !=''" >
+        and audit_opinion = #{auditOpinion,jdbcType=VARCHAR}
+      </if>
+      <if test="auditVersion != null and auditVersion !=''" >
+        and audit_version = #{auditVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="roomId != null and roomId !=''" >
+        and room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber !=''" >
+        and room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="regionFullName != null and regionFullName !=''" >
+        and region_full_name = #{regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName !=''" >
+        and room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null and createTime !=''" >
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime !=''" >
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="accountId != null and accountId !=''" >
+        and account_id = #{accountId,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="cn.com.tw.common.web.entity.page.Page" >
+	    SELECT
+			ar.*,
+			cust.customer_info,cust.customer_id
+		FROM
+			t_saas_audit_room ar
+		LEFT JOIN (
+			SELECT
+				cr.room_account_id,
+					CONCAT(
+						c.customer_realname,
+						"(",
+						c.customer_mobile1,
+						")"
+					)
+				 AS customer_info,
+				cr.room_id,
+    			c.customer_id
+			FROM
+				t_saas_customer c
+			LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+			WHERE
+				  cr.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+		) cust ON cust.room_account_id = ar.account_id
+			where 1=1 and ar.audit_status != "3"
+	  <if test="paramObj.orgId != null and paramObj.orgId !=''" >
+        and ar.org_id = #{paramObj.orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.submitId != null and paramObj.submitId !=''" >
+        and ar.submit_id = #{paramObj.submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.submitName != null and paramObj.submitName !=''" >
+        and ar.submit_name = #{paramObj.submitName,jdbcType=VARCHAR}
+      </if> 
+      <if test="paramObj.auditId != null and paramObj.auditId !=''" >
+        and ar.audit_id = #{paramObj.auditId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.auditName != null and paramObj.auditName !=''" >
+        and ar.audit_name = #{paramObj.auditName,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomBalance != null and paramObj.roomBalance !=''" >
+        and ar.room_balance = #{paramObj.roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="paramObj.elecAllowanceType != null and paramObj.elecAllowanceType !=''" >
+        and ar.elec_allowance_type = #{paramObj.elecAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.elecAllowanceRuleId != null and paramObj.elecAllowanceRuleId !=''" >
+        and ar.elec_allowance_rule_id = #{paramObj.elecAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.elecAllowance != null and paramObj.elecAllowance !=''" >
+        and ar.elec_allowance = #{paramObj.elecAllowance,jdbcType=DECIMAL}
+      </if>
+      <if test="paramObj.waterAllowanceType != null and paramObj.waterAllowanceType !=''" >
+        and ar.water_allowance_type = #{paramObj.waterAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.waterAllowanceRuleId != null and paramObj.waterAllowanceRuleId !=''" >
+        and ar.water_allowance_rule_id = #{paramObj.waterAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.waterAllowance != null and paramObj.waterAllowance !=''" >
+        and ar.water_allowance = #{paramObj.waterAllowance,jdbcType=DECIMAL}
+      </if>
+      <!-- <if test="paramObj.startTime != null and paramObj.startTime !=''" >
+        and ar.start_time = #{paramObj.startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.endTime != null and paramObj.endTime !=''" >
+        and ar.end_time = #{paramObj.endTime,jdbcType=TIMESTAMP}
+      </if> -->
+      <if test="paramObj.startTime1 != null and paramObj.endTime1 != null" >
+         and ( ar.create_time between #{paramObj.startTime1,jdbcType=TIMESTAMP} and #{paramObj.endTime1,jdbcType=TIMESTAMP})
+      </if>
+      <if test="paramObj.auditType != null and paramObj.auditType !=''" >
+        and ar.audit_type = #{paramObj.auditType,jdbcType=TINYINT}
+      </if>
+      <if test="paramObj.auditType1 != null and paramObj.auditType1 !=''" >
+      <!-- 商铺续约或者签约 -->
+        and (ar.audit_type = '0' OR ar.audit_type = '1')
+      </if>
+      <if test="paramObj.auditType2 != null and paramObj.auditType2 !=''" >
+      <!-- 使用中的宿舍或未使用的  水电变更 -->
+        and (ar.audit_type = '2' OR ar.audit_type = '3')
+      </if>
+      <if test="paramObj.auditStatus != null and paramObj.auditStatus !=''" >
+        and ar.audit_status = #{paramObj.auditStatus,jdbcType=TINYINT}
+      </if>
+      <if test="paramObj.auditOpinion != null and paramObj.auditOpinion !=''" >
+        and ar.audit_opinion = #{paramObj.auditOpinion,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.auditVersion != null and paramObj.auditVersion !=''" >
+        and ar.audit_version = #{paramObj.auditVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomId != null and paramObj.roomId !=''" >
+        and ar.room_id = #{paramObj.roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomNumber != null and paramObj.roomNumber !=''" >
+        and ar.room_number like concat ('%',#{paramObj.roomNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="paramObj.regionFullName != null and paramObj.regionFullName !=''" >
+        and ar.region_full_name = #{paramObj.regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomName != null and paramObj.roomName !=''" >
+        and ar.room_name = #{paramObj.roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.createTime != null and paramObj.createTime !=''" >
+        and ar.create_time = #{paramObj.createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.updateTime != null and paramObj.updateTime !=''" >
+        and ar.update_time = #{paramObj.updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paramObj.accountId != null and paramObj.accountId !=''" >
+        and ar.account_id = #{paramObj.accountId,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.roomUse != null and paramObj.roomUse !=''" >
+        and ar.room_use = #{paramObj.roomUse,jdbcType=VARCHAR}
+      </if>
+      <if test="paramObj.userInfo != null and paramObj.userInfo !=''" >
+        and cust.customer_info like concat ('%',#{paramObj.userInfo,jdbcType=VARCHAR},'%')
+      </if>
+      ORDER BY ar.create_time DESC
+  </select>
+  
+  <select id="selectAuditShop" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+	    SELECT
+			ar.*,
+		    cust.customer_mobile1,
+		  	cust.customer_no,
+		  	cust.customer_realname
+		FROM
+			t_saas_audit_room ar
+		LEFT JOIN (
+			SELECT
+				c.customer_mobile1 AS customer_mobile1,
+				c.customer_no AS customer_no,
+				c.customer_realname AS customer_realname,
+				cr.room_id,
+		    cr.room_account_id
+			FROM
+				t_saas_customer c
+			LEFT JOIN t_saas_customer_room cr ON cr.customer_id = c.customer_id
+			WHERE
+				cr.org_id = #{orgId,jdbcType=VARCHAR}
+		) cust ON cust.room_account_id = ar.account_id
+		where 1=1 and ar.audit_status != "3"
+	  <if test="orgId != null and orgId !=''" >
+        and ar.org_id = #{orgId,jdbcType=VARCHAR}
+      </if>
+      <if test="submitId != null and submitId !=''" >
+        and ar.submit_id = #{submitId,jdbcType=VARCHAR}
+      </if>
+      <if test="submitName != null and submitName !=''" >
+        and ar.submit_name = #{submitName,jdbcType=VARCHAR}
+      </if> 
+      <if test="auditId != null and auditId !=''" >
+        and ar.audit_id = #{auditId,jdbcType=VARCHAR}
+      </if>
+      <if test="auditName != null and auditName !=''" >
+        and ar.audit_name = #{auditName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomBalance != null and roomBalance !=''" >
+        and ar.room_balance = #{roomBalance,jdbcType=DECIMAL}
+      </if>
+      <if test="elecAllowanceType != null and elecAllowanceType !=''" >
+        and ar.elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowanceRuleId != null and elecAllowanceRuleId !=''" >
+        and ar.elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="elecAllowance != null and elecAllowance !=''" >
+        and ar.elec_allowance = #{elecAllowance,jdbcType=DECIMAL}
+      </if>
+      <if test="waterAllowanceType != null and waterAllowanceType !=''" >
+        and ar.water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowanceRuleId != null and waterAllowanceRuleId !=''" >
+        and ar.water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR}
+      </if>
+      <if test="waterAllowance != null and waterAllowance !=''" >
+        and ar.water_allowance = #{waterAllowance,jdbcType=DECIMAL}
+      </if>
+      <if test="startTime != null and startTime !=''" >
+        and ar.start_time = #{startTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null and endTime !=''" >
+        and ar.end_time = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="auditType != null and auditType !=''" >
+        and ar.audit_type = #{auditType,jdbcType=TINYINT}
+      </if>
+      <if test="auditStatus != null and auditStatus !=''" >
+        and ar.audit_status = #{auditStatus,jdbcType=TINYINT}
+      </if>
+      <if test="auditOpinion != null and auditOpinion !=''" >
+        and ar.audit_opinion = #{auditOpinion,jdbcType=VARCHAR}
+      </if>
+      <if test="auditVersion != null and auditVersion !=''" >
+        and ar.audit_version = #{auditVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="roomId != null and roomId !=''" >
+        and ar.room_id = #{roomId,jdbcType=VARCHAR}
+      </if>
+      <if test="roomNumber != null and roomNumber !=''" >
+        and ar.room_number = #{roomNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="regionFullName != null and regionFullName !=''" >
+        and ar.region_full_name = #{regionFullName,jdbcType=VARCHAR}
+      </if>
+      <if test="roomName != null and roomName !=''" >
+        and ar.room_name = #{roomName,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null and createTime !=''" >
+        and ar.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null and updateTime !=''" >
+        and ar.update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="accountId != null and accountId !=''" >
+        and ar.account_id = #{accountId,jdbcType=VARCHAR}
+      </if>
+      <if test="roomUse != null and roomUse !=''" >
+        and ar.room_use = #{roomUse,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_saas_audit_room
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    insert into t_saas_audit_room (id, org_id, submit_id, 
+      submit_name, audit_id, audit_name, 
+      room_balance, elec_allowance_type, elec_allowance_rule_id, 
+      elec_allowance, water_allowance_type, water_allowance_rule_id, 
+      water_allowance, start_time, end_time, 
+      audit_type, audit_status, audit_opinion, 
+      audit_version, room_id, room_number, 
+      region_full_name, room_name, create_time, 
+      update_time,account_id,rental_id,property_id,room_use)
+    values (uuid_short(), #{orgId,jdbcType=VARCHAR}, #{submitId,jdbcType=VARCHAR}, 
+      #{submitName,jdbcType=VARCHAR}, #{auditId,jdbcType=VARCHAR}, #{auditName,jdbcType=VARCHAR}, 
+      #{roomBalance,jdbcType=DECIMAL}, #{elecAllowanceType,jdbcType=VARCHAR}, #{elecAllowanceRuleId,jdbcType=VARCHAR}, 
+      #{elecAllowance,jdbcType=DECIMAL}, #{waterAllowanceType,jdbcType=VARCHAR}, #{waterAllowanceRuleId,jdbcType=VARCHAR}, 
+      #{waterAllowance,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{auditType,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT}, #{auditOpinion,jdbcType=VARCHAR}, 
+      #{auditVersion,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR}, 
+      #{regionFullName,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, now(),now(),#{accountId,jdbcType=VARCHAR},
+      #{rentalId,jdbcType=VARCHAR},#{propertyId,jdbcType=VARCHAR},#{roomUse,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    insert into t_saas_audit_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="submitId != null" >
+        submit_id,
+      </if>
+      <if test="submitName != null" >
+        submit_name,
+      </if>
+      <if test="auditId != null" >
+        audit_id,
+      </if>
+      <if test="auditName != null" >
+        audit_name,
+      </if>
+      <if test="roomBalance != null" >
+        room_balance,
+      </if>
+      <if test="elecAllowanceType != null" >
+        elec_allowance_type,
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        elec_allowance_rule_id,
+      </if>
+      <if test="elecAllowance != null" >
+        elec_allowance,
+      </if>
+      <if test="waterAllowanceType != null" >
+        water_allowance_type,
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        water_allowance_rule_id,
+      </if>
+      <if test="waterAllowance != null" >
+        water_allowance,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="auditType != null" >
+        audit_type,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion,
+      </if>
+      <if test="auditVersion != null" >
+        audit_version,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomNumber != null" >
+        room_number,
+      </if>
+      <if test="regionFullName != null" >
+        region_full_name,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="rentalId != null" >
+        rental_id,
+      </if>
+      <if test="propertyId != null" >
+        property_id,
+      </if>
+      <if test="roomUse != null" >
+        room_use,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="submitId != null" >
+        #{submitId,jdbcType=VARCHAR},
+      </if>
+      <if test="submitName != null" >
+        #{submitName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null" >
+        #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditName != null" >
+        #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomBalance != null" >
+        #{roomBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="elecAllowanceType != null" >
+        #{elecAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowance != null" >
+        #{elecAllowance,jdbcType=DECIMAL},
+      </if>
+      <if test="waterAllowanceType != null" >
+        #{waterAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowance != null" >
+        #{waterAllowance,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditType != null" >
+        #{auditType,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditOpinion != null" >
+        #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditVersion != null" >
+        #{auditVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="regionFullName != null" >
+        #{regionFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalId != null" >
+      	#{rentalId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyId != null" >
+    	#{propertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        #{roomUse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    update t_saas_audit_room
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="submitId != null" >
+        submit_id = #{submitId,jdbcType=VARCHAR},
+      </if>
+      <if test="submitName != null" >
+        submit_name = #{submitName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null" >
+        audit_id = #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditName != null" >
+        audit_name = #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomBalance != null" >
+        room_balance = #{roomBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="elecAllowanceType != null" >
+        elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowanceRuleId != null" >
+        elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAllowance != null" >
+        elec_allowance = #{elecAllowance,jdbcType=DECIMAL},
+      </if>
+      <if test="waterAllowanceType != null" >
+        water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowanceRuleId != null" >
+        water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="waterAllowance != null" >
+        water_allowance = #{waterAllowance,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditType != null" >
+        audit_type = #{auditType,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditOpinion != null" >
+        audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="auditVersion != null" >
+        audit_version = #{auditVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomNumber != null" >
+        room_number = #{roomNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="regionFullName != null" >
+        region_full_name = #{regionFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentalId != null" >
+      	rental_id = #{rentalId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyId != null" >
+    	property_id = #{propertyId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomUse != null" >
+        room_use = #{roomUse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.tw.saas.serv.entity.audit.AuditRoom" >
+    update t_saas_audit_room
+    set org_id = #{orgId,jdbcType=VARCHAR},
+      submit_id = #{submitId,jdbcType=VARCHAR},
+      submit_name = #{submitName,jdbcType=VARCHAR},
+      audit_id = #{auditId,jdbcType=VARCHAR},
+      audit_name = #{auditName,jdbcType=VARCHAR},
+      room_balance = #{roomBalance,jdbcType=DECIMAL},
+      elec_allowance_type = #{elecAllowanceType,jdbcType=VARCHAR},
+      elec_allowance_rule_id = #{elecAllowanceRuleId,jdbcType=VARCHAR},
+      elec_allowance = #{elecAllowance,jdbcType=DECIMAL},
+      water_allowance_type = #{waterAllowanceType,jdbcType=VARCHAR},
+      water_allowance_rule_id = #{waterAllowanceRuleId,jdbcType=VARCHAR},
+      water_allowance = #{waterAllowance,jdbcType=DECIMAL},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      audit_type = #{auditType,jdbcType=TINYINT},
+      audit_status = #{auditStatus,jdbcType=TINYINT},
+      audit_opinion = #{auditOpinion,jdbcType=VARCHAR},
+      audit_version = #{auditVersion,jdbcType=VARCHAR},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      room_number = #{roomNumber,jdbcType=VARCHAR},
+      region_full_name = #{regionFullName,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      rental_id = #{rentalId,jdbcType=VARCHAR},
+      property_id = #{propertyId,jdbcType=VARCHAR},
+      room_use = #{roomUse,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

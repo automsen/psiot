@@ -1,0 +1,210 @@
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.clearfix{
+	clear: both;
+}
+body{
+	background-color: #e1e6f0;
+	overflow-x: hidden;
+}
+
+
+/*顶部样式*/
+.s-top{
+	height: 80px;
+	background-color: #f2f6ff;
+	padding-left: 40px;
+	padding-right: 20px;
+}
+.s-company{
+	font-size: 24px;
+    color: #1768d4;
+    padding-left: 20px;
+    line-height: 20px;
+    padding-top: 21px;
+}
+.s-company span{
+	font-family: arial;
+	font-size: 12px;
+}
+.s-logo img{
+	margin-top: 13px;
+}
+.btn-login{
+	width: 70px;
+	background-color: #1768d4;
+	border-radius: 2px;
+	box-shadow: 0 1px 2px #1768d4;
+	margin: 25px 20px;
+}
+.btn-login a{
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+    display: block;
+}
+.user-name span,.user-name a{
+	line-height: 80px;
+	font-family: "宋体";
+}
+.user-name span{
+	font-weight: bold;
+	margin-right: 10px;
+	color: #1768d4;
+}
+.user-name a{
+	font-size: 12px;
+	margin-right: 20px;
+	color: #555;
+}
+.user-name a:hover{
+	color: #333;
+	text-decoration: underline;
+}
+.ce-change a{
+	color: #555;
+	line-height: 80px;
+	font-family: "宋体";
+	padding: 0 20px;
+}
+.ce-change a:hover{
+	color: #1768d4;
+}
+
+/*内容样式*/
+.piece-sum{
+	background: url(../images/bg_sum.png) no-repeat;
+    background-color: #5a8ad1;
+    margin-top: 20px;
+    margin-left: 1%;
+    height: 420px;
+    width: 38%;
+    /*min-width: 600px;*/
+    box-shadow: 0 2px 6px #659df2;
+}
+.piece-sum-child{
+	width: 500px;
+    margin: 130px auto;
+	
+}
+.text-sum{
+	font-size: 40px;
+    color: #fff;
+    font-family: "思源黑体";
+    line-height: 68px;
+    padding-top: 10px;
+    padding-left: 16px;
+}
+.piece-meter{
+    height: 420px;
+    margin-left: 1%;
+    width: 19%;
+}
+.con-db{
+	height: 200px;
+    background-color: #f6c358;
+    box-shadow: 0 2px 6px #f6c358;
+    margin-top: 20px;
+}
+.con-db-child{
+	padding-top: 50px;
+	width: 380px;
+    padding-left: 10px;
+}
+.text-meter{
+	color: #fff;
+    font-family: "思源黑体";
+    font-size: 24px;
+    line-height: 36px;
+    padding: 0 10px;
+}
+.text-en{
+	font-size: 20px;
+	font-family: arial;
+}
+.text-small{
+	font-size: 14px;
+}
+.con-sb{
+    background-color: #57c294;
+    box-shadow: 0 2px 6px #57c294;
+}
+.con-rqb{
+	background-color: #28b5e2;
+    box-shadow: 0 2px 6px #28b5e2;
+}
+.con-rlb{
+	background-color: #999;
+	box-shadow: 0 2px 6px #999;
+    /*box-shadow: 0 2px 6px #fba74d;*/
+}
+.s-bottompiece{
+	margin-top: 20px;
+	margin-bottom: 60px;
+}
+.con-wg{
+    height: 200px;
+    margin-left: 1%;
+    width: 23.75%;
+	background: #fba74d;
+	box-shadow: 0 2px 6px #fba74d;
+}
+.con-wg-child{
+	padding-top: 50px;
+    width: 300px;
+    margin-left: 20px;
+}
+.con-yw{
+	background: #2cb9e7;
+	box-shadow: 0 2px 6px #2cb9e7;
+}
+.con-kr{
+	background: #aa8aef;
+	box-shadow: 0 2px 6px #aa8aef;
+}
+.con-dw{
+	background: #fa6e6f;
+	box-shadow: 0 2px 6px #fa6e6f;
+}
+.con-qt{
+	background: #659df2;
+	box-shadow: 0 2px 6px #659df2;
+}
+/*底部样式*/
+.bottom-item{
+	height: 40px;
+	background-color: #1768d4;
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.bottom-item p{
+	color: #e5e5e5;
+	font-family: "宋体";
+    line-height: 40px;
+    text-align: center;
+}
+
+
+.user_input,.password_input{
+	border: none;
+	border-bottom: 1px solid #b4b4b4;
+	color: #333333;
+	font-size: 14px;
+	font-family: "思源黑体";
+	padding-left: 36px;
+	border-radius: 0;
+}
+.user_input{
+	background:url(../images/icon_06.png) no-repeat;
+	margin-top: 50px;
+}
+.password_input{
+	background:url(../images/icon_05.png) no-repeat;
+	margin-top: 20px;
+}
+

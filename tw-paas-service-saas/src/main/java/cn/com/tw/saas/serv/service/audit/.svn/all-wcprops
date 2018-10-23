@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/tw/!svn/ver/4040/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/audit
+END
+AuditAccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/tw/!svn/ver/2034/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/audit/AuditAccountService.java
+END
+AuditRoomService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/tw/!svn/ver/3295/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/audit/AuditRoomService.java
+END
+ClearingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/tw/!svn/ver/3478/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/audit/ClearingService.java
+END
+DeductOrderService.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/tw/!svn/ver/3573/projects/psaas/trunk/tw-paas-service-saas/src/main/java/cn/com/tw/saas/serv/service/audit/DeductOrderService.java
+END

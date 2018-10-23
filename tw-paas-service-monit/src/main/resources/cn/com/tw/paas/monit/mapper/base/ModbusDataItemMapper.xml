@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.paas.monit.mapper.base.ModbusDataItemMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.paas.monit.entity.db.base.ModbusDataItem" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="manufacturer_code" property="manufacturerCode" jdbcType="VARCHAR" />
+        <result column="function" property="function" jdbcType="VARCHAR" />
+        <result column="register_addr" property="registerAddr" jdbcType="VARCHAR" />
+        <result column="register_length" property="registerLength" jdbcType="INTEGER" />
+        <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+        <result column="item_short_code" property="itemShortCode" jdbcType="VARCHAR" />
+        <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+        <result column="decimal_place" property="decimalPlace" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, manufacturer_code, function, register_addr, register_length, item_code, item_short_code, 
+        item_name, decimal_place
+    </sql>
+    
+    <select id="selectByEntity" resultMap="BaseResultMap" parameterType="cn.com.tw.paas.monit.entity.db.base.ModbusDataItem" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_modbus_data_item
+        <where>
+        register_addr is not null
+            <if test="manufacturerCode != null" >
+                and manufacturer_code = #{manufacturerCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by register_addr
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_modbus_data_item
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="cn.com.tw.paas.monit.entity.db.base.ModbusDataItem" >
+        insert into t_modbus_data_item (id, manufacturer_code, function, 
+            register_addr, register_length, item_code, 
+            item_short_code, item_name, decimal_place
+            )
+        values (#{id,jdbcType=INTEGER}, #{manufacturerCode,jdbcType=VARCHAR}, #{function,jdbcType=VARCHAR}, 
+            #{registerAddr,jdbcType=VARCHAR}, #{registerLength,jdbcType=INTEGER}, #{itemCode,jdbcType=VARCHAR}, 
+            #{itemShortCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{decimalPlace,jdbcType=INTEGER}
+            )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.tw.paas.monit.entity.db.base.ModbusDataItem" >
+        update t_modbus_data_item
+        <set >
+            <if test="manufacturerCode != null" >
+                manufacturer_code = #{manufacturerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="function != null" >
+                function = #{function,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddr != null" >
+                register_addr = #{registerAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="registerLength != null" >
+                register_length = #{registerLength,jdbcType=INTEGER},
+            </if>
+            <if test="itemCode != null" >
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemShortCode != null" >
+                item_short_code = #{itemShortCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null" >
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="decimalPlace != null" >
+                decimal_place = #{decimalPlace,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_modbus_data_item
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

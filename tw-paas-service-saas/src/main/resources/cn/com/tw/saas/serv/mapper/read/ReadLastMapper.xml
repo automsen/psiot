@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.tw.saas.serv.mapper.read.ReadLastMapper" >
+    <resultMap id="BaseResultMap" type="cn.com.tw.saas.serv.entity.db.read.ReadLast" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR" />
+		<result column="elec_meter_type" property="elecMeterType"
+			jdbcType="VARCHAR" />
+        <result column="meter_addr" property="meterAddr" jdbcType="VARCHAR" />
+        <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+		<result column="item_name" property="itemName" jdbcType="VARCHAR" />
+        <result column="read_value" property="readValue" jdbcType="DECIMAL" />
+        <result column="is_manual" property="isManual" jdbcType="TINYINT" />
+        <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="loop_type" property="loopType" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    	id, org_id, meter_type, elec_meter_type,
+		meter_addr, item_code, item_name,
+		read_value, is_manual, read_time,
+		create_time, update_time,loop_type
+    </sql>
+
+    <update id="updateByAddrAndItem" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadLast" >
+        update t_read_last
+        <set >
+                org_id = #{orgId,jdbcType=VARCHAR},
+                meter_type = #{meterCateg,jdbcType=VARCHAR},
+                elec_meter_type = #{elecMeterType,jdbcType=VARCHAR},
+                read_value = #{readValue,jdbcType=DECIMAL},
+                is_manual = #{isManual,jdbcType=TINYINT},
+                read_time = #{readTime,jdbcType=TIMESTAMP},
+                update_time = now()
+        </set>
+        where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+        and item_code = #{itemCode,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByAddrAndItem" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadLast" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_read_last
+        where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+        and item_code = #{itemCode,jdbcType=VARCHAR}
+        and loop_type = 0
+    </select>
+    
+    <select id="selectReading" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from t_read_last
+        where meter_addr = #{meterAddr,jdbcType=VARCHAR}
+        and (item_code = "waterFlow" or item_code = "totalActiveE")
+        and loop_type = 0
+    </select>
+    
+   	<!-- <select id="selectReadLast" resultMap="BaseResultMap" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadLast">
+		SELECT
+			l.read_value
+		FROM
+			t_read_last l
+		
+		WHERE
+			l.item_code = #{itemCode,jdbcType=VARCHAR}
+		AND l.meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		AND
+		 l.read_time in (SELECT MAX(read_time) FROM t_read_last WHERE item_code = #{itemCode,jdbcType=VARCHAR} AND meter_addr = #{meterAddr,jdbcType=VARCHAR})
+	</select> -->
+
+    <insert id="replace" parameterType="cn.com.tw.saas.serv.entity.db.read.ReadLast" >
+		replace into t_read_last (id, org_id,
+		meter_type, elec_meter_type, meter_addr,
+		item_code,item_name, read_value,
+		is_manual,
+		read_time, create_time, update_time, loop_type)
+		values (uuid_short(), #{orgId,jdbcType=VARCHAR},
+		#{meterType,jdbcType=VARCHAR}, #{elecMeterType,jdbcType=VARCHAR},
+		#{meterAddr,jdbcType=VARCHAR},
+		#{itemCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR},
+		#{readValue,jdbcType=DECIMAL},
+		#{isManual,jdbcType=TINYINT},
+		#{readTime,jdbcType=TIMESTAMP}, now(),now(), #{loopType,jdbcType=INTEGER})
+    </insert>
+	
+	<select id="selectLastOne" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from 
+			t_read_last
+        where 
+			meter_addr = #{meterAddr,jdbcType=VARCHAR}
+		limit 1
+	</select>
+
+</mapper>
